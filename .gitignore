@@ -3,6 +3,10 @@
 !.vscode/settings.json
 !.vscode/extensions.json
 
+# IDE - Android Studio / IntelliJ
+.idea/
+*.iml
+
 # macOS
 .DS_Store
 
