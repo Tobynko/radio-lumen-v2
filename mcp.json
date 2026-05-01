@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "Figma Flutter MCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-flutter-mcp",
+        "--figma-api-key=${env:FIGMA_API_KEY}",
+        "--stdio"
+      ]
+    }
+  }
+}
