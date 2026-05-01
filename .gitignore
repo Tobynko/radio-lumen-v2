@@ -2,6 +2,9 @@
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+# Exception for MCP config files, they are needed for development and should be committed to the repository
+!.vscode/mcp.json
+!.vscode/mcp-windows.json
 
 # IDE - Android Studio / IntelliJ
 .idea/
