@@ -12,7 +12,7 @@ App Goal: To provide spiritual and cultural content while building a community o
 
 ## Core Features
 
-- Live online streaming – real-time radio broadcast, free to use
+- Live online streaming – real-time radio broadcast
 - Clean mobile UI for audio streaming on smartphones
 - Program schedule – current schedule, playlists, show listings
 - Religious and cultural content – Christian values, liturgy, spiritual talks, calm music
@@ -23,6 +23,7 @@ App Goal: To provide spiritual and cultural content while building a community o
 
 - Dart
 - Flutter (Android & iOS)
+- flutter_localizations (Flutter l10n)
 - Riverpod (state management - MUST use modern `@riverpod` code generation syntax)
 - dio (HTTP networking)
 - freezed (data models)
@@ -36,9 +37,11 @@ App Goal: To provide spiritual and cultural content while building a community o
 
 ## Project Structure
 
-We follow a Feature-First architecture with clear domain separation and team assignments.
+We follow a Feature-First architecture with clear domain separation.
 
 Expected structure:
+
+```
 lib/
 ├── core/ # Global app-wide services and UI
 │ ├── network/ # dio client, API interceptors
@@ -53,60 +56,81 @@ lib/
 │
 ├── routing/ # go_router configuration and Bottom Nav Shell
 └── main.dart # App entry point, ProviderScope initialization
+```
 
-## File Generation Rules (CRITICAL)
+Each feature folder follows this internal structure:
 
-- NEVER generate code without first stating the exact file path where it belongs.
-- Before writing any code, output the target path as a comment (e.g., `// Path: lib/features/live_player/live_player_screen.dart`).
-- You MUST adhere strictly to the Project Structure outlined above. Do not create new root folders.
+```
+features/<feature>/
+├── <feature>_screen.dart # Main screen widget
+├── <feature>_controller.dart # @riverpod provider/notifier
+└── models/ # freezed + json_serializable models
+```
 
-## Documentation
+## Architecture Rules (MUST ENFORCE)
 
-Always follow the latest official documentation:
+- All new code belongs in either `lib/features/<feature>/`, `lib/core/` or `lib/routing/` — no exceptions. Do not create new root folders.
+- Never import from one feature into another — shared UI goes in `lib/core/widgets/`
+- Feature-to-feature communication uses shared Riverpod providers in `lib/core/`, never direct imports
+- All audio logic lives in `lib/core/audio/` — never instantiate `AudioPlayer` or `AudioHandler` outside this folder
+- All network logic lives in `lib/core/network/` — never instantiate `Dio` outside this folder
+- All theme values come from `lib/core/theme/` — never hardcode colors or fonts
 
-- Dart: https://dart.dev/guides
-- Flutter: https://docs.flutter.dev
-- Riverpod: https://riverpod.dev/docs/introduction/getting_started
-- Riverpod Code Gen: https://riverpod.dev/docs/concepts/about_code_generation
-- go_router: https://pub.dev/packages/go_router
-- just_audio: https://pub.dev/packages/just_audio
-- audio_service: https://pub.dev/packages/audio_service
-- dio: https://pub.dev/packages/dio
-- freezed: https://pub.dev/packages/freezed
-- json_serializable: https://pub.dev/packages/json_serializable
-- build_runner: https://pub.dev/packages/build_runner
-- shared_preferences: https://pub.dev/packages/shared_preferences
-- Figma Flutter MCP: https://figma.com/plugin-docs
+## File Generation (REQUIRED)
 
-## App Theme
+- State the exact file path as a comment before writing code
+- Example: `// Path: lib/features/live_player/live_player_screen.dart`
+- Use this pattern for every new file
 
-- Defined in Figma (via Figma MCP Server with GitHub Copilot)
+## Code Standards
 
-## Team
-
-- Bc. Tobiáš Bulko
-- Bc. Janka Danišová
-
-## Code Style
+### Style Guidelines
 
 - Use const constructors wherever possible
 - Prefer StatelessWidget over StatefulWidget unless state is needed
 - Use snake_case for file names, PascalCase for class/widget names
 - Keep widgets small and single-purpose, extract into separate files
+- All freezed models must include the `part '<filename>.freezed.dart';` and `part '<filename>.g.dart';` directives
 
-## Reliability
+### Reliability & Quality
 
-- Prefer official documentation and verified package APIs over assumptions
+- Use null-safe Flutter code that follows official package documentation and compiles without warnings
 - Do not generate non-existent Flutter, Dart, or package APIs
-- Use null-safe, production-ready Flutter code
-- Prefer simple, maintainable solutions over clever but unclear code
-- When implementing packages, follow the current official package documentation
-- Keep solutions specific, practical, and directly relevant to the requested task
+- Prefer simple, maintainable solutions over clever code
+- Keep solutions specific, practical, and directly relevant
 
-## Language
+### Audio & Streaming
+
+- Handle all audio state errors in `lib/core/audio/`
+- If the stream fails to load, display an error message to the user
+- Handle network interruptions with retry logic before surfacing an error
+- Never leave the player in a broken state silently — always notify the user or recover
+
+## Localization & Language
 
 - App UI language: Slovak
-- Code and comments: English
+- Store all text strings in localization files — never hardcode UI strings inline
+- If a localization key is missing, log an error and fall back to the English equivalent
+- Code comments and documentation: English
+
+## Documentation References
+
+Follow latest official docs:
+
+- **Dart:** https://dart.dev/guides
+- **Flutter:** https://docs.flutter.dev
+- **Flutter Localization:** https://docs.flutter.dev/development/accessibility-and-localization/internationalization
+- **Riverpod:** https://riverpod.dev/docs/introduction/getting_started
+- **Riverpod Code Gen:** https://riverpod.dev/docs/concepts/about_code_generation
+- **dio:** https://pub.dev/packages/dio
+- **freezed:** https://pub.dev/packages/freezed
+- **json_serializable:** https://pub.dev/packages/json_serializable
+- **build_runner:** https://pub.dev/packages/build_runner
+- **go_router:** https://pub.dev/packages/go_router
+- **shared_preferences:** https://pub.dev/packages/shared_preferences
+- **just_audio:** https://pub.dev/packages/just_audio
+- **audio_service:** https://pub.dev/packages/audio_service
+- **Figma Flutter MCP:** https://figma.com/plugin-docs
 
 ## Git Workflow
 
@@ -114,9 +138,21 @@ Always follow the latest official documentation:
 - PR back into `development` when done
 - `development` → `main` only for stable releases
 - Always request a review before merging
-- Use conventional commit messages (feat, fix, docs, chore, refactor, style)
+- Use conventional commit messages: `feat`, `fix`, `docs`, `chore`, `refactor`, `style`
 
-## Branch Naming
+### Branch Naming Convention
 
-- tobias/feature-name
-- janka/feature-name
+- `tobias/feature-name`
+- `janka/feature-name`
+
+## Team
+
+- Bc. Tobiáš Bulko
+- Bc. Janka Danišová
+
+## App Theme
+
+- Defined in Figma via Figma MCP Server with GitHub Copilot
+- All theme tokens (colors, typography, spacing) are generated into `lib/core/theme/`
+- Use `AppColors.<token>` and `AppTextStyles.<token>` — never hardcode color values or font sizes inline
+- Do not override theme values at the widget level unless absolutely necessary

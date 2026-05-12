@@ -1,31 +1,44 @@
 # Project Plan – Radio Lumen V2
 
-## Tobiáš
+## 🤝 Collaborative / Shared Tasks — STARTING POINT
 
-### Live Player Screen
+1. [ ] Project scaffold: `pubspec.yaml`, folder structure, `main.dart`, `ProviderScope`
+2. [ ] App theming: Figma MCP → generate `AppColors` and `AppTextStyles` into `lib/core/theme/`
+3. [ ] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
+4. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
 
-- [ ] Audio streaming widget (play/pause, volume)
-- [ ] Display current song title and artist
-- [ ] Show live broadcast status (on air / off air)
-- [ ] Background audio playback support
+---
 
-### Program Detail Screen
+## 🎧 Bc. Tobiáš Bulko: Audio Core & Player Domain
 
-- [ ] Display full details of a selected show/episode
-- [ ] Show description, time, and category (music, prayer, interview, news)
-- [ ] Back navigation to schedule
+### Core Logic
 
-## Janka
+1. [ ] Initialize `just_audio` for live online streaming
+2. [ ] Configure `audio_service` to handle background audio and lock screen controls
+3. [ ] Create `@riverpod` providers to manage audio state (playing, paused, buffering, metadata)
+4. [ ] Implement `shared_preferences` to save user audio settings (e.g., auto-play, volume)
 
-### Home Screen
+### User Interface
 
-- [ ] App header with Radio Lumen branding
-- [ ] Quick access live play button
-- [ ] Short overview of current/upcoming program
-- [ ] Navigation to other screens
+- [ ] **Live Player Screen:** Build the mobile UI for audio streaming
+- [ ] Implement play/pause controls, volume sliders, and live broadcast status
+- [ ] Display current song/show metadata (Title, Artist, Show Name)
+- [ ] Ensure the UI reacts to the Riverpod audio state seamlessly
+- [ ] **Program Detail Screen:** Display full details of a selected show/episode _(requires Schedule models from Janka)_
 
-### Schedule Screen
+---
 
-- [ ] List of upcoming shows with time and category
-- [ ] Filter or group by day
-- [ ] Tap on a show to open Program Detail
+## 📅 Bc. Janka Danišová: Data Core & Schedule Domain
+
+### Core Logic
+
+1. [ ] Set up the `dio` HTTP networking client to fetch schedule and playlist data
+2. [ ] Create data models for Schedule and Shows using `freezed` and `json_serializable`
+3. [ ] Run `build_runner` to generate model files (also needed for Riverpod code gen)
+4. [ ] Create `@riverpod` providers to fetch and cache schedule data
+
+### User Interface
+
+- [ ] **Schedule Screen:** Build the UI for program schedule, playlists, and show listings
+- [ ] Implement UI logic to filter or group the schedule by day
+- [ ] Display content tags (e.g., liturgy, calm music) on schedule items
