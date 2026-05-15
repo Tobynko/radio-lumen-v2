@@ -2,9 +2,13 @@
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
-# Exception for MCP config files, they are needed for development and should be committed to the repository
+.gemini/*
+!.gemini/settings.json
+!.gemini/extensions.json
+# Exception for MCP config files, they are needed for development
 !.vscode/mcp.json
 !.vscode/mcp-windows.json
+!.gemini/settings-windows.json
 
 # IDE - Android Studio / IntelliJ
 .idea/
@@ -19,6 +23,10 @@ GoogleService-Info.plist
 .env
 **/*.keystore
 **/*.jks
+
+# AI and MCP Logs
+*.log
+flutter_*.log
 
 # Created by https://www.toptal.com/developers/gitignore/api/flutter
 # Edit at https://www.toptal.com/developers/gitignore?templates=flutter

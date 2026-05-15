@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "dart": {
+      "command": "dart",
+      "args": ["mcp-server"]
+    },
+    "figma-flutter": {
+      "command": "sh",
+      "args": [
+        "-c",
+        "npx -y figma-flutter-mcp --figma-api-key=\"$FIGMA_API_KEY\" --stdio"
+      ]
+    }
+  }
+}
