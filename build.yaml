@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # This should match the project rule for snake_case JSON keys
+          field_rename: snake

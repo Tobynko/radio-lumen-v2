@@ -6,7 +6,7 @@
 2. [x] App theming: Figma MCP → generate `AppColors` and `AppTextStyles` into `lib/core/theme/`
 3. [x] Localization setup: Create `l10n.yaml` and initialize localizations framework with Slovak `.arb` keys
 4. [x] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
-5. [ ] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
+5. [x] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
 6. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
 
 ---
