@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:radio_lumen_v2/features/archiv/archiv_screen.dart';
+import 'package:radio_lumen_v2/features/archive/archive_screen.dart';
 import 'package:radio_lumen_v2/features/live_player/live_player_screen.dart';
 import 'package:radio_lumen_v2/features/main_shell.dart';
-import 'package:radio_lumen_v2/features/motlitby/motlitby_screen.dart';
+import 'package:radio_lumen_v2/features/prayers/prayers_screen.dart';
 import 'package:radio_lumen_v2/features/schedule/schedule_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -43,7 +43,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/archiv',
-              builder: (context, state) => const ArchivScreen(),
+              builder: (context, state) => const ArchiveScreen(),
             ),
           ],
         ),
@@ -52,7 +52,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/motlitby',
-              builder: (context, state) => const MotlitbyScreen(),
+              builder: (context, state) => const PrayersScreen(),
             ),
           ],
         ),

@@ -35,22 +35,22 @@ class MainShell extends StatelessWidget {
             children: [
               _NavButton(
                 label: l10n.navProgram.toUpperCase(),
-                iconPath: 'assets/icons/program_symbol.svg',
-                activeIconPath: 'assets/icons/program_symbol_active.svg',
+                iconPath: 'assets/icons/programme_symbol.svg',
+                activeIconPath: 'assets/icons/programme_symbol_active.svg',
                 isActive: navigationShell.currentIndex == 0,
                 onTap: () => _onTap(context, 0),
               ),
               _NavButton(
                 label: l10n.navArchiv.toUpperCase(),
-                iconPath: 'assets/icons/archiv_symbol.svg',
-                activeIconPath: 'assets/icons/archiv_symbol_active.svg',
+                iconPath: 'assets/icons/archive_symbol.svg',
+                activeIconPath: 'assets/icons/archive_symbol_active.svg',
                 isActive: navigationShell.currentIndex == 1,
                 onTap: () => _onTap(context, 1),
               ),
               _NavButton(
                 label: l10n.navModlitby.toUpperCase(),
-                iconPath: 'assets/icons/motlitby_symbol.svg',
-                activeIconPath: 'assets/icons/motlitby_symbol_active.svg',
+                iconPath: 'assets/icons/prayers_symbol.svg',
+                activeIconPath: 'assets/icons/prayers_symbol_active.svg',
                 isActive: navigationShell.currentIndex == 2,
                 onTap: () => _onTap(context, 2),
               ),
