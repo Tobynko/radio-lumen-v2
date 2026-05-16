@@ -7,9 +7,22 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextStyles {
   AppTextStyles._();
 
-  static TextStyle displayLarge = GoogleFonts.oswald(
+  // Display styles (LUMEN brand font style)
+  static TextStyle displayLarge = GoogleFonts.roboto(
     fontSize: 57,
     fontWeight: FontWeight.bold,
+    letterSpacing: -0.25,
+  );
+
+  static TextStyle displayMedium = GoogleFonts.roboto(
+    fontSize: 45,
+    fontWeight: FontWeight.bold,
+  );
+
+  // Headline styles
+  static TextStyle headlineLarge = GoogleFonts.roboto(
+    fontSize: 32,
+    fontWeight: FontWeight.w600,
   );
 
   static TextStyle titleLarge = GoogleFonts.roboto(
@@ -17,10 +30,20 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle bodyMedium = GoogleFonts.openSans(fontSize: 14);
+  // Body styles
+  static TextStyle bodyLarge = GoogleFonts.roboto(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
 
-  static TextStyle labelSmall = const TextStyle(
+  static TextStyle bodyMedium = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle labelSmall = GoogleFonts.roboto(
     fontSize: 11,
+    fontWeight: FontWeight.w400,
     color: Colors.grey,
   );
 }

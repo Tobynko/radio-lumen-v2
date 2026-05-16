@@ -6,12 +6,18 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  // Primary palette
-  static const Color primary = Color(0xFF0D47A1);
-  static const Color secondary = Color(0xFF1976D2);
-  static const Color accent = Color(0xFFFFC107);
+  // Brand Colors
+  static const Color primary = Color(0xFF232D69); // Lumen Indigo
+  static const Color accentGold = Color(0xFFFDBC11); // Lumen Gold
+  static const Color accentTeal = Color(0xFF04A6CD); // Lumen Teal
+  static const Color highlightYellow = Color(0xFFFFD754); // Bright Yellow
+  static const Color supportAqua = Color(0xFF00B0AA); // Aqua
 
-  // Background and Neutral
+  // Background Colors (from Figma frames)
+  static const Color backgroundLoading = Color(0xFF0E3F60);
+  static const Color backgroundMain = Color(0xFF2B5F84);
+
+  // Surface and Neutral
   static const Color background = Color(0xFFFEFEFE);
   static const Color surface = Color(0xFFFFFFFF);
   static const Color textPrimary = Color(0xFF212121);
