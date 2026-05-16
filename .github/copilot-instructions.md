@@ -42,6 +42,13 @@ We follow a Feature-First architecture with clear domain separation.
 Expected structure:
 
 ```
+├── assets/
+│   ├── animations/ # audio_wave_indicator.json, buffer_loader.json
+│   ├── fonts/ # BrandFont-Regular.ttf, BrandFont-Bold.ttf etc
+│   ├── icons/ # ic_program.svg, ic_domov.svg, ic_archiv.svg
+│   ├── logos/ # app_logo.png
+│   └── images/ # default_show_cover.jpg, splash_bg.png
+│
 lib/
 ├── core/ # Global app-wide services and UI
 │ ├── network/ # dio client, API interceptors
