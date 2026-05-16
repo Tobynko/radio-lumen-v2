@@ -15,5 +15,25 @@
   "scheduleTitle": "Program",
   "@scheduleTitle": {
     "description": "Title for the Schedule screen"
+  },
+  "navLive": "Naživo",
+  "@navLive": {
+    "description": "Label for Live tab"
+  },
+  "navProgram": "Program",
+  "@navProgram": {
+    "description": "Label for Program tab"
+  },
+  "navArchiv": "Archív",
+  "@navArchiv": {
+    "description": "Label for Archiv tab"
+  },
+  "navModlitby": "Modlitby",
+  "@navModlitby": {
+    "description": "Label for Modlitby tab"
+  },
+  "navHome": "Domov",
+  "@navHome": {
+    "description": "Label for Home tab"
   }
 }

@@ -19,4 +19,19 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get scheduleTitle => 'Program';
+
+  @override
+  String get navLive => 'Naživo';
+
+  @override
+  String get navProgram => 'Program';
+
+  @override
+  String get navArchiv => 'Archív';
+
+  @override
+  String get navModlitby => 'Modlitby';
+
+  @override
+  String get navHome => 'Domov';
 }
