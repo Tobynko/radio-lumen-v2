@@ -130,7 +130,7 @@ Follow latest official docs:
 - **shared_preferences:** https://pub.dev/packages/shared_preferences
 - **just_audio:** https://pub.dev/packages/just_audio
 - **audio_service:** https://pub.dev/packages/audio_service
-- **Figma Flutter MCP:** https://figma.com/plugin-docs
+- **Figma Flutter MCP:** https://github.com/mhmzdev/figma-flutter-mcp
 
 ## Git Workflow
 

@@ -4,8 +4,10 @@
 
 1. [x] Project scaffold: `pubspec.yaml`, folder structure, `main.dart`, `ProviderScope`
 2. [x] App theming: Figma MCP → generate `AppColors` and `AppTextStyles` into `lib/core/theme/`
-3. [ ] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
-4. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
+3. [ ] Localization setup: Create `l10n.yaml` and initialize localizations framework with Slovak `.arb` keys
+4. [ ] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
+5. [ ] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
+6. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
 
 ---
 
@@ -14,7 +16,7 @@
 ### Core Logic
 
 1. [ ] Initialize `just_audio` for live online streaming
-2. [ ] Configure `audio_service` to handle background audio and lock screen controls
+2. [ ] Configure `audio_service` and native platform files (`AndroidManifest.xml`, `Info.plist` background modes) to handle background audio and lock screen controls
 3. [ ] Create `@riverpod` providers to manage audio state (playing, paused, buffering, metadata)
 4. [ ] Implement `shared_preferences` to save user audio settings (e.g., auto-play, volume)
 
