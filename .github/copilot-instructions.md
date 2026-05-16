@@ -26,6 +26,7 @@ App Goal: To provide spiritual and cultural content while building a community o
 - flutter_localizations (Flutter l10n)
 - Riverpod (state management - MUST use modern `@riverpod` code generation syntax)
 - dio (HTTP networking)
+- html (HTML parsing for schedule web scraping)
 - freezed (data models)
 - json_serializable (data models)
 - build_runner (code generation)
@@ -33,7 +34,22 @@ App Goal: To provide spiritual and cultural content while building a community o
 - shared_preferences (local settings storage)
 - just_audio (audio streaming and playback)
 - audio_service (background audio, lock screen controls)
+- flutter_svg (SVG rendering for Figma vector icons)
 - Figma Flutter MCP (Figma-to-Flutter widget generation via GitHub Copilot)
+
+## External Data Sources & Endpoints
+
+Use these live public targets for feature implementation. Do not hardcode them scattered across screens; centralize them within their respective data source files.
+
+### Audio Streaming (Icecast Feed)
+
+- **High Quality (128 kbps MP3):** `https://audio.lumen.sk/live128.mp3`
+- **Medium Quality (64 kbps):** `https://audio.lumen.sk/live64.mp3`
+- **Low Quality (32 kbps MP3):** `https://audio.lumen.sk/live32.mp3`
+
+### Schedule & Content (Web Scraping Target)
+
+- **Base Program URL:** `https://www.lumen.sk/aktualny-program.html`
 
 ## Project Structure
 
@@ -44,25 +60,25 @@ Expected structure:
 ```
 ├── assets/
 │   ├── animations/ # audio_wave_indicator.json, buffer_loader.json
-│   ├── fonts/ # BrandFont-Regular.ttf, BrandFont-Bold.ttf etc
-│   ├── icons/ # ic_program.svg, ic_domov.svg, ic_archiv.svg
-│   ├── logos/ # app_logo.png
-│   └── images/ # default_show_cover.jpg, splash_bg.png
+│   ├── fonts/      # BrandFont-Regular.ttf, BrandFont-Bold.ttf etc
+│   ├── icons/      # ic_program.svg, ic_domov.svg, ic_archiv.svg
+│   ├── logos/      # app_logo.png
+│   └── images/     # default_show_cover.jpg, splash_bg.png
 │
-lib/
-├── core/ # Global app-wide services and UI
-│ ├── network/ # dio client, API interceptors
-│ ├── audio/ # just_audio and audio_service handlers
-│ ├── theme/ # App colors, fonts (Figma MCP)
-│ └── widgets/ # Shared reusable UI components
-│
-├── features/ # Feature domains (UI, State, and Models)
-│ ├── home/ # Home screen, branding, quick play
-│ ├── live_player/ # Stream player, controls, song info
-│ └── schedule/ # Schedule list, filters, and program details
-│
-├── routing/ # go_router configuration and Bottom Nav Shell
-└── main.dart # App entry point, ProviderScope initialization
+└── lib/
+    ├── core/ # Global app-wide services and UI
+    │   ├── network/ # dio client, API interceptors
+    │   ├── audio/   # just_audio and audio_service handlers
+    │   ├── theme/   # App colors, fonts (Figma MCP)
+    │   └── widgets/ # Shared reusable UI components
+    │
+    ├── features/ # Feature domains (UI, State, and Models)
+    │   ├── home/        # Home screen, branding, quick play
+    │   ├── live_player/ # Stream player, controls, song info
+    │   └── schedule/    # Schedule list, filters, and program details
+    │
+    ├── routing/ # go_router configuration and Bottom Nav Shell
+    └── main.dart # App entry point, ProviderScope initialization
 ```
 
 Each feature folder follows this internal structure:
@@ -130,6 +146,7 @@ Follow latest official docs:
 - **Riverpod:** https://riverpod.dev/docs/introduction/getting_started
 - **Riverpod Code Gen:** https://riverpod.dev/docs/concepts/about_code_generation
 - **dio:** https://pub.dev/packages/dio
+- **html:** https://pub.dev/packages/html
 - **freezed:** https://pub.dev/packages/freezed
 - **json_serializable:** https://pub.dev/packages/json_serializable
 - **build_runner:** https://pub.dev/packages/build_runner
@@ -137,6 +154,7 @@ Follow latest official docs:
 - **shared_preferences:** https://pub.dev/packages/shared_preferences
 - **just_audio:** https://pub.dev/packages/just_audio
 - **audio_service:** https://pub.dev/packages/audio_service
+- **flutter_svg:** https://pub.dev/packages/flutter_svg
 - **Figma Flutter MCP:** https://github.com/mhmzdev/figma-flutter-mcp
 
 ## Git Workflow
