@@ -117,6 +117,36 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Program'**
   String get scheduleTitle;
+
+  /// Label for Live tab
+  ///
+  /// In sk, this message translates to:
+  /// **'Naživo'**
+  String get navLive;
+
+  /// Label for Program tab
+  ///
+  /// In sk, this message translates to:
+  /// **'Program'**
+  String get navProgram;
+
+  /// Label for Archiv tab
+  ///
+  /// In sk, this message translates to:
+  /// **'Archív'**
+  String get navArchiv;
+
+  /// Label for Modlitby tab
+  ///
+  /// In sk, this message translates to:
+  /// **'Modlitby'**
+  String get navModlitby;
+
+  /// Label for Home tab
+  ///
+  /// In sk, this message translates to:
+  /// **'Domov'**
+  String get navHome;
 }
 
 class _AppLocalizationsDelegate
