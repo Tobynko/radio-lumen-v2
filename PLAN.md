@@ -3,7 +3,7 @@
 ## 🤝 Collaborative / Shared Tasks — STARTING POINT
 
 1. [x] Project scaffold: `pubspec.yaml`, folder structure, `main.dart`, `ProviderScope`
-2. [ ] App theming: Figma MCP → generate `AppColors` and `AppTextStyles` into `lib/core/theme/`
+2. [x] App theming: Figma MCP → generate `AppColors` and `AppTextStyles` into `lib/core/theme/`
 3. [ ] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
 4. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
 
