@@ -1,0 +1,19 @@
+{
+  "@@locale": "sk",
+  "appTitle": "Rádio LUMEN",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "homeTitle": "Domov",
+  "@homeTitle": {
+    "description": "Title for the Home screen"
+  },
+  "playerTitle": "Prehrávač",
+  "@playerTitle": {
+    "description": "Title for the Live Player screen"
+  },
+  "scheduleTitle": "Program",
+  "@scheduleTitle": {
+    "description": "Title for the Schedule screen"
+  }
+}

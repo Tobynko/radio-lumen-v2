@@ -4,7 +4,7 @@
 
 1. [x] Project scaffold: `pubspec.yaml`, folder structure, `main.dart`, `ProviderScope`
 2. [x] App theming: Figma MCP → generate `AppColors` and `AppTextStyles` into `lib/core/theme/`
-3. [ ] Localization setup: Create `l10n.yaml` and initialize localizations framework with Slovak `.arb` keys
+3. [x] Localization setup: Create `l10n.yaml` and initialize localizations framework with Slovak `.arb` keys
 4. [ ] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
 5. [ ] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
 6. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
