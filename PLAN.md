@@ -15,7 +15,7 @@
 
 ### Core Logic
 
-1. [ ] Initialize `just_audio` for live online streaming
+1. [x] Initialize `just_audio` for live online streaming
 2. [ ] Configure `audio_service` and native platform files (`AndroidManifest.xml`, `Info.plist` background modes) to handle background audio and lock screen controls
 3. [ ] Create `@riverpod` providers to manage audio state (playing, paused, buffering, metadata)
 4. [ ] Implement `shared_preferences` to save user audio settings (e.g., auto-play, volume)
