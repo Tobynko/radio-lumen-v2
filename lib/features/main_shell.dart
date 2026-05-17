@@ -22,42 +22,50 @@ class MainShell extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      backgroundColor: AppColors.primary,
       body: navigationShell,
       bottomNavigationBar: Container(
         height: 100,
-        decoration: const BoxDecoration(
-          color: AppColors.backgroundLoading,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 15,
+              offset: const Offset(0, -5),
+            ),
+          ],
         ),
         child: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _NavButton(
+                label: l10n.navLive.toUpperCase(),
+                iconPath: 'assets/icons/live_symbol.svg',
+                activeIconPath: 'assets/icons/live_symbol_active.svg',
+                isActive: navigationShell.currentIndex == 0,
+                onTap: () => _onTap(context, 0),
+              ),
+              _NavButton(
                 label: l10n.navProgram.toUpperCase(),
                 iconPath: 'assets/icons/programme_symbol.svg',
                 activeIconPath: 'assets/icons/programme_symbol_active.svg',
-                isActive: navigationShell.currentIndex == 0,
-                onTap: () => _onTap(context, 0),
+                isActive: navigationShell.currentIndex == 1,
+                onTap: () => _onTap(context, 1),
               ),
               _NavButton(
                 label: l10n.navArchiv.toUpperCase(),
                 iconPath: 'assets/icons/archive_symbol.svg',
                 activeIconPath: 'assets/icons/archive_symbol_active.svg',
-                isActive: navigationShell.currentIndex == 1,
-                onTap: () => _onTap(context, 1),
-              ),
-              _NavButton(
-                label: l10n.navModlitby.toUpperCase(),
-                iconPath: 'assets/icons/prayers_symbol.svg',
-                activeIconPath: 'assets/icons/prayers_symbol_active.svg',
                 isActive: navigationShell.currentIndex == 2,
                 onTap: () => _onTap(context, 2),
               ),
               _NavButton(
-                label: l10n.navHome.toUpperCase(),
-                iconPath: 'assets/icons/live_symbol.svg',
-                activeIconPath: 'assets/icons/live_symbol_active.svg',
+                label: l10n.navAktuality.toUpperCase(),
+                iconPath: 'assets/icons/prayers_symbol.svg',
+                activeIconPath: 'assets/icons/prayers_symbol_active.svg',
                 isActive: navigationShell.currentIndex == 3,
                 onTap: () => _onTap(context, 3),
               ),

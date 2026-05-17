@@ -7,7 +7,7 @@
 3. [x] Localization setup: Create `l10n.yaml` and initialize localizations framework with Slovak `.arb` keys
 4. [x] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
 5. [x] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
-6. [ ] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs
+6. [x] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs (Overview skipped/postponed per user request)
 
 ---
 

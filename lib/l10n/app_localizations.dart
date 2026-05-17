@@ -136,17 +136,41 @@ abstract class AppLocalizations {
   /// **'Archív'**
   String get navArchiv;
 
-  /// Label for Modlitby tab
+  /// Label for Aktuality tab (formerly Modlitby)
   ///
   /// In sk, this message translates to:
-  /// **'Modlitby'**
-  String get navModlitby;
+  /// **'Aktuality'**
+  String get navAktuality;
 
   /// Label for Home tab
   ///
   /// In sk, this message translates to:
-  /// **'Domov'**
+  /// **'Naživo'**
   String get navHome;
+
+  /// Title for the quality picker bottom sheet
+  ///
+  /// In sk, this message translates to:
+  /// **'KVALITA PRENOSU'**
+  String get qualityTitle;
+
+  /// Description for 128kbps quality
+  ///
+  /// In sk, this message translates to:
+  /// **'Vysoká kvalita (odporúčané pre Wi-Fi)'**
+  String get qualityHigh;
+
+  /// Description for 64kbps quality
+  ///
+  /// In sk, this message translates to:
+  /// **'Stredná kvalita'**
+  String get qualityMedium;
+
+  /// Description for 32kbps quality
+  ///
+  /// In sk, this message translates to:
+  /// **'Nízka kvalita (šetrí dáta)'**
+  String get qualityLow;
 }
 
 class _AppLocalizationsDelegate

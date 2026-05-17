@@ -21,7 +21,7 @@ final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(
 );
 
 final appRouter = GoRouter(
-  initialLocation: '/program',
+  initialLocation: '/live',
   navigatorKey: _rootNavigatorKey,
   routes: [
     StatefulShellRoute.indexedStack(
@@ -29,6 +29,15 @@ final appRouter = GoRouter(
         return MainShell(navigationShell: navigationShell);
       },
       branches: [
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorHomeKey,
+          routes: [
+            GoRoute(
+              path: '/live',
+              builder: (context, state) => const LivePlayerScreen(),
+            ),
+          ],
+        ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorProgramKey,
           routes: [
@@ -51,17 +60,8 @@ final appRouter = GoRouter(
           navigatorKey: _shellNavigatorModlitbyKey,
           routes: [
             GoRoute(
-              path: '/motlitby',
+              path: '/aktuality',
               builder: (context, state) => const PrayersScreen(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _shellNavigatorHomeKey,
-          routes: [
-            GoRoute(
-              path: '/live',
-              builder: (context, state) => const LivePlayerScreen(),
             ),
           ],
         ),

@@ -28,12 +28,28 @@
   "@navArchiv": {
     "description": "Label for Archiv tab"
   },
-  "navModlitby": "Modlitby",
-  "@navModlitby": {
-    "description": "Label for Modlitby tab"
+  "navAktuality": "Aktuality",
+  "@navAktuality": {
+    "description": "Label for Aktuality tab (formerly Modlitby)"
   },
-  "navHome": "Domov",
+  "navHome": "Naživo",
   "@navHome": {
     "description": "Label for Home tab"
+  },
+  "qualityTitle": "KVALITA PRENOSU",
+  "@qualityTitle": {
+    "description": "Title for the quality picker bottom sheet"
+  },
+  "qualityHigh": "Vysoká kvalita (odporúčané pre Wi-Fi)",
+  "@qualityHigh": {
+    "description": "Description for 128kbps quality"
+  },
+  "qualityMedium": "Stredná kvalita",
+  "@qualityMedium": {
+    "description": "Description for 64kbps quality"
+  },
+  "qualityLow": "Nízka kvalita (šetrí dáta)",
+  "@qualityLow": {
+    "description": "Description for 32kbps quality"
   }
 }

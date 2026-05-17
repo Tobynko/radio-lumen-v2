@@ -30,8 +30,20 @@ class AppLocalizationsSk extends AppLocalizations {
   String get navArchiv => 'Archív';
 
   @override
-  String get navModlitby => 'Modlitby';
+  String get navAktuality => 'Aktuality';
 
   @override
-  String get navHome => 'Domov';
+  String get navHome => 'Naživo';
+
+  @override
+  String get qualityTitle => 'KVALITA PRENOSU';
+
+  @override
+  String get qualityHigh => 'Vysoká kvalita (odporúčané pre Wi-Fi)';
+
+  @override
+  String get qualityMedium => 'Stredná kvalita';
+
+  @override
+  String get qualityLow => 'Nízka kvalita (šetrí dáta)';
 }
