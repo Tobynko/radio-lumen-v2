@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:radio_lumen_v2/core/theme/app_colors.dart';
+import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
+import 'package:radio_lumen_v2/core/widgets/app_background.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class ArchiveScreen extends StatelessWidget {
@@ -7,7 +10,15 @@ class ArchiveScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(AppLocalizations.of(context)!.navArchiv)),
+      backgroundColor: AppColors.backgroundMain,
+      body: LumenBackground(
+        child: Center(
+          child: Text(
+            AppLocalizations.of(context)!.navArchiv,
+            style: AppTextStyles.titleLarge.copyWith(color: Colors.white),
+          ),
+        ),
+      ),
     );
   }
 }
