@@ -94,6 +94,17 @@ Pre konzultáciu, otázky a iné veci boli použité tieto AI:
 
 ### Prínosy a nevýhody
 
+#### --> Porovnanie modelov (Gemini Plus vs. Gemini Pro)
+Významným faktorom pri práci s copilotom Gemini CLI bol rozdiel v efektivite a manažmente kontextového okna (spotrebe tokenov) medzi verziami Gemini Plus a Gemini Pro. Rozdiel bol najviac citeľný pri komplexnejších a náročnejších úlohach. Zatiaľ čo verzia Pro pracovala veľmi úsporne (priemerne náročná úloha spotrebovala len cca 2 % až 5 % tokenov), verzia Plus vykazovala podstatne vyššiu spotrebu, často okolo 10 % na jednu úlohu. To výrazne obmedzovalo plynulosť a efektivitu práce pri dlhších sedeniach (Samozrejme berieme do úvahy, že počet použiteľných tokenov sa pri Gemini Plus a Pro výrazne lýši). Zo subjektívneho hľadiska sa model Gemini Pro ukázal ako finančne nenáročné a vysoko návratné riešenie.
+
+#### --> Hlavné prínosy
+--> **Efektivita Gemini CLI a MCP:** Veľkým benefitom bola schopnosť nástroja rýchlo a presne pracovať s lokálnymi súbormi a prostredníctvom MCP (Model Context Protocol) analyzovať štruktúru Figma projektov. Podmienkou úspechu boli dostatočne detailné a sémanticky jasne napísané úlohy.
+--> **Testovanie funkcionality úloh:** Copilot sa ukázal ako mimoriadne efektívny pomocník pri spracovávaní a validácii funkčných testov pre už hotové úlohy. Dokázal rýchlo overiť správnosť implementácie a odhaliť prípadné logické nedostatky, čo výrazne urýchlilo fázu kontroly kódu. Nehovoriac o tom, že pri erroroch počas testovacích fáz automaticky riešil aj opravu kódu až kým testy nevyšli úspešne.
+
+#### --> Nevýhody a technické obmedzenia
+--> **Nestabilita spojenia s Figma API:** Pri integrácii s platformou Figma sme narážali na technické obmedzenie na strane ich API. Bezpečnostné mechanizmy Figmy a striktné limity na frekvenciu dopytov (rate limiting) vyhodnocovali intenzívne čítanie dizajnových vrstiev cez Gemini CLI ako podozrivú aktivitu (automated scraping), čo viedlo k predčasnému ukončovaniu relácií a odpájaniu API tokenu.
+--> **Alternatívne riešenie:** Tento problém sme riešili buď opakovaným generovaním nových API kľúčov, alebo vkladaním screenshotov používateľského rozhrania priamo do vyhradených súborov v projekte. Nástroj dokázal vďaka pokročilému vizuálnemu engine spracovať vizuálne podklady s prekvapivou presnosťou a efektivitou.
+
 ## Zoznam technológií a použitých knižníc
 
 - _Dart_
