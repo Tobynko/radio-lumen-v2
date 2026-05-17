@@ -6,15 +6,10 @@
     },
     "figma-flutter": {
       "command": "npx",
-      "args": [
-        "-y",
-        "dotenv-cli",
-        "--",
-        "npx",
-        "-y",
-        "figma-flutter-mcp",
-        "--stdio"
-      ]
+      "args": ["-y", "figma-flutter-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
+      }
     }
   }
 }

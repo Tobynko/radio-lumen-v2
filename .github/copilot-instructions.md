@@ -6,7 +6,7 @@ Radio Lumen is a Christian radio app for Android and iOS built with Flutter.
 It streams live audio content including music, prayers, interviews, and news.
 We are recreating the existing Rádio LUMEN app (currently on App Store and Google Play) as a modern Flutter app.
 
-Reference (existing app): https://apps.apple.com/sk/app/r%C3%A1dio-lumen/id544631881
+Reference (existing app): [App Store](https://apps.apple.com/sk/app/r%C3%A1dio-lumen/id544631881), [Google Play](https://play.google.com/store/apps/details?id=com.apptives.radiolumen&hl=en-US)
 
 App Goal: To provide spiritual and cultural content while building a community of listeners who can engage anywhere, anytime.
 
@@ -35,7 +35,7 @@ App Goal: To provide spiritual and cultural content while building a community o
 - just_audio (audio streaming and playback)
 - audio_service (background audio, lock screen controls)
 - flutter_svg (SVG rendering for Figma vector icons)
-- Figma Flutter MCP (Figma-to-Flutter widget generation via GitHub Copilot)
+- Figma Flutter MCP (Figma-to-Flutter widget generation via AI)
 
 ## External Data Sources & Endpoints
 

@@ -6,14 +6,10 @@
     },
     "figma-flutter": {
       "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "figma-flutter-mcp",
-        "--figma-api-key=%FIGMA_API_KEY%",
-        "--stdio"
-      ]
+      "args": ["/c", "npx", "-y", "figma-flutter-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
+      }
     }
   }
 }

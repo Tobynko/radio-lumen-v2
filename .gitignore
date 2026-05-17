@@ -5,6 +5,7 @@
 .gemini/*
 !.gemini/settings.json
 !.gemini/extensions.json
+!.gemini/.env.example
 # Exception for MCP config files, they are needed for development
 !.vscode/mcp.json
 !.vscode/mcp-windows.json
