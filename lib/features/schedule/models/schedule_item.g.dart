@@ -16,6 +16,9 @@ _ScheduleItem _$ScheduleItemFromJson(Map<String, dynamic> json) =>
       show: json['show'] == null
           ? null
           : Show.fromJson(json['show'] as Map<String, dynamic>),
+      tags:
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$ScheduleItemToJson(_ScheduleItem instance) =>
@@ -26,4 +29,5 @@ Map<String, dynamic> _$ScheduleItemToJson(_ScheduleItem instance) =>
       'start_time': instance.startTime.toIso8601String(),
       'end_time': instance.endTime.toIso8601String(),
       'show': instance.show,
+      'tags': instance.tags,
     };
