@@ -36,8 +36,8 @@
 
 1. [x] Set up the `dio` HTTP networking client to fetch schedule and playlist data
 2. [x] Create data models for Schedule and Shows using `freezed` and `json_serializable`
-3. [ ] Run `build_runner` to generate model files (also needed for Riverpod code gen)
-4. [ ] Create `@riverpod` providers to fetch and cache schedule data
+3. [x] Run `build_runner` to generate model files (also needed for Riverpod code gen)
+4. [x] Create `@riverpod` providers to fetch and cache schedule data
 
 ### User Interface
 
