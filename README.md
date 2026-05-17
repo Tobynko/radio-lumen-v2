@@ -85,12 +85,14 @@ Aby sme zabezpečili, že kód vygenerovaný pomocou AI bude čo najkvalitnejš�
   <img src="docs/screenshots/tobias/mcp2.png" width="49%" />
 </p>
 
-## Iné použité AI nástroje
+### Iné použité AI nástroje
 
 Pre konzultáciu, otázky a iné veci boli použité tieto AI:
 
 - _Platený Google Gemini Plus & Pro_
 - _Platený Perplexity (Claude Sonnet 4.6 Thinking model)_
+
+### Prínosy a nevýhody
 
 ## Zoznam technológií a použitých knižníc
 
