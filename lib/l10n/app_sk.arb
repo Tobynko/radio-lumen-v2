@@ -51,5 +51,29 @@
   "qualityLow": "Nízka kvalita (šetrí dáta)",
   "@qualityLow": {
     "description": "Description for 32kbps quality"
+  },
+  "scheduleTabProgram": "Program",
+  "@scheduleTabProgram": {
+    "description": "Tab label for Program"
+  },
+  "scheduleTabPlaylists": "Playlisty",
+  "@scheduleTabPlaylists": {
+    "description": "Tab label for Playlists"
+  },
+  "scheduleTabShows": "Relácie",
+  "@scheduleTabShows": {
+    "description": "Tab label for Shows/Relacie"
+  },
+  "scheduleNoItems": "Na tento deň nie je dostupný program.",
+  "@scheduleNoItems": {
+    "description": "Message shown when no schedule items are available for a selected day"
+  },
+  "tagSpiritual": "Duchovné slovo",
+  "@tagSpiritual": {
+    "description": "Tag label for spiritual content"
+  },
+  "tagLive": "Naživo",
+  "@tagLive": {
+    "description": "Tag label for live broadcast"
   }
 }

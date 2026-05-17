@@ -6,6 +6,7 @@ import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
 import 'package:radio_lumen_v2/features/schedule/models/schedule_item.dart';
 import 'package:radio_lumen_v2/features/schedule/models/show.dart';
+import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class ScheduleScreen extends ConsumerStatefulWidget {
   const ScheduleScreen({super.key});
@@ -32,19 +33,6 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  String _getSlovakWeekday(int weekday) {
-    switch (weekday) {
-      case 1: return 'PO';
-      case 2: return 'UT';
-      case 3: return 'ST';
-      case 4: return 'ŠT';
-      case 5: return 'PI';
-      case 6: return 'SO';
-      case 7: return 'NE';
-      default: return '';
-    }
   }
 
   // --- DUMMY DATA FOR UI PREVIEW ---
@@ -101,6 +89,8 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: AppColors.backgroundMain,
       body: LumenBackground(
@@ -109,7 +99,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeader(),
-              _buildModernTabBar(),
+              _buildModernTabBar(l10n),
               const SizedBox(height: 16),
               Expanded(
                 child: TabBarView(
@@ -120,7 +110,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                       children: [
                         _buildDaysFilter(),
                         const SizedBox(height: 16),
-                        Expanded(child: _buildScheduleList(_getDummySchedule())),
+                        Expanded(child: _buildScheduleList(l10n, _getDummySchedule())),
                       ],
                     ),
                     // Tab 2: Playlisty
@@ -143,14 +133,14 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
       child: Center(
         child: Image.asset(
           'assets/logos/logo.png',
-          height: 128, // Made twice as large as requested
+          height: 128,
           fit: BoxFit.contain,
         ),
       ),
     );
   }
 
-  Widget _buildModernTabBar() {
+  Widget _buildModernTabBar(AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
@@ -176,16 +166,18 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
         labelStyle: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
         unselectedLabelColor: Colors.white.withValues(alpha: 0.7),
         unselectedLabelStyle: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.w500),
-        tabs: const [
-          Tab(text: 'Program'),
-          Tab(text: 'Playlisty'),
-          Tab(text: 'Relácie'),
+        tabs: [
+          Tab(text: l10n.scheduleTabProgram),
+          Tab(text: l10n.scheduleTabPlaylists),
+          Tab(text: l10n.scheduleTabShows),
         ],
       ),
     );
   }
 
   Widget _buildDaysFilter() {
+    final locale = Localizations.localeOf(context).toString();
+    
     return SizedBox(
       height: 48,
       child: ListView.builder(
@@ -196,7 +188,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
           final date = _days[index];
           final isSelected = index == _selectedDayIndex;
           
-          final dayStr = _getSlovakWeekday(date.weekday);
+          final dayStr = DateFormat.E(locale).format(date).toUpperCase();
           final dateStr = DateFormat('d.M.').format(date);
           
           return GestureDetector(
@@ -243,7 +235,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
     );
   }
 
-  Widget _buildScheduleList(List<ScheduleItem> allItems) {
+  Widget _buildScheduleList(AppLocalizations l10n, List<ScheduleItem> allItems) {
     final selectedDate = _days[_selectedDayIndex];
     final items = allItems.where((item) {
       return item.startTime.year == selectedDate.year &&
@@ -256,7 +248,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
     if (items.isEmpty) {
       return Center(
         child: Text(
-          'Na tento deň nie je dostupný program.',
+          l10n.scheduleNoItems,
           style: AppTextStyles.bodyLarge.copyWith(color: Colors.white.withValues(alpha: 0.7)),
         ),
       );
@@ -329,12 +321,12 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                     ),
                   ],
                   const SizedBox(height: 12),
-                  // Mocked content tag / category
+                  // Content tags
                   Wrap(
                     spacing: 8,
                     children: [
-                      _buildTag('Duchovné slovo'),
-                      if (index % 2 == 0) _buildTag('Naživo'),
+                      _buildTag(l10n.tagSpiritual),
+                      if (index % 2 == 0) _buildTag(l10n.tagLive),
                     ],
                   ),
                 ],

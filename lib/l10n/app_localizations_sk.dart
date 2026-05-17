@@ -46,4 +46,22 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get qualityLow => 'Nízka kvalita (šetrí dáta)';
+
+  @override
+  String get scheduleTabProgram => 'Program';
+
+  @override
+  String get scheduleTabPlaylists => 'Playlisty';
+
+  @override
+  String get scheduleTabShows => 'Relácie';
+
+  @override
+  String get scheduleNoItems => 'Na tento deň nie je dostupný program.';
+
+  @override
+  String get tagSpiritual => 'Duchovné slovo';
+
+  @override
+  String get tagLive => 'Naživo';
 }

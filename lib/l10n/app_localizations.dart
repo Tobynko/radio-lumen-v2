@@ -171,6 +171,42 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Nízka kvalita (šetrí dáta)'**
   String get qualityLow;
+
+  /// Tab label for Program
+  ///
+  /// In sk, this message translates to:
+  /// **'Program'**
+  String get scheduleTabProgram;
+
+  /// Tab label for Playlists
+  ///
+  /// In sk, this message translates to:
+  /// **'Playlisty'**
+  String get scheduleTabPlaylists;
+
+  /// Tab label for Shows/Relacie
+  ///
+  /// In sk, this message translates to:
+  /// **'Relácie'**
+  String get scheduleTabShows;
+
+  /// Message shown when no schedule items are available for a selected day
+  ///
+  /// In sk, this message translates to:
+  /// **'Na tento deň nie je dostupný program.'**
+  String get scheduleNoItems;
+
+  /// Tag label for spiritual content
+  ///
+  /// In sk, this message translates to:
+  /// **'Duchovné slovo'**
+  String get tagSpiritual;
+
+  /// Tag label for live broadcast
+  ///
+  /// In sk, this message translates to:
+  /// **'Naživo'**
+  String get tagLive;
 }
 
 class _AppLocalizationsDelegate
