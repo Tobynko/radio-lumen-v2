@@ -41,6 +41,6 @@
 
 ### User Interface
 
-- [ ] **Schedule Screen:** Build the UI for program schedule, playlists, and show listings
-- [ ] Implement UI logic to filter or group the schedule by day
-- [ ] Display content tags (e.g., liturgy, calm music) on schedule items
+- [x] **Schedule Screen:** Build the UI for program schedule, playlists, and show listings
+- [x] Implement UI logic to filter or group the schedule by day 
+- [x] Display content tags (e.g., liturgy, calm music) on schedule items
