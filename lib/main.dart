@@ -1,10 +1,26 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:radio_lumen_v2/core/audio/audio_handler.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 import 'package:radio_lumen_v2/routing/app_router.dart';
 
-void main() {
+late AudioHandler audioHandler;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  audioHandler = await AudioService.init(
+    builder: () => LumenAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'sk.lumen.radio.channel.audio',
+      androidNotificationChannelName: 'Radio LUMEN Playback',
+      androidNotificationOngoing: true,
+      androidStopForegroundOnPause: true,
+    ),
+  );
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
