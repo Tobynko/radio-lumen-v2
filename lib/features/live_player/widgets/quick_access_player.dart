@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:radio_lumen_v2/core/audio/audio_controller.dart';
+import 'package:radio_lumen_v2/core/audio/audio_state.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
+import 'package:share_plus/share_plus.dart';
 
-class QuickAccessPlayer extends StatefulWidget {
+class QuickAccessPlayer extends ConsumerStatefulWidget {
   const QuickAccessPlayer({super.key});
 
   @override
-  State<QuickAccessPlayer> createState() => _QuickAccessPlayerState();
+  ConsumerState<QuickAccessPlayer> createState() => _QuickAccessPlayerState();
 }
 
-class _QuickAccessPlayerState extends State<QuickAccessPlayer> {
-  double _volume = 0.5;
-  int _selectedQuality = 128; // Default to highest quality
-
+class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
   void _showQualityPicker() {
     final l10n = AppLocalizations.of(context)!;
+    final audioState = ref.watch(audioControllerProvider);
+    final controller = ref.read(audioControllerProvider.notifier);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -41,9 +45,9 @@ class _QuickAccessPlayerState extends State<QuickAccessPlayer> {
               _QualityOption(
                 label: '128 kbps',
                 description: l10n.qualityHigh,
-                isSelected: _selectedQuality == 128,
+                isSelected: audioState.quality == 128,
                 onTap: () {
-                  setState(() => _selectedQuality = 128);
+                  controller.setQuality(128);
                   Navigator.pop(context);
                 },
               ),
@@ -51,9 +55,9 @@ class _QuickAccessPlayerState extends State<QuickAccessPlayer> {
               _QualityOption(
                 label: '64 kbps',
                 description: l10n.qualityMedium,
-                isSelected: _selectedQuality == 64,
+                isSelected: audioState.quality == 64,
                 onTap: () {
-                  setState(() => _selectedQuality = 64);
+                  controller.setQuality(64);
                   Navigator.pop(context);
                 },
               ),
@@ -61,9 +65,9 @@ class _QuickAccessPlayerState extends State<QuickAccessPlayer> {
               _QualityOption(
                 label: '32 kbps',
                 description: l10n.qualityLow,
-                isSelected: _selectedQuality == 32,
+                isSelected: audioState.quality == 32,
                 onTap: () {
-                  setState(() => _selectedQuality = 32);
+                  controller.setQuality(32);
                   Navigator.pop(context);
                 },
               ),
@@ -77,98 +81,149 @@ class _QuickAccessPlayerState extends State<QuickAccessPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    final audioState = ref.watch(audioControllerProvider);
+    final controller = ref.read(audioControllerProvider.notifier);
+    final isPlaying = audioState.status == PlaybackStatus.playing;
+    final isLoading = audioState.status == PlaybackStatus.loading;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
       decoration: BoxDecoration(
-        color: const Color(
-          0xFFC4C4C4,
-        ).withValues(alpha: 0.8), // Greyish background from design
+        color: Colors.white.withAlpha(25),
         borderRadius: BorderRadius.circular(32),
+        border: Border.all(color: Colors.white.withAlpha(25)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(25),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Metadata
           Column(
             children: [
               Text(
-                'SVÄTÁ OMŠA', // Placeholder title
+                audioState.currentTitle ?? 'Rádio Lumen',
                 style: AppTextStyles.titleLarge.copyWith(
-                  color: AppColors.primary,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 4),
-              Text(
-                'CELEBRANT: OTEC JOZEF', // Placeholder author/artist
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.primary.withValues(alpha: 0.7),
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1.2,
+              if (audioState.currentArtist != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  audioState.currentArtist!,
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: Colors.white.withAlpha(178),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
+              ],
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           // Volume Slider
           Row(
             children: [
-              const Icon(Icons.volume_mute, color: AppColors.primary, size: 20),
+              Icon(
+                audioState.volume == 0 ? Icons.volume_off : Icons.volume_down,
+                color: Colors.white.withAlpha(178),
+                size: 20,
+              ),
               Expanded(
                 child: SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppColors.accentGold,
-                    inactiveTrackColor: Colors.white.withValues(alpha: 0.5),
+                    inactiveTrackColor: Colors.white.withAlpha(51),
                     thumbColor: Colors.white,
-                    overlayColor: AppColors.accentGold.withValues(alpha: 0.2),
+                    overlayColor: AppColors.accentGold.withAlpha(51),
                     trackHeight: 4,
                     thumbShape: const RoundSliderThumbShape(
                       enabledThumbRadius: 6,
                     ),
                   ),
                   child: Slider(
-                    value: _volume,
+                    value: audioState.volume,
                     onChanged: (value) {
-                      setState(() {
-                        _volume = value;
-                      });
+                      controller.setVolume(value);
                     },
                   ),
                 ),
               ),
-              const Icon(Icons.volume_up, color: AppColors.primary, size: 20),
+              Icon(
+                Icons.volume_up,
+                color: Colors.white.withAlpha(178),
+                size: 20,
+              ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
+          // Control Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Quality Button
               _PlayerIconButton(
-                icon: Icons.high_quality,
+                icon: Icons.high_quality_outlined,
                 onPressed: _showQualityPicker,
               ),
-              // Play Button
-              Container(
-                decoration: const BoxDecoration(shape: BoxShape.circle),
-                child: IconButton(
-                  onPressed: () {
-                    // TODO: Implement play/pause
-                  },
-                  icon: const Icon(
-                    Icons.play_arrow_rounded,
-                    color: AppColors.primary,
-                    size: 64,
+              // Play/Pause Button with Glow
+              GestureDetector(
+                onTap: () => controller.togglePlay(),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.accentGold,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.accentGold.withAlpha(102),
+                        blurRadius: 20,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: AppColors.primary,
+                          )
+                        : Icon(
+                            isPlaying
+                                ? Icons.pause_rounded
+                                : Icons.play_arrow_rounded,
+                            color: AppColors.primary,
+                            size: 48,
+                          ),
                   ),
                 ),
               ),
-              // Share Button
               _PlayerIconButton(
-                icon: Icons.share,
+                icon: Icons.share_outlined,
                 onPressed: () {
-                  // TODO: Implement share
+                  final title = audioState.currentTitle ?? 'Rádio Lumen';
+                  final artist = audioState.currentArtist ?? '';
+                  final shareText = artist.isNotEmpty
+                      ? 'Práve počúvam $title od $artist na Rádiu LUMEN! 🎧 https://www.lumen.sk'
+                      : 'Práve počúvam $title na Rádiu LUMEN! 🎧 https://www.lumen.sk';
+                  
+                  final box = context.findRenderObject() as RenderBox?;
+                  SharePlus.instance.share(
+                    ShareParams(
+                      text: shareText,
+                      sharePositionOrigin: box != null 
+                          ? box.localToGlobal(Offset.zero) & box.size 
+                          : null,
+                    ),
+                  );
                 },
               ),
             ],
@@ -199,16 +254,12 @@ class _QualityOption extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? AppColors.accentGold.withValues(alpha: 0.1)
-                  : Colors.white.withValues(alpha: 0.05),
+          color: isSelected
+              ? AppColors.accentGold.withAlpha(25)
+              : Colors.white.withAlpha(13),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color:
-                isSelected
-                    ? AppColors.accentGold
-                    : Colors.white.withValues(alpha: 0.2),
+            color: isSelected ? AppColors.accentGold : Colors.white.withAlpha(51),
             width: 1,
           ),
         ),
@@ -228,14 +279,13 @@ class _QualityOption extends StatelessWidget {
                   Text(
                     description,
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: Colors.white.withValues(alpha: 0.6),
+                      color: Colors.white.withAlpha(153),
                     ),
                   ),
                 ],
               ),
             ),
-            if (isSelected)
-              const Icon(Icons.check_circle, color: AppColors.accentGold),
+            if (isSelected) const Icon(Icons.check_circle, color: AppColors.accentGold),
           ],
         ),
       ),
@@ -243,17 +293,44 @@ class _QualityOption extends StatelessWidget {
   }
 }
 
-class _PlayerIconButton extends StatelessWidget {
+class _PlayerIconButton extends StatefulWidget {
   const _PlayerIconButton({required this.icon, required this.onPressed});
 
   final IconData icon;
   final VoidCallback onPressed;
 
   @override
+  State<_PlayerIconButton> createState() => _PlayerIconButtonState();
+}
+
+class _PlayerIconButtonState extends State<_PlayerIconButton> {
+  double _scale = 1.0;
+
+  @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: Icon(icon, color: AppColors.primary, size: 32),
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _scale = 0.85),
+      onTapUp: (_) => setState(() => _scale = 1.0),
+      onTapCancel: () => setState(() => _scale = 1.0),
+      onTap: widget.onPressed,
+      child: AnimatedScale(
+        scale: _scale,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeInOut,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white.withAlpha(15),
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white.withAlpha(20)),
+          ),
+          child: Icon(
+            widget.icon,
+            color: Colors.white.withAlpha(204),
+            size: 26,
+          ),
+        ),
+      ),
     );
   }
 }
