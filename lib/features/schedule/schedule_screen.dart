@@ -17,15 +17,15 @@ class ScheduleScreen extends ConsumerStatefulWidget {
 }
 
 class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+/* with SingleTickerProviderStateMixin */ {
+  // late TabController _tabController;
   int _selectedDayIndex = 2; // Index 2 is today (0 is -2 days, 1 is -1 day)
   late final List<DateTime> _days;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    // _tabController = TabController(length: 3, vsync: this);
     final today = DateTime.now();
     // Generate 10 days starting from 2 days ago (-2 to +7)
     _days = List.generate(10, (index) => today.add(Duration(days: index - 2)));
@@ -33,7 +33,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    // _tabController.dispose();
     super.dispose();
   }
 
@@ -48,47 +48,45 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeader(),
-              _buildModernTabBar(l10n),
+              //_buildHeader(),
+              // _buildModernTabBar(l10n),
               const SizedBox(height: 16),
               Expanded(
-                child: TabBarView(
+                child: /* TabBarView(
                   controller: _tabController,
                   children: [
-                    // Tab 1: Program
-                    Column(
-                      children: [
-                        _buildDaysFilter(),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: ref
-                              .watch(scheduleProvider)
-                              .when(
-                                data: (items) =>
-                                    _buildScheduleList(l10n, items),
-                                loading: () => const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.accentGold,
-                                  ),
-                                ),
-                                error: (error, stackTrace) => Center(
-                                  child: Text(
-                                    'Nastala chyba pri načítavaní programu.',
-                                    style: AppTextStyles.bodyLarge.copyWith(
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                    // Tab 1: Program */ Column(
+                  children: [
+                    _buildDaysFilter(),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: ref
+                          .watch(scheduleProvider)
+                          .when(
+                            data: (items) => _buildScheduleList(l10n, items),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.accentGold,
+                              ),
+                            ),
+                            error: (error, stackTrace) => Center(
+                              child: Text(
+                                'Nastala chyba pri načítavaní programu.',
+                                style: AppTextStyles.bodyLarge.copyWith(
+                                  color: Colors.white,
                                 ),
                               ),
-                        ),
-                      ],
+                            ),
+                          ),
                     ),
-                    // Tab 2: Playlisty
+                  ],
+                ),
+                /* // Tab 2: Playlisty
                     _buildPlaylistsPreview(),
                     // Tab 3: Relácie (Shows)
                     _buildShowsPreview(),
                   ],
-                ),
+                ), */
               ),
             ],
           ),
@@ -97,7 +95,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
     );
   }
 
-  Widget _buildHeader() {
+  /*Widget _buildHeader() {
     return Padding(
       padding: const EdgeInsets.only(top: 16, bottom: 8),
       child: Center(
@@ -108,9 +106,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
         ),
       ),
     );
-  }
+  }*/
 
-  Widget _buildModernTabBar(AppLocalizations l10n) {
+  /* Widget _buildModernTabBar(AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
@@ -147,7 +145,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
         ],
       ),
     );
-  }
+  } */
 
   Widget _buildDaysFilter() {
     final locale = Localizations.localeOf(context).toString();
@@ -337,7 +335,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
     );
   }
 
-  Widget _buildPlaylistsPreview() {
+  /* Widget _buildPlaylistsPreview() {
     final dummyPlaylists = [
       {'title': 'Ranná káva', 'tracks': '12 skladieb', 'icon': Icons.coffee},
       {
@@ -467,5 +465,5 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
         );
       },
     );
-  }
+  } */
 }
