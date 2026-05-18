@@ -25,10 +25,10 @@ class MainShell extends StatelessWidget {
       backgroundColor: AppColors.primary,
       body: navigationShell,
       bottomNavigationBar: Container(
-        height: 100,
+        //height: 85, // 100
         decoration: BoxDecoration(
           color: AppColors.primary,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.3),
@@ -38,38 +38,39 @@ class MainShell extends StatelessWidget {
           ],
         ),
         child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _NavButton(
-                label: l10n.navLive.toUpperCase(),
-                iconPath: 'assets/icons/live_symbol.svg',
-                activeIconPath: 'assets/icons/live_symbol_active.svg',
-                isActive: navigationShell.currentIndex == 0,
-                onTap: () => _onTap(context, 0),
-              ),
-              _NavButton(
-                label: l10n.navProgram.toUpperCase(),
-                iconPath: 'assets/icons/programme_symbol.svg',
-                activeIconPath: 'assets/icons/programme_symbol_active.svg',
-                isActive: navigationShell.currentIndex == 1,
-                onTap: () => _onTap(context, 1),
-              ),
-              _NavButton(
-                label: l10n.navArchiv.toUpperCase(),
-                iconPath: 'assets/icons/archive_symbol.svg',
-                activeIconPath: 'assets/icons/archive_symbol_active.svg',
-                isActive: navigationShell.currentIndex == 2,
-                onTap: () => _onTap(context, 2),
-              ),
-              _NavButton(
-                label: l10n.navAktuality.toUpperCase(),
-                iconPath: 'assets/icons/prayers_symbol.svg',
-                activeIconPath: 'assets/icons/prayers_symbol_active.svg',
-                isActive: navigationShell.currentIndex == 3,
-                onTap: () => _onTap(context, 3),
-              ),
-            ],
+          child: Padding(
+            // Tento padding vytvorí bezpečný priestor nad a pod gombíkmi
+            padding: const EdgeInsets.only(top: 14, bottom: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly, // spaceAround
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _NavButton(
+                  label: l10n.navLive.toUpperCase(),
+                  iconPath: 'assets/icons/live_symbol.svg',
+                  isActive: navigationShell.currentIndex == 0,
+                  onTap: () => _onTap(context, 0),
+                ),
+                _NavButton(
+                  label: l10n.navProgram.toUpperCase(),
+                  iconPath: 'assets/icons/programme_symbol.svg',
+                  isActive: navigationShell.currentIndex == 1,
+                  onTap: () => _onTap(context, 1),
+                ),
+                _NavButton(
+                  label: l10n.navArchiv.toUpperCase(),
+                  iconPath: 'assets/icons/archive_symbol.svg',
+                  isActive: navigationShell.currentIndex == 2,
+                  onTap: () => _onTap(context, 2),
+                ),
+                _NavButton(
+                  label: l10n.navAktuality.toUpperCase(),
+                  iconPath: 'assets/icons/prayers_symbol.svg',
+                  isActive: navigationShell.currentIndex == 3,
+                  onTap: () => _onTap(context, 3),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -81,14 +82,14 @@ class _NavButton extends StatelessWidget {
   const _NavButton({
     required this.label,
     required this.iconPath,
-    required this.activeIconPath,
+    //required this.activeIconPath,
     required this.isActive,
     required this.onTap,
   });
 
   final String label;
   final String iconPath;
-  final String activeIconPath;
+  //final String activeIconPath;
   final bool isActive;
   final VoidCallback onTap;
 
@@ -106,16 +107,22 @@ class _NavButton extends StatelessWidget {
             label,
             style: AppTextStyles.labelSmall.copyWith(
               color: color,
-              fontSize: 10,
+              fontSize: 14,
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
               letterSpacing: 1.2,
             ),
           ),
           const SizedBox(height: 8),
           SvgPicture.asset(
-            isActive ? activeIconPath : iconPath,
-            width: 32,
-            height: 32,
+            //isActive ? activeIconPath : iconPath,
+            iconPath,
+            width: 30,
+            height: 30,
+            fit: BoxFit.contain,
+            colorFilter: ColorFilter.mode(
+              color,
+              BlendMode.srcIn, // Prefarbí vnútro SVG bez straty detailov
+            ),
           ),
         ],
       ),
