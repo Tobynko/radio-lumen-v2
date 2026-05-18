@@ -9,12 +9,12 @@ part 'schedule_provider.g.dart';
 Future<List<ScheduleItem>> schedule(Ref ref) async {
   final dioClient = ref.watch(dioClientProvider);
   final rawData = await dioClient.fetchScheduleData();
-  
+
   // As the final API JSON response schema is not strictly defined,
   // we assume the list of schedule items is under a 'data' key.
   // We fall back to an empty list if not found.
   final itemsList = rawData['data'] as List<dynamic>? ?? [];
-  
+
   return itemsList
       .map((item) => ScheduleItem.fromJson(item as Map<String, dynamic>))
       .toList();

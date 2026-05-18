@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
 import 'package:radio_lumen_v2/features/schedule/models/schedule_item.dart';
-import 'package:radio_lumen_v2/features/schedule/models/show.dart';
+import 'package:radio_lumen_v2/features/schedule/providers/schedule_provider.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class ScheduleScreen extends ConsumerStatefulWidget {
@@ -15,9 +16,10 @@ class ScheduleScreen extends ConsumerStatefulWidget {
   ConsumerState<ScheduleScreen> createState() => _ScheduleScreenState();
 }
 
-class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTickerProviderStateMixin {
+class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedDayIndex = 0;
+  int _selectedDayIndex = 2; // Index 2 is today (0 is -2 days, 1 is -1 day)
   late final List<DateTime> _days;
 
   @override
@@ -25,8 +27,8 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     final today = DateTime.now();
-    // Generate 7 days starting from today
-    _days = List.generate(7, (index) => today.add(Duration(days: index)));
+    // Generate 10 days starting from 2 days ago (-2 to +7)
+    _days = List.generate(10, (index) => today.add(Duration(days: index - 2)));
   }
 
   @override
@@ -35,62 +37,10 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
     super.dispose();
   }
 
-  // --- DUMMY DATA FOR UI PREVIEW ---
-  List<ScheduleItem> _getDummySchedule() {
-    final today = DateTime.now();
-    final tomorrow = today.add(const Duration(days: 1));
-    return [
-      ScheduleItem(
-        id: '1',
-        title: 'Ranné spojenie',
-        description: 'Ranný prúd hudby a slova s ranným zamyslením.',
-        startTime: DateTime(today.year, today.month, today.day, 6, 0),
-        endTime: DateTime(today.year, today.month, today.day, 9, 0),
-        show: const Show(id: 's1', title: 'Ranné spojenie', description: '', host: 'Ján Krupa'),
-        tags: const ['Naživo', 'Ráno'],
-      ),
-      ScheduleItem(
-        id: '2',
-        title: 'Lumenáda',
-        description: 'Dopoludňajšie vysielanie plné zaujímavých hostí a tém.',
-        startTime: DateTime(today.year, today.month, today.day, 9, 0),
-        endTime: DateTime(today.year, today.month, today.day, 12, 0),
-        show: const Show(id: 's2', title: 'Lumenáda', description: '', host: 'Mária Škovierová'),
-        tags: const ['Zábava'],
-      ),
-      ScheduleItem(
-        id: '3',
-        title: 'Modlitba Anjel Pána',
-        description: 'Spoločná modlitba napoludnie pre celú komunitu.',
-        startTime: DateTime(today.year, today.month, today.day, 12, 0),
-        endTime: DateTime(today.year, today.month, today.day, 12, 15),
-        tags: const ['Modlitba', 'Duchovné slovo'],
-      ),
-      ScheduleItem(
-        id: '4',
-        title: 'Zaostrené',
-        description: 'Analýza aktuálnych spoločenských a náboženských tém.',
-        startTime: DateTime(today.year, today.month, today.day, 13, 0),
-        endTime: DateTime(today.year, today.month, today.day, 14, 0),
-        show: const Show(id: 's3', title: 'Zaostrené', description: '', host: 'Pavol Jurčo'),
-        tags: const ['Publicistika'],
-      ),
-      ScheduleItem(
-        id: '5',
-        title: 'Ranné spojenie (zajtra)',
-        description: 'Zajtrajšie ranné spojenie s novými témami.',
-        startTime: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 6, 0),
-        endTime: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 9, 0),
-        show: const Show(id: 's1', title: 'Ranné spojenie', description: '', host: 'Ján Krupa'),
-        tags: const ['Naživo', 'Ráno'],
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       backgroundColor: AppColors.backgroundMain,
       body: LumenBackground(
@@ -110,7 +60,27 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                       children: [
                         _buildDaysFilter(),
                         const SizedBox(height: 16),
-                        Expanded(child: _buildScheduleList(l10n, _getDummySchedule())),
+                        Expanded(
+                          child: ref
+                              .watch(scheduleProvider)
+                              .when(
+                                data: (items) =>
+                                    _buildScheduleList(l10n, items),
+                                loading: () => const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.accentGold,
+                                  ),
+                                ),
+                                error: (error, stackTrace) => Center(
+                                  child: Text(
+                                    'Nastala chyba pri načítavaní programu.',
+                                    style: AppTextStyles.bodyLarge.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                        ),
                       ],
                     ),
                     // Tab 2: Playlisty
@@ -163,9 +133,13 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
           ],
         ),
         labelColor: AppColors.primary,
-        labelStyle: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+        labelStyle: AppTextStyles.bodyLarge.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
         unselectedLabelColor: Colors.white.withValues(alpha: 0.7),
-        unselectedLabelStyle: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.w500),
+        unselectedLabelStyle: AppTextStyles.bodyLarge.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
         tabs: [
           Tab(text: l10n.scheduleTabProgram),
           Tab(text: l10n.scheduleTabPlaylists),
@@ -177,7 +151,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
 
   Widget _buildDaysFilter() {
     final locale = Localizations.localeOf(context).toString();
-    
+
     return SizedBox(
       height: 48,
       child: ListView.builder(
@@ -187,10 +161,10 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
         itemBuilder: (context, index) {
           final date = _days[index];
           final isSelected = index == _selectedDayIndex;
-          
+
           final dayStr = DateFormat.E(locale).format(date).toUpperCase();
           final dateStr = DateFormat('d.M.').format(date);
-          
+
           return GestureDetector(
             onTap: () {
               setState(() {
@@ -203,10 +177,14 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
               margin: const EdgeInsets.symmetric(horizontal: 4),
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.accentGold : Colors.white.withValues(alpha: 0.05),
+                color: isSelected
+                    ? AppColors.accentGold
+                    : Colors.white.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: isSelected ? AppColors.accentGold : Colors.white.withValues(alpha: 0.15),
+                  color: isSelected
+                      ? AppColors.accentGold
+                      : Colors.white.withValues(alpha: 0.15),
                   width: 1,
                 ),
                 boxShadow: isSelected
@@ -215,7 +193,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                           color: AppColors.accentGold.withValues(alpha: 0.4),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
-                        )
+                        ),
                       ]
                     : null,
               ),
@@ -223,7 +201,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                 child: Text(
                   '$dayStr $dateStr',
                   style: AppTextStyles.bodyLarge.copyWith(
-                    color: isSelected ? AppColors.primary : Colors.white.withValues(alpha: 0.85),
+                    color: isSelected
+                        ? AppColors.primary
+                        : Colors.white.withValues(alpha: 0.85),
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                   ),
                 ),
@@ -235,12 +215,15 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
     );
   }
 
-  Widget _buildScheduleList(AppLocalizations l10n, List<ScheduleItem> allItems) {
+  Widget _buildScheduleList(
+    AppLocalizations l10n,
+    List<ScheduleItem> allItems,
+  ) {
     final selectedDate = _days[_selectedDayIndex];
     final items = allItems.where((item) {
       return item.startTime.year == selectedDate.year &&
-             item.startTime.month == selectedDate.month &&
-             item.startTime.day == selectedDate.day;
+          item.startTime.month == selectedDate.month &&
+          item.startTime.day == selectedDate.day;
     }).toList();
 
     items.sort((a, b) => a.startTime.compareTo(b.startTime));
@@ -249,12 +232,15 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
       return Center(
         child: Text(
           l10n.scheduleNoItems,
-          style: AppTextStyles.bodyLarge.copyWith(color: Colors.white.withValues(alpha: 0.7)),
+          style: AppTextStyles.bodyLarge.copyWith(
+            color: Colors.white.withValues(alpha: 0.7),
+          ),
         ),
       );
     }
 
     return ListView.separated(
+      key: ValueKey(_selectedDayIndex),
       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 24, top: 8),
       itemCount: items.length,
       separatorBuilder: (context, index) => Padding(
@@ -264,75 +250,88 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
       itemBuilder: (context, index) {
         final item = items[index];
         final startTimeStr = DateFormat('HH:mm').format(item.startTime);
-        
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Time Column
-            SizedBox(
-              width: 65,
-              child: Text(
-                startTimeStr,
-                style: AppTextStyles.titleLarge.copyWith(
-                  color: AppColors.accentGold,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
+
+        return InkWell(
+          onTap: () {
+            context.push('/program-detail', extra: item);
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Time Column
+              SizedBox(
+                width: 65,
+                child: Text(
+                  startTimeStr,
+                  style: AppTextStyles.titleLarge.copyWith(
+                    color: AppColors.accentGold,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 12),
-            // Show Details Column
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: AppTextStyles.titleLarge.copyWith(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+              const SizedBox(width: 12),
+              // Show Details Column
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.title,
+                      style: AppTextStyles.titleLarge.copyWith(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    item.description,
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: Colors.white.withValues(alpha: 0.85),
-                      height: 1.3,
+                    const SizedBox(height: 6),
+                    Text(
+                      item.description,
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: Colors.white.withValues(alpha: 0.85),
+                        height: 1.3,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  if (item.show?.host != null) ...[
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Icon(Icons.mic, size: 16, color: AppColors.accentTeal.withValues(alpha: 0.9)),
-                        const SizedBox(width: 6),
-                        Text(
-                          item.show!.host!,
-                          style: AppTextStyles.labelSmall.copyWith(
+                    if (item.show?.host != null) ...[
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.mic,
+                            size: 16,
                             color: AppColors.accentTeal.withValues(alpha: 0.9),
-                            fontSize: 13,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                  const SizedBox(height: 12),
-                  // Content tags
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      _buildTag(l10n.tagSpiritual),
-                      if (index % 2 == 0) _buildTag(l10n.tagLive),
+                          const SizedBox(width: 6),
+                          Text(
+                            item.show!.host!,
+                            style: AppTextStyles.labelSmall.copyWith(
+                              color: AppColors.accentTeal.withValues(
+                                alpha: 0.9,
+                              ),
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              if (item.playUrl != null) ...[
+                const SizedBox(width: 12),
+                IconButton(
+                  icon: const Icon(Icons.play_circle_fill),
+                  color: AppColors.accentGold,
+                  iconSize: 36,
+                  onPressed: () {
+                    context.push('/archive-player', extra: item);
+                  },
+                ),
+              ],
+            ],
+          ),
         );
       },
     );
@@ -341,9 +340,21 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
   Widget _buildPlaylistsPreview() {
     final dummyPlaylists = [
       {'title': 'Ranná káva', 'tracks': '12 skladieb', 'icon': Icons.coffee},
-      {'title': 'Pokojný večer', 'tracks': '25 skladieb', 'icon': Icons.nightlight_round},
-      {'title': 'Chvály a uctievanie', 'tracks': '40 skladieb', 'icon': Icons.music_note},
-      {'title': 'Víkendový relax', 'tracks': '18 skladieb', 'icon': Icons.weekend},
+      {
+        'title': 'Pokojný večer',
+        'tracks': '25 skladieb',
+        'icon': Icons.nightlight_round,
+      },
+      {
+        'title': 'Chvály a uctievanie',
+        'tracks': '40 skladieb',
+        'icon': Icons.music_note,
+      },
+      {
+        'title': 'Víkendový relax',
+        'tracks': '18 skladieb',
+        'icon': Icons.weekend,
+      },
     ];
 
     return ListView.builder(
@@ -359,7 +370,10 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
             border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
             leading: Container(
               width: 50,
               height: 50,
@@ -367,15 +381,24 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                 color: AppColors.accentGold.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(playlist['icon'] as IconData, color: AppColors.accentGold, size: 28),
+              child: Icon(
+                playlist['icon'] as IconData,
+                color: AppColors.accentGold,
+                size: 28,
+              ),
             ),
             title: Text(
               playlist['title'] as String,
-              style: AppTextStyles.titleLarge.copyWith(color: Colors.white, fontSize: 18),
+              style: AppTextStyles.titleLarge.copyWith(
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
             subtitle: Text(
               playlist['tracks'] as String,
-              style: AppTextStyles.bodyMedium.copyWith(color: Colors.white.withValues(alpha: 0.6)),
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: Colors.white.withValues(alpha: 0.6),
+              ),
             ),
             trailing: const Icon(Icons.chevron_right, color: Colors.white54),
           ),
@@ -386,7 +409,12 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
 
   Widget _buildShowsPreview() {
     final dummyShows = [
-      'Lumenáda', 'Ranné spojenie', 'Zaostrené', 'Svetielko', 'Karmel', 'Svetlo nádeje'
+      'Lumenáda',
+      'Ranné spojenie',
+      'Zaostrené',
+      'Svetielko',
+      'Karmel',
+      'Svetlo nádeje',
     ];
 
     return GridView.builder(
@@ -416,7 +444,11 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
                   color: AppColors.primary.withValues(alpha: 0.5),
                   border: Border.all(color: AppColors.accentGold, width: 2),
                 ),
-                child: const Icon(Icons.headset_mic, color: Colors.white, size: 32),
+                child: const Icon(
+                  Icons.headset_mic,
+                  color: Colors.white,
+                  size: 32,
+                ),
               ),
               const SizedBox(height: 16),
               Padding(
@@ -434,25 +466,6 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> with SingleTick
           ),
         );
       },
-    );
-  }
-
-  Widget _buildTag(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
-      ),
-      child: Text(
-        text,
-        style: AppTextStyles.labelSmall.copyWith(
-          color: Colors.white.withValues(alpha: 0.9),
-          fontSize: 11,
-          letterSpacing: 0.3,
-        ),
-      ),
     );
   }
 }

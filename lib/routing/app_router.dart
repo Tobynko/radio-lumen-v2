@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:radio_lumen_v2/features/archive/archive_player_screen.dart';
 import 'package:radio_lumen_v2/features/archive/archive_screen.dart';
 import 'package:radio_lumen_v2/features/live_player/live_player_screen.dart';
 import 'package:radio_lumen_v2/features/main_shell.dart';
 import 'package:radio_lumen_v2/features/prayers/prayers_screen.dart';
 import 'package:radio_lumen_v2/features/schedule/schedule_screen.dart';
+
+import 'package:radio_lumen_v2/features/schedule/program_detail_screen.dart';
+import 'package:radio_lumen_v2/features/schedule/models/schedule_item.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorProgramKey = GlobalKey<NavigatorState>(
@@ -24,6 +28,22 @@ final appRouter = GoRouter(
   initialLocation: '/live',
   navigatorKey: _rootNavigatorKey,
   routes: [
+    GoRoute(
+      path: '/program-detail',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final item = state.extra as ScheduleItem;
+        return ProgramDetailScreen(item: item);
+      },
+    ),
+    GoRoute(
+      path: '/archive-player',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final item = state.extra as ScheduleItem;
+        return ArchivePlayerScreen(item: item);
+      },
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return MainShell(navigationShell: navigationShell);

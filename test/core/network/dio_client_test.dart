@@ -7,17 +7,19 @@ void main() {
     test('fetchScheduleData returns a Map on success', () async {
       // Arrange: create a Dio instance with an interceptor to mock responses
       final mockDio = Dio();
-      mockDio.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          return handler.resolve(
-            Response(
-              requestOptions: options,
-              data: {'status': 'success', 'schedule': []},
-              statusCode: 200,
-            ),
-          );
-        },
-      ));
+      mockDio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            return handler.resolve(
+              Response(
+                requestOptions: options,
+                data: {'status': 'success', 'schedule': []},
+                statusCode: 200,
+              ),
+            );
+          },
+        ),
+      );
 
       final dioClient = DioClient(dioOverride: mockDio);
 
@@ -32,19 +34,21 @@ void main() {
     test('fetchPlaylistData returns a List on success', () async {
       // Arrange
       final mockDio = Dio();
-      mockDio.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          return handler.resolve(
-            Response(
-              requestOptions: options,
-              data: [
-                {'id': 1, 'title': 'Test Song'}
-              ],
-              statusCode: 200,
-            ),
-          );
-        },
-      ));
+      mockDio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            return handler.resolve(
+              Response(
+                requestOptions: options,
+                data: [
+                  {'id': 1, 'title': 'Test Song'},
+                ],
+                statusCode: 200,
+              ),
+            );
+          },
+        ),
+      );
 
       final dioClient = DioClient(dioOverride: mockDio);
 
@@ -60,17 +64,19 @@ void main() {
     test('fetchScheduleData throws Exception on network error', () async {
       // Arrange
       final mockDio = Dio();
-      mockDio.interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          return handler.reject(
-            DioException(
-              requestOptions: options,
-              message: 'Connection failed',
-              type: DioExceptionType.connectionError,
-            ),
-          );
-        },
-      ));
+      mockDio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            return handler.reject(
+              DioException(
+                requestOptions: options,
+                message: 'Connection failed',
+                type: DioExceptionType.connectionError,
+              ),
+            );
+          },
+        ),
+      );
 
       final dioClient = DioClient(dioOverride: mockDio);
 

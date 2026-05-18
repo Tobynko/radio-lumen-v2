@@ -26,7 +26,7 @@
 - [x] Implement play/pause controls, volume sliders, and live broadcast status
 - [x] Display current song/show metadata (Title, Artist, Show Name)
 - [x] Ensure the UI reacts to the Riverpod audio state seamlessly
-- [ ] **Program Detail Screen:** Display full details of a selected show/episode _(requires Schedule models from Janka)_
+- [x] **Program Detail Screen:** Display full details of a selected show/episode _(requires Schedule models from Janka)_
 
 ---
 
