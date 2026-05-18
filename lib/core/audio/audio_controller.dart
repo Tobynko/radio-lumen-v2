@@ -1,19 +1,23 @@
+import 'dart:async';
 import 'package:audio_service/audio_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'audio_handler.dart';
 import 'audio_handler_provider.dart';
 import 'audio_state.dart';
 import '../network/audio_endpoints.dart';
+import '../settings/settings_provider.dart';
 
 part 'audio_controller.g.dart';
 
 @riverpod
 class AudioController extends _$AudioController {
   late AudioHandler _handler;
+  late SettingsProvider _settings;
 
   @override
   AudioState build() {
     _handler = ref.watch(audioHandlerProviderProvider);
+    _settings = ref.watch(settingsProviderProvider);
     
     // Listen to handler state changes
     _handler.playbackState.listen((playbackState) {
@@ -39,7 +43,25 @@ class AudioController extends _$AudioController {
       }
     });
 
-    return const AudioState();
+    // Load initial settings
+    final volume = _settings.getVolume();
+    final quality = _settings.getQuality();
+    final autoPlay = _settings.getAutoPlay();
+
+    // Set initial volume on handler
+    if (_handler is LumenAudioHandler) {
+      (_handler as LumenAudioHandler).setVolume(volume);
+    }
+
+    if (autoPlay) {
+      scheduleMicrotask(() => playLive());
+    }
+
+    return AudioState(
+      volume: volume,
+      quality: quality,
+      autoPlay: autoPlay,
+    );
   }
 
   Future<void> playLive() async {
@@ -74,14 +96,22 @@ class AudioController extends _$AudioController {
       await (_handler as LumenAudioHandler).setVolume(volume);
     }
     state = state.copyWith(volume: volume);
+    await _settings.setVolume(volume);
   }
 
   Future<void> setQuality(int quality) async {
     if (state.quality == quality) return;
     
     state = state.copyWith(quality: quality);
+    await _settings.setQuality(quality);
+    
     if (state.status == PlaybackStatus.playing) {
       await playLive(); // Restart with new quality
     }
+  }
+
+  Future<void> setAutoPlay(bool autoPlay) async {
+    state = state.copyWith(autoPlay: autoPlay);
+    await _settings.setAutoPlay(autoPlay);
   }
 }

@@ -10,6 +10,7 @@ abstract class AudioState with _$AudioState {
     @Default(PlaybackStatus.initial) PlaybackStatus status,
     @Default(0.5) double volume,
     @Default(128) int quality,
+    @Default(false) bool autoPlay,
     String? currentTitle,
     String? currentArtist,
     String? errorMessage,
