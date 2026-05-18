@@ -15,8 +15,9 @@ abstract class ScheduleItem with _$ScheduleItem {
     required DateTime endTime,
     Show? show,
     @Default([]) List<String> tags,
+    String? playUrl,
   }) = _ScheduleItem;
 
-  factory ScheduleItem.fromJson(Map<String, dynamic> json) => _$ScheduleItemFromJson(json);
+  factory ScheduleItem.fromJson(Map<String, dynamic> json) =>
+      _$ScheduleItemFromJson(json);
 }
-

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ScheduleItem {
 
- String get id; String get title; String get description; DateTime get startTime; DateTime get endTime; Show? get show; List<String> get tags;
+ String get id; String get title; String get description; DateTime get startTime; DateTime get endTime; Show? get show; List<String> get tags; String? get playUrl;
 /// Create a copy of ScheduleItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ScheduleItemCopyWith<ScheduleItem> get copyWith => _$ScheduleItemCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScheduleItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.show, show) || other.show == show)&&const DeepCollectionEquality().equals(other.tags, tags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScheduleItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.show, show) || other.show == show)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.playUrl, playUrl) || other.playUrl == playUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,startTime,endTime,show,const DeepCollectionEquality().hash(tags));
+int get hashCode => Object.hash(runtimeType,id,title,description,startTime,endTime,show,const DeepCollectionEquality().hash(tags),playUrl);
 
 @override
 String toString() {
-  return 'ScheduleItem(id: $id, title: $title, description: $description, startTime: $startTime, endTime: $endTime, show: $show, tags: $tags)';
+  return 'ScheduleItem(id: $id, title: $title, description: $description, startTime: $startTime, endTime: $endTime, show: $show, tags: $tags, playUrl: $playUrl)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ScheduleItemCopyWith<$Res>  {
   factory $ScheduleItemCopyWith(ScheduleItem value, $Res Function(ScheduleItem) _then) = _$ScheduleItemCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String description, DateTime startTime, DateTime endTime, Show? show, List<String> tags
+ String id, String title, String description, DateTime startTime, DateTime endTime, Show? show, List<String> tags, String? playUrl
 });
 
 
@@ -65,7 +65,7 @@ class _$ScheduleItemCopyWithImpl<$Res>
 
 /// Create a copy of ScheduleItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startTime = null,Object? endTime = null,Object? show = freezed,Object? tags = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startTime = null,Object? endTime = null,Object? show = freezed,Object? tags = null,Object? playUrl = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as String,startTime: null == startTime ? _self.startTime : startTime // ignore: 
 as DateTime,endTime: null == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
 as DateTime,show: freezed == show ? _self.show : show // ignore: cast_nullable_to_non_nullable
 as Show?,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,playUrl: freezed == playUrl ? _self.playUrl : playUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of ScheduleItem
@@ -171,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startTime,  DateTime endTime,  Show? show,  List<String> tags)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startTime,  DateTime endTime,  Show? show,  List<String> tags,  String? playUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ScheduleItem() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.startTime,_that.endTime,_that.show,_that.tags);case _:
+return $default(_that.id,_that.title,_that.description,_that.startTime,_that.endTime,_that.show,_that.tags,_that.playUrl);case _:
   return orElse();
 
 }
@@ -192,10 +193,10 @@ return $default(_that.id,_that.title,_that.description,_that.startTime,_that.end
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startTime,  DateTime endTime,  Show? show,  List<String> tags)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String description,  DateTime startTime,  DateTime endTime,  Show? show,  List<String> tags,  String? playUrl)  $default,) {final _that = this;
 switch (_that) {
 case _ScheduleItem():
-return $default(_that.id,_that.title,_that.description,_that.startTime,_that.endTime,_that.show,_that.tags);case _:
+return $default(_that.id,_that.title,_that.description,_that.startTime,_that.endTime,_that.show,_that.tags,_that.playUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -212,10 +213,10 @@ return $default(_that.id,_that.title,_that.description,_that.startTime,_that.end
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String description,  DateTime startTime,  DateTime endTime,  Show? show,  List<String> tags)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String description,  DateTime startTime,  DateTime endTime,  Show? show,  List<String> tags,  String? playUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _ScheduleItem() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.startTime,_that.endTime,_that.show,_that.tags);case _:
+return $default(_that.id,_that.title,_that.description,_that.startTime,_that.endTime,_that.show,_that.tags,_that.playUrl);case _:
   return null;
 
 }
@@ -227,7 +228,7 @@ return $default(_that.id,_that.title,_that.description,_that.startTime,_that.end
 @JsonSerializable()
 
 class _ScheduleItem implements ScheduleItem {
-  const _ScheduleItem({required this.id, required this.title, required this.description, required this.startTime, required this.endTime, this.show, final  List<String> tags = const []}): _tags = tags;
+  const _ScheduleItem({required this.id, required this.title, required this.description, required this.startTime, required this.endTime, this.show, final  List<String> tags = const [], this.playUrl}): _tags = tags;
   factory _ScheduleItem.fromJson(Map<String, dynamic> json) => _$ScheduleItemFromJson(json);
 
 @override final  String id;
@@ -243,6 +244,7 @@ class _ScheduleItem implements ScheduleItem {
   return EqualUnmodifiableListView(_tags);
 }
 
+@override final  String? playUrl;
 
 /// Create a copy of ScheduleItem
 /// with the given fields replaced by the non-null parameter values.
@@ -257,16 +259,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScheduleItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.show, show) || other.show == show)&&const DeepCollectionEquality().equals(other._tags, _tags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScheduleItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.show, show) || other.show == show)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.playUrl, playUrl) || other.playUrl == playUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,startTime,endTime,show,const DeepCollectionEquality().hash(_tags));
+int get hashCode => Object.hash(runtimeType,id,title,description,startTime,endTime,show,const DeepCollectionEquality().hash(_tags),playUrl);
 
 @override
 String toString() {
-  return 'ScheduleItem(id: $id, title: $title, description: $description, startTime: $startTime, endTime: $endTime, show: $show, tags: $tags)';
+  return 'ScheduleItem(id: $id, title: $title, description: $description, startTime: $startTime, endTime: $endTime, show: $show, tags: $tags, playUrl: $playUrl)';
 }
 
 
@@ -277,7 +279,7 @@ abstract mixin class _$ScheduleItemCopyWith<$Res> implements $ScheduleItemCopyWi
   factory _$ScheduleItemCopyWith(_ScheduleItem value, $Res Function(_ScheduleItem) _then) = __$ScheduleItemCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String description, DateTime startTime, DateTime endTime, Show? show, List<String> tags
+ String id, String title, String description, DateTime startTime, DateTime endTime, Show? show, List<String> tags, String? playUrl
 });
 
 
@@ -294,7 +296,7 @@ class __$ScheduleItemCopyWithImpl<$Res>
 
 /// Create a copy of ScheduleItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startTime = null,Object? endTime = null,Object? show = freezed,Object? tags = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? startTime = null,Object? endTime = null,Object? show = freezed,Object? tags = null,Object? playUrl = freezed,}) {
   return _then(_ScheduleItem(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -303,7 +305,8 @@ as String,startTime: null == startTime ? _self.startTime : startTime // ignore: 
 as DateTime,endTime: null == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
 as DateTime,show: freezed == show ? _self.show : show // ignore: cast_nullable_to_non_nullable
 as Show?,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,playUrl: freezed == playUrl ? _self.playUrl : playUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

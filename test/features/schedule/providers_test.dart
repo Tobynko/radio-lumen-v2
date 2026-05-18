@@ -15,7 +15,8 @@ class FakeDioClient implements DioClient {
           'title': 'Test Show',
           'description': 'A show for testing',
           'start_time': '2026-05-17T10:00:00.000Z',
-          'endTime': '2026-05-17T11:00:00.000Z', // Note: JSON keys might be snake_case depending on configuration. Our previous test expected start_time, let's keep it consistent.
+          'endTime':
+              '2026-05-17T11:00:00.000Z', // Note: JSON keys might be snake_case depending on configuration. Our previous test expected start_time, let's keep it consistent.
           // In previous models_test we saw startTime and endTime were mapped, but start_time was used for JSON.
           // Let's provide both in snake_case to be safe as per build.yaml field_rename: snake.
           'end_time': '2026-05-17T11:00:00.000Z',
@@ -23,10 +24,10 @@ class FakeDioClient implements DioClient {
             'id': 'show_1',
             'title': 'Show 1',
             'description': 'Show 1 description',
-            'host': 'Test Host'
-          }
-        }
-      ]
+            'host': 'Test Host',
+          },
+        },
+      ],
     };
   }
 
@@ -39,9 +40,7 @@ class FakeDioClient implements DioClient {
 void main() {
   test('scheduleProvider fetches and parses schedule data correctly', () async {
     final container = ProviderContainer(
-      overrides: [
-        dioClientProvider.overrideWithValue(FakeDioClient()),
-      ],
+      overrides: [dioClientProvider.overrideWithValue(FakeDioClient())],
     );
 
     // Ensure we dispose the container after the test
@@ -52,7 +51,7 @@ void main() {
 
     expect(scheduleItems, isA<List<ScheduleItem>>());
     expect(scheduleItems.length, 1);
-    
+
     final item = scheduleItems.first;
     expect(item.id, 'test_item_1');
     expect(item.title, 'Test Show');

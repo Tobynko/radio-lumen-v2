@@ -19,6 +19,7 @@ _ScheduleItem _$ScheduleItemFromJson(Map<String, dynamic> json) =>
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
           const [],
+      playUrl: json['play_url'] as String?,
     );
 
 Map<String, dynamic> _$ScheduleItemToJson(_ScheduleItem instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$ScheduleItemToJson(_ScheduleItem instance) =>
       'end_time': instance.endTime.toIso8601String(),
       'show': instance.show,
       'tags': instance.tags,
+      'play_url': instance.playUrl,
     };

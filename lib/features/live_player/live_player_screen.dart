@@ -17,9 +17,7 @@ class LivePlayerScreen extends StatelessWidget {
               return SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                  ),
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
@@ -28,8 +26,10 @@ class LivePlayerScreen extends StatelessWidget {
                         const SizedBox(height: 40),
                         // Logo Section
                         Center(
-                          child:
-                              Image.asset('assets/logos/logo.png', height: 180),
+                          child: Image.asset(
+                            'assets/logos/logo.png',
+                            height: 180,
+                          ),
                         ),
                         const SizedBox(height: 40),
                         // Quick Access Player Card

@@ -18,13 +18,14 @@ class AudioController extends _$AudioController {
   AudioState build() {
     _handler = ref.watch(audioHandlerProviderProvider);
     _settings = ref.watch(settingsProviderProvider);
-    
+
     // Listen to handler state changes
     _handler.playbackState.listen((playbackState) {
       final isPlaying = playbackState.playing;
       final processingState = playbackState.processingState;
 
-      if (processingState == AudioProcessingState.loading || processingState == AudioProcessingState.buffering) {
+      if (processingState == AudioProcessingState.loading ||
+          processingState == AudioProcessingState.buffering) {
         state = state.copyWith(status: PlaybackStatus.loading);
       } else if (isPlaying) {
         state = state.copyWith(status: PlaybackStatus.playing);
@@ -57,25 +58,24 @@ class AudioController extends _$AudioController {
       scheduleMicrotask(() => playLive());
     }
 
-    return AudioState(
-      volume: volume,
-      quality: quality,
-      autoPlay: autoPlay,
-    );
+    return AudioState(volume: volume, quality: quality, autoPlay: autoPlay);
   }
 
   Future<void> playLive() async {
     try {
       state = state.copyWith(status: PlaybackStatus.loading);
       final url = AudioEndpoints.getUrl(state.quality);
-      
+
       if (_handler is LumenAudioHandler) {
         await (_handler as LumenAudioHandler).setUrl(url);
       }
-      
+
       await _handler.play();
     } catch (e) {
-      state = state.copyWith(status: PlaybackStatus.error, errorMessage: e.toString());
+      state = state.copyWith(
+        status: PlaybackStatus.error,
+        errorMessage: e.toString(),
+      );
     }
   }
 
@@ -101,10 +101,10 @@ class AudioController extends _$AudioController {
 
   Future<void> setQuality(int quality) async {
     if (state.quality == quality) return;
-    
+
     state = state.copyWith(quality: quality);
     await _settings.setQuality(quality);
-    
+
     if (state.status == PlaybackStatus.playing) {
       await playLive(); // Restart with new quality
     }

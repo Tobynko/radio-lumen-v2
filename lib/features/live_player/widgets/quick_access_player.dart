@@ -214,13 +214,13 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                   final shareText = artist.isNotEmpty
                       ? 'Práve počúvam $title od $artist na Rádiu LUMEN! 🎧 https://www.lumen.sk'
                       : 'Práve počúvam $title na Rádiu LUMEN! 🎧 https://www.lumen.sk';
-                  
+
                   final box = context.findRenderObject() as RenderBox?;
                   SharePlus.instance.share(
                     ShareParams(
                       text: shareText,
-                      sharePositionOrigin: box != null 
-                          ? box.localToGlobal(Offset.zero) & box.size 
+                      sharePositionOrigin: box != null
+                          ? box.localToGlobal(Offset.zero) & box.size
                           : null,
                     ),
                   );
@@ -259,7 +259,9 @@ class _QualityOption extends StatelessWidget {
               : Colors.white.withAlpha(13),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? AppColors.accentGold : Colors.white.withAlpha(51),
+            color: isSelected
+                ? AppColors.accentGold
+                : Colors.white.withAlpha(51),
             width: 1,
           ),
         ),
@@ -285,7 +287,8 @@ class _QualityOption extends StatelessWidget {
                 ],
               ),
             ),
-            if (isSelected) const Icon(Icons.check_circle, color: AppColors.accentGold),
+            if (isSelected)
+              const Icon(Icons.check_circle, color: AppColors.accentGold),
           ],
         ),
       ),
