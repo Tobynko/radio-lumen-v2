@@ -18,7 +18,7 @@
 1. [x] Initialize `just_audio` for live online streaming
 2. [x] Configure `audio_service` and native platform files (`AndroidManifest.xml`, `Info.plist` background modes) to handle background audio and lock screen controls
 3. [x] Create `@riverpod` providers to manage audio state (playing, paused, buffering, metadata)
-4. [ ] Implement `shared_preferences` to save user audio settings (e.g., auto-play, volume)
+4. [x] Implement `shared_preferences` to save user audio settings (e.g., auto-play, volume)
 
 ### User Interface
 
@@ -42,5 +42,5 @@
 ### User Interface
 
 - [x] **Schedule Screen:** Build the UI for program schedule, playlists, and show listings
-- [x] Implement UI logic to filter or group the schedule by day 
+- [x] Implement UI logic to filter or group the schedule by day
 - [x] Display content tags (e.g., liturgy, calm music) on schedule items
