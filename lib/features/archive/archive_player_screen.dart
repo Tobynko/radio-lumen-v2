@@ -142,6 +142,7 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                 style: AppTextStyles.titleLarge.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 2,
@@ -164,6 +165,7 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                 style: AppTextStyles.bodyMedium.copyWith(
                   color: AppColors.accentGold,
                   fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
               ),

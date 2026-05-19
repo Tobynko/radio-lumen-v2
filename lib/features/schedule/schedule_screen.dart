@@ -286,7 +286,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                     Text(
                       item.description,
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: Colors.white.withValues(alpha: 0.85),
+                        color: Colors.white.withValues(alpha: 0.6),
                         height: 1.3,
                       ),
                       maxLines: 2,

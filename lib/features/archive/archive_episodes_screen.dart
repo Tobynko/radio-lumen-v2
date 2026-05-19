@@ -107,7 +107,7 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                                 episode.description,
                                 style: AppTextStyles.bodyMedium.copyWith(
                                   color: Colors.white.withAlpha(153),
-                                  fontSize: 13,
+                                  fontSize: 14,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -116,10 +116,16 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      const Icon(
-                        Icons.play_circle_outline,
+                      IconButton(
+                        icon: const Icon(Icons.play_circle_fill),
                         color: AppColors.accentGold,
-                        size: 32,
+                        iconSize: 36,
+                        onPressed: () {
+                          context.push(
+                            '/archive-player',
+                            extra: episode.toScheduleItem(),
+                          );
+                        },
                       ),
                     ],
                   ),
