@@ -114,7 +114,7 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
     // For simplicity, we just use the global play state.
     final isPlaying = audioState.status == PlaybackStatus.playing;
     final isLoading = audioState.status == PlaybackStatus.loading;
-    final dateStr = DateFormat('dd. MM. yyyy - HH:mm').format(item.startTime);
+    final dateStr = DateFormat('d.M.yy - HH:mm').format(item.startTime);
 
     return Container(
       width: double.infinity,
@@ -153,7 +153,7 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                   item.show!.host!,
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: Colors.white.withAlpha(178),
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -253,12 +253,12 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
           builder: (context, positionSnapshot) {
             final position = positionSnapshot.data ?? Duration.zero;
 
-            final safeDuration =
-                duration.inMilliseconds > 0
-                    ? duration
-                    : const Duration(seconds: 1);
-            final safePosition =
-                position > safeDuration ? safeDuration : position;
+            final safeDuration = duration.inMilliseconds > 0
+                ? duration
+                : const Duration(seconds: 1);
+            final safePosition = position > safeDuration
+                ? safeDuration
+                : position;
 
             return Column(
               children: [
@@ -312,7 +312,9 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
                       ),
                       Text(
                         _formatDuration(
-                          duration.inMilliseconds > 0 ? duration : Duration.zero,
+                          duration.inMilliseconds > 0
+                              ? duration
+                              : Duration.zero,
                         ),
                         style: AppTextStyles.labelSmall.copyWith(
                           color: Colors.white.withAlpha(178),

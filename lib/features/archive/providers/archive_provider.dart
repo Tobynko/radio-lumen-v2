@@ -32,11 +32,12 @@ Future<List<ArchiveProgram>> archivePrograms(Ref ref) async {
     if (audioUrl.isEmpty) continue;
 
     final pubDate = _parseRssDate(pubDateStr);
+    final title = _normalizeTitle(originalTitle);
     final programName = _normalizeTitle(originalTitle);
 
     episodes.add(
       ArchiveEpisode(
-        title: originalTitle,
+        title: title,
         originalTitle: originalTitle,
         pubDate: pubDate,
         description: description.trim(),

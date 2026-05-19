@@ -46,7 +46,7 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                 ),
             itemBuilder: (context, index) {
               final episode = program.episodes[index];
-              final dateStr = DateFormat('dd. MM. yyyy').format(episode.pubDate);
+              final dateStr = DateFormat('d.M.yy').format(episode.pubDate);
               final timeStr = DateFormat('HH:mm').format(episode.pubDate);
 
               return InkWell(
@@ -59,27 +59,33 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Date/Time Column
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            dateStr,
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              color: AppColors.accentGold,
-                              fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 65,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              dateStr,
+                              style: AppTextStyles.titleLarge.copyWith(
+                                color: AppColors.accentGold,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                          Text(
-                            timeStr,
-                            style: AppTextStyles.labelSmall.copyWith(
-                              color: Colors.white.withAlpha(178),
+                            Text(
+                              timeStr,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: Colors.white.withAlpha(178),
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      const SizedBox(width: 20),
+                      const SizedBox(width: 12),
                       // Episode Title
                       Expanded(
                         child: Column(
@@ -87,8 +93,9 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                           children: [
                             Text(
                               episode.title,
-                              style: AppTextStyles.bodyLarge.copyWith(
+                              style: AppTextStyles.titleLarge.copyWith(
                                 color: Colors.white,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w500,
                               ),
                               maxLines: 2,
