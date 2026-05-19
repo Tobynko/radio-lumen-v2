@@ -27,6 +27,7 @@
 - [x] Display current song/show metadata (Title, Artist, Show Name)
 - [x] Ensure the UI reacts to the Riverpod audio state seamlessly
 - [x] **Program Detail Screen:** Display full details of a selected show/episode _(requires Schedule models from Janka)_
+- [ ] **Archive Screen:** Implement archive program list and episode list from the base archive URL located in the instructions, following existing schedule/list UI patterns in this project and reusing the current audio player infrastructure for playback.
 
 ---
 

@@ -35,6 +35,11 @@ class FakeDioClient implements DioClient {
   Future<List<dynamic>> fetchPlaylistData() async {
     return [];
   }
+
+  @override
+  Future<String> fetchArchiveXml() async {
+    return '<?xml version="1.0" encoding="utf-8"?><rss version="2.0"><channel><item><title>Test 10:00 19.05.2026</title><enclosure url="test.mp3"/></item></channel></rss>';
+  }
 }
 
 void main() {

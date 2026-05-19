@@ -51,6 +51,10 @@ Use these live public targets for feature implementation. Do not hardcode them s
 
 - **Base Program URL:** `https://www.lumen.sk/aktualny-program.html`
 
+### Archive & Podcast Feed
+
+- **Base Archive URL:** `https://www.lumen.sk/podcastg.html`
+
 ## Project Structure
 
 We follow a Feature-First architecture with clear domain separation.

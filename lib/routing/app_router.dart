@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:radio_lumen_v2/features/archive/archive_episodes_screen.dart';
 import 'package:radio_lumen_v2/features/archive/archive_player_screen.dart';
 import 'package:radio_lumen_v2/features/archive/archive_screen.dart';
+import 'package:radio_lumen_v2/features/archive/models/archive_program.dart';
 import 'package:radio_lumen_v2/features/live_player/live_player_screen.dart';
 import 'package:radio_lumen_v2/features/main_shell.dart';
 import 'package:radio_lumen_v2/features/prayers/prayers_screen.dart';
@@ -73,6 +75,15 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/archiv',
               builder: (context, state) => const ArchiveScreen(),
+              routes: [
+                GoRoute(
+                  path: 'episodes',
+                  builder: (context, state) {
+                    final program = state.extra as ArchiveProgram;
+                    return ArchiveEpisodesScreen(program: program);
+                  },
+                ),
+              ],
             ),
           ],
         ),
