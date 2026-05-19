@@ -75,5 +75,26 @@
   "tagLive": "Naživo",
   "@tagLive": {
     "description": "Tag label for live broadcast"
+  },
+  "archiveSearchHint": "Hľadať v archíve...",
+  "@archiveSearchHint": {
+    "description": "Hint text for archive search bar"
+  },
+  "archiveNoResults": "Nenašli sa žiadne výsledky.",
+  "@archiveNoResults": {
+    "description": "Message shown when no search results are found in archive"
+  },
+  "archiveError": "Nastala chyba pri načítavaní archívu.",
+  "@archiveError": {
+    "description": "Error message when archive fails to load"
+  },
+  "archiveEpisodesCount": "{count, plural, one{1 epizóda} few{{count} epizódy} other{{count} epizód}}",
+  "@archiveEpisodesCount": {
+    "description": "Pluralized count of episodes",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

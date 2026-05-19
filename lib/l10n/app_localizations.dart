@@ -207,6 +207,30 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Naživo'**
   String get tagLive;
+
+  /// Hint text for archive search bar
+  ///
+  /// In sk, this message translates to:
+  /// **'Hľadať v archíve...'**
+  String get archiveSearchHint;
+
+  /// Message shown when no search results are found in archive
+  ///
+  /// In sk, this message translates to:
+  /// **'Nenašli sa žiadne výsledky.'**
+  String get archiveNoResults;
+
+  /// Error message when archive fails to load
+  ///
+  /// In sk, this message translates to:
+  /// **'Nastala chyba pri načítavaní archívu.'**
+  String get archiveError;
+
+  /// Pluralized count of episodes
+  ///
+  /// In sk, this message translates to:
+  /// **'{count, plural, one{1 epizóda} few{{count} epizódy} other{{count} epizód}}'**
+  String archiveEpisodesCount(int count);
 }
 
 class _AppLocalizationsDelegate

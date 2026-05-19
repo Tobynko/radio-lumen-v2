@@ -6,6 +6,7 @@ import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
 import 'package:radio_lumen_v2/features/archive/providers/archive_provider.dart';
+import 'package:radio_lumen_v2/features/archive/widgets/archive_search_bar.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class ArchiveScreen extends ConsumerWidget {
@@ -14,7 +15,7 @@ class ArchiveScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final archiveAsync = ref.watch(archiveProgramsProvider);
+    final archiveAsync = ref.watch(filteredArchiveProgramsProvider);
 
     return Scaffold(
       backgroundColor: AppColors.backgroundMain,
@@ -23,33 +24,28 @@ class ArchiveScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-                /*child: Text(
-                  l10n.navArchiv,
-                  style: AppTextStyles.titleLarge.copyWith(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),*/
+              const Padding(
+                padding: EdgeInsets.fromLTRB(20, 16, 20, 8),
+                child: ArchiveSearchBar(),
               ),
               Expanded(
                 child: archiveAsync.when(
                   data: (programs) => _buildProgramList(context, programs),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.accentGold,
-                    ),
-                  ),
-                  error: (error, stackTrace) => Center(
-                    child: Text(
-                      'Nastala chyba pri načítavaní archívu.',
-                      style: AppTextStyles.bodyLarge.copyWith(
-                        color: Colors.white,
+                  loading:
+                      () => const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.accentGold,
+                        ),
                       ),
-                    ),
-                  ),
+                  error:
+                      (error, stackTrace) => Center(
+                        child: Text(
+                          l10n.archiveError,
+                          style: AppTextStyles.bodyLarge.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                 ),
               ),
             ],
@@ -63,11 +59,13 @@ class ArchiveScreen extends ConsumerWidget {
     BuildContext context,
     List<dynamic> programs, // Using dynamic to avoid import issues for now
   ) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (programs.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
-          'Archív je prázdny.',
-          style: TextStyle(color: Colors.white70),
+          l10n.archiveNoResults,
+          style: const TextStyle(color: Colors.white70),
         ),
       );
     }
@@ -98,7 +96,7 @@ class ArchiveScreen extends ConsumerWidget {
               ),
             ),
             subtitle: Text(
-              '${program.episodes.length} epizód',
+              l10n.archiveEpisodesCount(program.episodes.length),
               style: AppTextStyles.bodyMedium.copyWith(
                 color: Colors.white.withAlpha(153),
               ),

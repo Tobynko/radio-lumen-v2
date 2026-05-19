@@ -1,6 +1,7 @@
 // Path: lib/features/archive/providers/archive_provider.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:radio_lumen_v2/core/network/dio_provider.dart';
+import 'package:radio_lumen_v2/core/utils/string_utils.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_episode.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_program.dart';
 import 'package:xml/xml.dart';
@@ -63,6 +64,38 @@ Future<List<ArchiveProgram>> archivePrograms(Ref ref) async {
   programs.sort((a, b) => a.name.compareTo(b.name));
 
   return programs;
+}
+
+@riverpod
+class ArchiveSearchQuery extends _$ArchiveSearchQuery {
+  @override
+  String build() => '';
+
+  void setQuery(String query) {
+    state = query;
+  }
+}
+
+@riverpod
+Future<List<ArchiveProgram>> filteredArchivePrograms(Ref ref) async {
+  final programs = await ref.watch(archiveProgramsProvider.future);
+  final query = StringUtils.normalizeForSearch(ref.watch(archiveSearchQueryProvider));
+
+  if (query.isEmpty) return programs;
+
+  return programs.where((program) {
+    // Search in program name
+    if (StringUtils.normalizeForSearch(program.name).contains(query)) {
+      return true;
+    }
+
+    // Search in episode titles or descriptions
+    return program.episodes.any(
+      (episode) =>
+          StringUtils.normalizeForSearch(episode.title).contains(query) ||
+          StringUtils.normalizeForSearch(episode.description).contains(query),
+    );
+  }).toList();
 }
 
 DateTime _parseRssDate(String dateStr) {
