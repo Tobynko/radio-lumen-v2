@@ -173,6 +173,19 @@ class DioClient {
     }
   }
 
+  /// Fetches the archive RSS feed.
+  Future<String> fetchArchiveXml() async {
+    try {
+      final response = await _dio.get<String>(
+        'https://www.lumen.sk/podcastg.html',
+        options: Options(responseType: ResponseType.plain),
+      );
+      return response.data ?? '';
+    } catch (e) {
+      throw Exception('Failed to fetch archive: $e');
+    }
+  }
+
   Exception _handleError(DioException e) {
     // Basic placeholder error handling mapping
     return Exception('Network error: ${e.message ?? 'Unknown error occurred'}');

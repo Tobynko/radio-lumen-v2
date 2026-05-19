@@ -64,4 +64,25 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get tagLive => 'Naživo';
+
+  @override
+  String get archiveSearchHint => 'Hľadať v archíve...';
+
+  @override
+  String get archiveNoResults => 'Nenašli sa žiadne výsledky.';
+
+  @override
+  String get archiveError => 'Nastala chyba pri načítavaní archívu.';
+
+  @override
+  String archiveEpisodesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count epizód',
+      few: '$count epizódy',
+      one: '1 epizóda',
+    );
+    return '$_temp0';
+  }
 }
