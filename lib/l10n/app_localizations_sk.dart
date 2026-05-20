@@ -100,4 +100,7 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get newsNoItems => 'Žiadne aktuality v tejto kategórii.';
+
+  @override
+  String get newsSearchHint => 'Hľadať v aktualitách...';
 }

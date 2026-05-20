@@ -116,5 +116,9 @@
   "newsNoItems": "Žiadne aktuality v tejto kategórii.",
   "@newsNoItems": {
     "description": "Message shown when no news items are available"
+  },
+  "newsSearchHint": "Hľadať v aktualitách...",
+  "@newsSearchHint": {
+    "description": "Hint text for news search bar"
   }
 }

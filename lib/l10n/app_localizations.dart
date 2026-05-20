@@ -261,6 +261,12 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Žiadne aktuality v tejto kategórii.'**
   String get newsNoItems;
+
+  /// Hint text for news search bar
+  ///
+  /// In sk, this message translates to:
+  /// **'Hľadať v aktualitách...'**
+  String get newsSearchHint;
 }
 
 class _AppLocalizationsDelegate

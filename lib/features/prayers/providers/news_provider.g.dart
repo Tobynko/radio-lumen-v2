@@ -60,6 +60,58 @@ abstract class _$NewsFilter extends $Notifier<String> {
   }
 }
 
+@ProviderFor(NewsSearchQuery)
+final newsSearchQueryProvider = NewsSearchQueryProvider._();
+
+final class NewsSearchQueryProvider
+    extends $NotifierProvider<NewsSearchQuery, String> {
+  NewsSearchQueryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'newsSearchQueryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$newsSearchQueryHash();
+
+  @$internal
+  @override
+  NewsSearchQuery create() => NewsSearchQuery();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$newsSearchQueryHash() => r'aa4be1c5f3b88d1574b159b40fee5cd48d07bae8';
+
+abstract class _$NewsSearchQuery extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(news)
 final newsProvider = NewsProvider._();
 
@@ -136,4 +188,4 @@ final class FilteredNewsProvider
   }
 }
 
-String _$filteredNewsHash() => r'd45c85bb5a2631b4f12971ba7a75829fc86d0f8f';
+String _$filteredNewsHash() => r'3a7f51dcb210e29c47801dcbcd25da4dd7622794';

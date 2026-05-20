@@ -58,7 +58,7 @@ final class NewsContentProvider
   }
 }
 
-String _$newsContentHash() => r'1917164c3587104630595ddac060f8a3f041fe98';
+String _$newsContentHash() => r'b326565a57bd0fbba627c025b031d33d843226d3';
 
 final class NewsContentFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<String>, String> {

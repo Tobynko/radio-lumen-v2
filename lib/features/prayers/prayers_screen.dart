@@ -6,6 +6,7 @@ import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
 import 'package:radio_lumen_v2/features/prayers/models/news_item.dart';
 import 'package:radio_lumen_v2/features/prayers/providers/news_provider.dart';
+import 'package:radio_lumen_v2/features/prayers/widgets/news_search_bar.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
@@ -58,15 +59,9 @@ class NewsScreen extends ConsumerWidget {
   }
 
   Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-      child: Center(
-        child: Image.asset(
-          'assets/logos/logo.png',
-          height: 100,
-          fit: BoxFit.contain,
-        ),
-      ),
+    return const Padding(
+      padding: EdgeInsets.fromLTRB(20, 16, 20, 8),
+      child: NewsSearchBar(),
     );
   }
 

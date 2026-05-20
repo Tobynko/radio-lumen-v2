@@ -17,6 +17,16 @@ class NewsFilter extends _$NewsFilter {
 }
 
 @riverpod
+class NewsSearchQuery extends _$NewsSearchQuery {
+  @override
+  String build() => '';
+
+  void setQuery(String query) {
+    state = query;
+  }
+}
+
+@riverpod
 Future<List<NewsItem>> news(Ref ref) async {
   final dio = ref.watch(dioClientProvider);
   final currentFilter = ref.watch(newsFilterProvider);
@@ -98,9 +108,19 @@ Future<List<NewsItem>> news(Ref ref) async {
   }
 }
 
-// We no longer need filteredNews because we fetch by category now
-// but to keep existing code working, we can just return the same
 @riverpod
 Future<List<NewsItem>> filteredNews(Ref ref) async {
-  return ref.watch(newsProvider.future);
+  final news = await ref.watch(newsProvider.future);
+  final query = ref.watch(newsSearchQueryProvider).toLowerCase();
+
+  if (query.isEmpty) return news;
+
+  return news
+      .where(
+        (item) =>
+            item.title.toLowerCase().contains(query) ||
+            item.author.toLowerCase().contains(query) ||
+            (item.content?.toLowerCase().contains(query) ?? false),
+      )
+      .toList();
 }
