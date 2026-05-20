@@ -49,7 +49,7 @@ Use these live public targets for feature implementation. Do not hardcode them s
 
 ### Schedule & Content (Web Scraping Target)
 
-- **Base Program URL:** `https://www.lumen.sk/aktualny-program.html`
+- Base Program URL: `https://www.lumen.sk/aktualny-program.html`
 
 ### Archive & Podcast Feed
 
@@ -57,10 +57,10 @@ Use these live public targets for feature implementation. Do not hardcode them s
 
 ### News / Aktuality (Web Scraping Target)
 
-- **All news:** https://www.lumen.sk/aktuality.html%60
-Z nášho vysielania: https://www.lumen.sk/aktuality/z-nasho-vysielania.html
-Novinky: https://www.lumen.sk/aktuality/novinky.html
-Spravodajstvo: `https://www.lumen.sk/aktuality/spravodajstvo.html%60%60
+- **All news:** `https://www.lumen.sk/aktuality.html%60`
+- **Z nášho vysielania:** `https://www.lumen.sk/aktuality/z-nasho-vysielania.html`
+- **Novinky:** `https://www.lumen.sk/aktuality/novinky.html`
+- **Spravodajstvo:** `https://www.lumen.sk/aktuality/spravodajstvo.html%60%60`
 
 ## Project Structure
 
