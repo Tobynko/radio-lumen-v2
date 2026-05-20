@@ -8,6 +8,7 @@
 4. [x] Initial app shell and `go_router` navigation setup (Persistent Bottom Nav)
 5. [x] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
 6. [x] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs (Overview skipped/postponed per user request)
+7. [x] Configure and generate native application icons (App Icons) for iOS and Android
 
 ---
 

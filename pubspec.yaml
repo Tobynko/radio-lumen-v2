@@ -68,6 +68,7 @@ dev_dependencies:
   json_serializable: ^6.11.2
   custom_lint: ^0.8.1
   riverpod_lint: ^3.1.0
+  flutter_launcher_icons: ^0.14.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -109,3 +110,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/launcher/icon.png"
+  image_path_ios: "assets/icons/launcher/iOS_Icon.png"
+  remove_alpha_ios: true
