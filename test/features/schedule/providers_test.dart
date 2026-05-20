@@ -7,6 +7,9 @@ import 'package:radio_lumen_v2/features/schedule/providers/schedule_provider.dar
 
 class FakeDioClient implements DioClient {
   @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+
+  @override
   Future<Map<String, dynamic>> fetchScheduleData() async {
     return {
       'data': [
