@@ -85,4 +85,19 @@ class AppLocalizationsSk extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get newsCategoryAll => 'Všetky';
+
+  @override
+  String get newsCategoryFromBroadcast => 'Z nášho vysielania';
+
+  @override
+  String get newsCategoryNews => 'Novinky';
+
+  @override
+  String get newsCategoryReporting => 'Spravodajstvo';
+
+  @override
+  String get newsNoItems => 'Žiadne aktuality v tejto kategórii.';
 }

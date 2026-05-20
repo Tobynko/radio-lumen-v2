@@ -190,4 +190,22 @@ class DioClient {
     // Basic placeholder error handling mapping
     return Exception('Network error: ${e.message ?? 'Unknown error occurred'}');
   }
+
+  Future<Response<T>> get<T>(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    void Function(int, int)? onReceiveProgress,
+  }) {
+    return _dio.get<T>(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+    );
+  }
 }

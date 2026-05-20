@@ -6,7 +6,9 @@ import 'package:radio_lumen_v2/features/archive/archive_screen.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_program.dart';
 import 'package:radio_lumen_v2/features/live_player/live_player_screen.dart';
 import 'package:radio_lumen_v2/features/main_shell.dart';
+import 'package:radio_lumen_v2/features/prayers/news_detail_screen.dart';
 import 'package:radio_lumen_v2/features/prayers/prayers_screen.dart';
+import 'package:radio_lumen_v2/features/prayers/models/news_item.dart';
 import 'package:radio_lumen_v2/features/schedule/schedule_screen.dart';
 
 import 'package:radio_lumen_v2/features/schedule/program_detail_screen.dart';
@@ -92,7 +94,17 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/aktuality',
-              builder: (context, state) => const PrayersScreen(),
+              builder: (context, state) => const NewsScreen(),
+              routes: [
+                GoRoute(
+                  path: 'detail',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) {
+                    final item = state.extra as NewsItem;
+                    return NewsDetailScreen(item: item);
+                  },
+                ),
+              ],
             ),
           ],
         ),

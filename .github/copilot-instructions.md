@@ -55,6 +55,13 @@ Use these live public targets for feature implementation. Do not hardcode them s
 
 - **Base Archive URL:** `https://www.lumen.sk/podcastg.html`
 
+### News / Aktuality (Web Scraping Target)
+
+- **All news:** https://www.lumen.sk/aktuality.html%60
+Z nášho vysielania: https://www.lumen.sk/aktuality/z-nasho-vysielania.html
+Novinky: https://www.lumen.sk/aktuality/novinky.html
+Spravodajstvo: `https://www.lumen.sk/aktuality/spravodajstvo.html%60%60
+
 ## Project Structure
 
 We follow a Feature-First architecture with clear domain separation.

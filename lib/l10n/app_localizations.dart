@@ -231,6 +231,36 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'{count, plural, one{1 epizóda} few{{count} epizódy} other{{count} epizód}}'**
   String archiveEpisodesCount(int count);
+
+  /// Category label for all news
+  ///
+  /// In sk, this message translates to:
+  /// **'Všetky'**
+  String get newsCategoryAll;
+
+  /// Category label for news from broadcast
+  ///
+  /// In sk, this message translates to:
+  /// **'Z nášho vysielania'**
+  String get newsCategoryFromBroadcast;
+
+  /// Category label for general news
+  ///
+  /// In sk, this message translates to:
+  /// **'Novinky'**
+  String get newsCategoryNews;
+
+  /// Category label for reporting news
+  ///
+  /// In sk, this message translates to:
+  /// **'Spravodajstvo'**
+  String get newsCategoryReporting;
+
+  /// Message shown when no news items are available
+  ///
+  /// In sk, this message translates to:
+  /// **'Žiadne aktuality v tejto kategórii.'**
+  String get newsNoItems;
 }
 
 class _AppLocalizationsDelegate

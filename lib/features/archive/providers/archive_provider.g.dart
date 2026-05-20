@@ -48,7 +48,7 @@ final class ArchiveProgramsProvider
   }
 }
 
-String _$archiveProgramsHash() => r'b98acd5ef5084c37672be36550fcc89eb2260f5c';
+String _$archiveProgramsHash() => r'2a4dc9362779af05887d3dc0d05710324fc20075';
 
 @ProviderFor(ArchiveSearchQuery)
 final archiveSearchQueryProvider = ArchiveSearchQueryProvider._();
@@ -143,4 +143,4 @@ final class FilteredArchiveProgramsProvider
 }
 
 String _$filteredArchiveProgramsHash() =>
-    r'52327188e4b1f5da3e6e06e03ebfac9e6356c4f0';
+    r'b6748cee899418102bb56c2eed60f17d5d5cca44';
