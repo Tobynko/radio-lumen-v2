@@ -19,7 +19,7 @@ class NewsDetailScreen extends ConsumerWidget {
     final topPadding = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundMain,
+      backgroundColor: Colors.black,
       body: LumenBackground(
         child: Stack(
           children: [
@@ -90,12 +90,13 @@ class NewsDetailScreen extends ConsumerWidget {
   Widget _buildHeaderImage(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.45,
+        height: MediaQuery.of(context).size.height * 0.30,
         width: double.infinity,
         decoration: BoxDecoration(
+          color: Colors.transparent,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: Colors.black.withValues(alpha: 0.5),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -103,32 +104,34 @@ class NewsDetailScreen extends ConsumerWidget {
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(48),
-            bottomRight: Radius.circular(48),
+            bottomLeft: Radius.circular(32),
+            bottomRight: Radius.circular(32),
           ),
           child: Stack(
             fit: StackFit.expand,
             children: [
-              item.imageUrl != null
-                  ? Image.network(
-                      item.imageUrl!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          _buildPlaceholder(),
-                    )
-                  : _buildPlaceholder(),
-              // Refined Gradient Overlay
+              if (item.imageUrl != null)
+                Image.network(
+                  item.imageUrl!,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildPlaceholder(),
+                )
+              else
+                _buildPlaceholder(),
+              
+              // Refined Gradient Overlay to Background Color
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black.withValues(alpha: 0.4),
+                      Colors.black.withValues(alpha: 0.3),
                       Colors.transparent,
                       Colors.transparent,
-                      AppColors.backgroundMain.withValues(alpha: 0.8),
-                      AppColors.backgroundMain,
+                      Colors.black.withValues(alpha: 0.6),
+                      Colors.black,
                     ],
                     stops: const [0.0, 0.2, 0.6, 0.9, 1.0],
                   ),
@@ -157,30 +160,6 @@ class NewsDetailScreen extends ConsumerWidget {
   Widget _buildMetaInfo() {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-          decoration: BoxDecoration(
-            color: AppColors.accentGold,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.accentGold.withValues(alpha: 0.3),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Text(
-            item.category.toUpperCase(),
-            style: AppTextStyles.bodyMedium.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-              letterSpacing: 1.2,
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
         Icon(
           Icons.calendar_today_outlined,
           size: 14,
@@ -227,23 +206,13 @@ class NewsDetailScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (item.author.isNotEmpty) ...[
-              Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 2,
-                    color: AppColors.accentGold,
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    item.author,
-                    style: AppTextStyles.bodyLarge.copyWith(
-                      color: AppColors.accentGold,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ],
+              Text(
+                'Autor: ${item.author}',
+                style: AppTextStyles.bodyLarge.copyWith(
+                  color: AppColors.accentGold,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
               ),
               const SizedBox(height: 32),
             ],
