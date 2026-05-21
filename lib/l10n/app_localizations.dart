@@ -267,6 +267,12 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Hľadať v aktualitách...'**
   String get newsSearchHint;
+
+  /// Message shown when there is no internet connection
+  ///
+  /// In sk, this message translates to:
+  /// **'Chýba internetové pripojenie'**
+  String get connectivityOffline;
 }
 
 class _AppLocalizationsDelegate
