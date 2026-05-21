@@ -1,11 +1,14 @@
+// Path: lib/features/main_shell.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
-class MainShell extends StatelessWidget {
+class MainShell extends ConsumerWidget {
   const MainShell({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
@@ -18,14 +21,39 @@ class MainShell extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final isOffline = ref.watch(isOfflineProvider);
 
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: navigationShell,
+      body: Stack(
+        children: [
+          navigationShell,
+          if (isOffline)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: SafeArea(
+                bottom: false,
+                child: Container(
+                  color: AppColors.error.withValues(alpha: 0.9),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    l10n.connectivityOffline,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.labelSmall.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
       bottomNavigationBar: Container(
-        //height: 85, // 100
         decoration: BoxDecoration(
           color: AppColors.primary,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
@@ -39,10 +67,9 @@ class MainShell extends StatelessWidget {
         ),
         child: SafeArea(
           child: Padding(
-            // Tento padding vytvorí bezpečný priestor nad a pod gombíkmi
             padding: const EdgeInsets.only(top: 14, bottom: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly, // spaceAround
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _NavButton(
@@ -82,14 +109,12 @@ class _NavButton extends StatelessWidget {
   const _NavButton({
     required this.label,
     required this.iconPath,
-    //required this.activeIconPath,
     required this.isActive,
     required this.onTap,
   });
 
   final String label;
   final String iconPath;
-  //final String activeIconPath;
   final bool isActive;
   final VoidCallback onTap;
 
@@ -114,14 +139,13 @@ class _NavButton extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           SvgPicture.asset(
-            //isActive ? activeIconPath : iconPath,
             iconPath,
             width: 30,
             height: 30,
             fit: BoxFit.contain,
             colorFilter: ColorFilter.mode(
               color,
-              BlendMode.srcIn, // Prefarbí vnútro SVG bez straty detailov
+              BlendMode.srcIn,
             ),
           ),
         ],

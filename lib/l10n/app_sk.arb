@@ -120,5 +120,9 @@
   "newsSearchHint": "Hľadať v aktualitách...",
   "@newsSearchHint": {
     "description": "Hint text for news search bar"
+  },
+  "connectivityOffline": "Chýba internetové pripojenie",
+  "@connectivityOffline": {
+    "description": "Message shown when there is no internet connection"
   }
 }

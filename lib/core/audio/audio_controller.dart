@@ -5,6 +5,7 @@ import 'audio_handler.dart';
 import 'audio_handler_provider.dart';
 import 'audio_state.dart';
 import '../network/audio_endpoints.dart';
+import '../network/connectivity_provider.dart';
 import '../settings/settings_provider.dart';
 
 part 'audio_controller.g.dart';
@@ -18,6 +19,17 @@ class AudioController extends _$AudioController {
   AudioState build() {
     _handler = ref.watch(audioHandlerProviderProvider);
     _settings = ref.watch(settingsProviderProvider);
+
+    // Watch connectivity status
+    ref.listen(isOfflineProvider, (previous, next) {
+      final wasOffline = previous ?? false;
+      final isNowOnline = !next;
+
+      // If we transition from offline to online AND we were supposed to be playing
+      if (wasOffline && isNowOnline && state.status != PlaybackStatus.paused) {
+        scheduleMicrotask(() => playLive());
+      }
+    });
 
     // Listen to handler state changes
     _handler.playbackState.listen((playbackState) {

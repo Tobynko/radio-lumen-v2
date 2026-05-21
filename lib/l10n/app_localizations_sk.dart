@@ -103,4 +103,7 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get newsSearchHint => 'Hľadať v aktualitách...';
+
+  @override
+  String get connectivityOffline => 'Chýba internetové pripojenie';
 }
