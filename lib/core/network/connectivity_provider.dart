@@ -10,23 +10,17 @@ Stream<List<ConnectivityResult>> connectivity(Ref ref) async* {
   final connectivity = Connectivity();
 
   // 1. Initial state
-  final initial = await connectivity.checkConnectivity();
-  print('[connectivity] INITIAL: $initial');
-  yield initial;
+  yield await connectivity.checkConnectivity();
 
+  // 2. Combine the system stream with a polling fallback
   final controller = StreamController<List<ConnectivityResult>>();
   
-  // 2. System Stream
   final subscription = connectivity.onConnectivityChanged.listen((results) {
-    print('[connectivity] SYSTEM EVENT: $results');
     controller.add(results);
   });
 
-  // 3. Robust Polling
-  final timer = Timer.periodic(const Duration(seconds: 2), (_) async {
+  final timer = Timer.periodic(const Duration(seconds: 3), (_) async {
     final current = await connectivity.checkConnectivity();
-    // Log EVERY poll to see what the OS thinks
-    print('[connectivity] POLL CHECK: $current');
     controller.add(current);
   });
 
@@ -46,11 +40,9 @@ bool isOffline(Ref ref) {
   return connectivityAsync.maybeWhen(
     data: (results) {
       if (results.isEmpty) return true;
-      // Online if any result is NOT none
-      final isReallyOnline = results.any((r) => 
+      return !results.any((r) => 
         r != ConnectivityResult.none && r != ConnectivityResult.bluetooth
       );
-      return !isReallyOnline;
     },
     orElse: () => false,
   );
