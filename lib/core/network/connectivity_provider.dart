@@ -14,7 +14,7 @@ Stream<List<ConnectivityResult>> connectivity(Ref ref) async* {
 
   // 2. Combine the system stream with a polling fallback
   final controller = StreamController<List<ConnectivityResult>>();
-  
+
   final subscription = connectivity.onConnectivityChanged.listen((results) {
     controller.add(results);
   });
@@ -36,12 +36,13 @@ Stream<List<ConnectivityResult>> connectivity(Ref ref) async* {
 @riverpod
 bool isOffline(Ref ref) {
   final connectivityAsync = ref.watch(connectivityProvider);
-  
+
   return connectivityAsync.maybeWhen(
     data: (results) {
       if (results.isEmpty) return true;
-      return !results.any((r) => 
-        r != ConnectivityResult.none && r != ConnectivityResult.bluetooth
+      return !results.any(
+        (r) =>
+            r != ConnectivityResult.none && r != ConnectivityResult.bluetooth,
       );
     },
     orElse: () => false,

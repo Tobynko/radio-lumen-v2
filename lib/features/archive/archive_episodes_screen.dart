@@ -36,14 +36,10 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             itemCount: program.episodes.length,
-            separatorBuilder:
-                (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: Divider(
-                    color: Colors.white.withAlpha(38),
-                    height: 1,
-                  ),
-                ),
+            separatorBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              child: Divider(color: Colors.white.withAlpha(38), height: 1),
+            ),
             itemBuilder: (context, index) {
               final episode = program.episodes[index];
               final dateStr = DateFormat('d.M.yy').format(episode.pubDate);

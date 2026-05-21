@@ -52,18 +52,13 @@ class _ArchiveSearchBarState extends ConsumerState<ArchiveSearchBar> {
           hintStyle: AppTextStyles.bodyLarge.copyWith(
             color: Colors.white.withAlpha(128),
           ),
-          prefixIcon: const Icon(
-            Icons.search,
-            color: Colors.white70,
-          ),
+          prefixIcon: const Icon(Icons.search, color: Colors.white70),
           suffixIcon: _controller.text.isNotEmpty
               ? IconButton(
                   icon: const Icon(Icons.clear, color: Colors.white70),
                   onPressed: () {
                     _controller.clear();
-                    ref
-                        .read(archiveSearchQueryProvider.notifier)
-                        .setQuery('');
+                    ref.read(archiveSearchQueryProvider.notifier).setQuery('');
                   },
                 )
               : null,

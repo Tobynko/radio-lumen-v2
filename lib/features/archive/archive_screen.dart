@@ -31,21 +31,19 @@ class ArchiveScreen extends ConsumerWidget {
               Expanded(
                 child: archiveAsync.when(
                   data: (programs) => _buildProgramList(context, programs),
-                  loading:
-                      () => const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.accentGold,
-                        ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.accentGold,
+                    ),
+                  ),
+                  error: (error, stackTrace) => Center(
+                    child: Text(
+                      l10n.archiveError,
+                      style: AppTextStyles.bodyLarge.copyWith(
+                        color: Colors.white,
                       ),
-                  error:
-                      (error, stackTrace) => Center(
-                        child: Text(
-                          l10n.archiveError,
-                          style: AppTextStyles.bodyLarge.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

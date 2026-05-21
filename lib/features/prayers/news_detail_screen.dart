@@ -119,7 +119,7 @@ class NewsDetailScreen extends ConsumerWidget {
                 )
               else
                 _buildPlaceholder(),
-              
+
               // Refined Gradient Overlay to Background Color
               Container(
                 decoration: BoxDecoration(
@@ -195,7 +195,8 @@ class NewsDetailScreen extends ConsumerWidget {
       data: (htmlContent) {
         final text = htmlContent.isEmpty ? (item.content ?? '') : htmlContent;
         final document = parse(text);
-        final paragraphs = document.body?.text
+        final paragraphs =
+            document.body?.text
                 .trim()
                 .split('\n')
                 .where((p) => p.trim().isNotEmpty)
@@ -216,18 +217,20 @@ class NewsDetailScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 32),
             ],
-            ...paragraphs.map((p) => Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: Text(
-                    p.trim(),
-                    style: AppTextStyles.bodyLarge.copyWith(
-                      color: Colors.white.withValues(alpha: 0.85),
-                      height: 1.7,
-                      fontSize: 17,
-                      letterSpacing: 0.2,
-                    ),
+            ...paragraphs.map(
+              (p) => Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Text(
+                  p.trim(),
+                  style: AppTextStyles.bodyLarge.copyWith(
+                    color: Colors.white.withValues(alpha: 0.85),
+                    height: 1.7,
+                    fontSize: 17,
+                    letterSpacing: 0.2,
                   ),
-                )),
+                ),
+              ),
+            ),
           ],
         );
       },
