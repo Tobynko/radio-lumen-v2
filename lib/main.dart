@@ -22,6 +22,7 @@ Future<void> main() async {
       androidNotificationChannelName: 'Radio LUMEN Playback',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,
+      androidNotificationIcon: 'mipmap/launcher_icon',
     ),
   );
 

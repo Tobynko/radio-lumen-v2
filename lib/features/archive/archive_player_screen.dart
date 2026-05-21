@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +41,15 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
   Future<void> _playArchive(String url, String title, String? artist) async {
     final handler = ref.read(audioHandlerProviderProvider);
     if (handler is LumenAudioHandler) {
-      await handler.setUrl(url);
+      await handler.setUrl(
+        url,
+        item: MediaItem(
+          id: url,
+          album: 'Rádio LUMEN Archív',
+          title: title,
+          artist: artist ?? 'Rádio LUMEN',
+        ),
+      );
     }
     await handler.play();
   }

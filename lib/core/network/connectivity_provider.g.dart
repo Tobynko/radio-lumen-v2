@@ -48,7 +48,7 @@ final class ConnectivityProvider
   }
 }
 
-String _$connectivityHash() => r'69c6e2db8337a9ff832358c4a079a4846fa6f28c';
+String _$connectivityHash() => r'9fae67a8b8c58baa4cd31f65a0095c8e142a7923';
 
 @ProviderFor(isOffline)
 final isOfflineProvider = IsOfflineProvider._();
@@ -88,4 +88,4 @@ final class IsOfflineProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isOfflineHash() => r'ac2e030f5cf66998cb252937b9cd493d7c93a8e4';
+String _$isOfflineHash() => r'b349c0780643145ffaa214afdf7244229333fb7d';

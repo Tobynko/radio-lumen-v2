@@ -80,13 +80,15 @@ class LumenAudioHandler extends BaseAudioHandler {
 
   Future<void> setVolume(double volume) => _player.setVolume(volume);
 
-  Future<void> setUrl(String url) async {
+  Future<void> setUrl(String url, {MediaItem? item}) async {
     developer.log('Setting Stream URL: $url', name: 'audio.core');
     await _player.setUrl(url);
 
-    // Reset to "Loading..." or "Naživo" when starting a new stream
-    // but only if we don't already have real metadata (to avoid flickering)
-    if (mediaItem.value == null || mediaItem.value!.title == 'Naživo') {
+    if (item != null) {
+      mediaItem.add(item);
+    } else if (mediaItem.value == null ||
+        mediaItem.value!.id != 'radio_lumen_live') {
+      // Default to "Naživo" if it's not already set or it was something else (like archive)
       mediaItem.add(
         const MediaItem(
           id: 'radio_lumen_live',
