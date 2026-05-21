@@ -51,10 +51,7 @@ class _NewsSearchBarState extends ConsumerState<NewsSearchBar> {
           hintStyle: AppTextStyles.bodyLarge.copyWith(
             color: Colors.white.withAlpha(128),
           ),
-          prefixIcon: const Icon(
-            Icons.search,
-            color: Colors.white70,
-          ),
+          prefixIcon: const Icon(Icons.search, color: Colors.white70),
           suffixIcon: _controller.text.isNotEmpty
               ? IconButton(
                   icon: const Icon(Icons.clear, color: Colors.white70),

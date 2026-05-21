@@ -53,13 +53,12 @@ Future<List<ArchiveProgram>> archivePrograms(Ref ref) async {
     grouped.putIfAbsent(episode.programName, () => []).add(episode);
   }
 
-  final programs =
-      grouped.entries.map((e) {
-        // Sort episodes newest first
-        final sortedEpisodes =
-            e.value..sort((a, b) => b.pubDate.compareTo(a.pubDate));
-        return ArchiveProgram(name: e.key, episodes: sortedEpisodes);
-      }).toList();
+  final programs = grouped.entries.map((e) {
+    // Sort episodes newest first
+    final sortedEpisodes = e.value
+      ..sort((a, b) => b.pubDate.compareTo(a.pubDate));
+    return ArchiveProgram(name: e.key, episodes: sortedEpisodes);
+  }).toList();
 
   // Sort programs alphabetically
   programs.sort((a, b) => a.name.compareTo(b.name));
@@ -80,7 +79,9 @@ class ArchiveSearchQuery extends _$ArchiveSearchQuery {
 @riverpod
 Future<List<ArchiveProgram>> filteredArchivePrograms(Ref ref) async {
   final programs = await ref.watch(archiveProgramsProvider.future);
-  final query = StringUtils.normalizeForSearch(ref.watch(archiveSearchQueryProvider));
+  final query = StringUtils.normalizeForSearch(
+    ref.watch(archiveSearchQueryProvider),
+  );
 
   if (query.isEmpty) return programs;
 

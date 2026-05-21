@@ -42,7 +42,10 @@ class ProgramDetailScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.primary.withValues(alpha: 0.5),
-                          border: Border.all(color: AppColors.accentGold, width: 3),
+                          border: Border.all(
+                            color: AppColors.accentGold,
+                            width: 3,
+                          ),
                         ),
                         child: const Icon(
                           Icons.headset_mic,
@@ -104,7 +107,11 @@ class ProgramDetailScreen extends StatelessWidget {
                     if (item.show?.host != null) ...[
                       Row(
                         children: [
-                          Icon(Icons.person, size: 24, color: AppColors.accentTeal),
+                          Icon(
+                            Icons.person,
+                            size: 24,
+                            color: AppColors.accentTeal,
+                          ),
                           const SizedBox(width: 12),
                           Text(
                             item.show!.host!,
@@ -133,7 +140,9 @@ class ProgramDetailScreen extends StatelessWidget {
                       Wrap(
                         spacing: 12,
                         runSpacing: 12,
-                        children: item.tags.map((tag) => _buildTag(tag)).toList(),
+                        children: item.tags
+                            .map((tag) => _buildTag(tag))
+                            .toList(),
                       ),
                       const SizedBox(height: 32),
                     ],

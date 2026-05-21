@@ -30,11 +30,7 @@ extension ArchiveEpisodeMapper on ArchiveEpisode {
       startTime: pubDate,
       endTime: pubDate,
       playUrl: audioUrl,
-      show: Show(
-        id: programName,
-        title: programName,
-        description: '',
-      ),
+      show: Show(id: programName, title: programName, description: ''),
     );
   }
 }

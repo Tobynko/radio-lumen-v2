@@ -143,10 +143,7 @@ class _NavButton extends StatelessWidget {
             width: 30,
             height: 30,
             fit: BoxFit.contain,
-            colorFilter: ColorFilter.mode(
-              color,
-              BlendMode.srcIn,
-            ),
+            colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
           ),
         ],
       ),
