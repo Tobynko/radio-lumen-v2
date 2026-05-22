@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
@@ -22,40 +23,47 @@ class LumenAudioHandler extends BaseAudioHandler {
     // Listen to ICY metadata (Icecast metadata)
     _player.icyMetadataStream.listen((icy) {
       if (icy == null) {
-        developer.log('ICY Metadata is NULL', name: 'audio.metadata');
         return;
       }
 
-      final infoTitle = icy.info?.title?.trim();
+      final rawTitle = icy.info?.title?.trim();
       final headerName = icy.headers?.name?.trim();
 
-      developer.log(
-        'ICY Raw: info.title: "${icy.info?.title}", headers.name: "${icy.headers?.name}"',
-        name: 'audio.metadata',
-      );
-
-      // If infoTitle is empty or just the station name, and headerName has something, use headerName?
-      // Usually infoTitle contains "Artist - Title" or just "Title"
-      // headerName is usually the station name "RADIO LUMEN"
+      // Fix encoding: Common issue where UTF-8 bytes are misread as Latin-1
+      String? infoTitle;
+      if (rawTitle != null) {
+        try {
+          // Re-decode the string code units as UTF-8 bytes
+          // This fixes characters like Ä¾ -> ľ
+          infoTitle = utf8.decode(rawTitle.codeUnits);
+        } catch (_) {
+          infoTitle = rawTitle;
+        }
+      }
 
       final l10n = L10n.instance;
       String displayTitle = l10n.audioLiveTitle;
-      String displayArtist = l10n.audioStationName;
+      String displayArtist = headerName ?? l10n.audioStationName;
 
-      if (infoTitle != null &&
-          infoTitle.isNotEmpty &&
-          infoTitle.toLowerCase() != 'radio lumen') {
-        displayTitle = infoTitle;
+      if (infoTitle != null && infoTitle.isNotEmpty) {
+        // Try to split "Author - Title" or "Artist - Song"
+        if (infoTitle.contains(' - ')) {
+          final parts = infoTitle.split(' - ');
+          if (parts.length >= 2) {
+            displayArtist = parts[0].trim();
+            displayTitle = parts[1].trim();
+          } else {
+            displayTitle = infoTitle;
+          }
+        } else {
+          displayTitle = infoTitle;
+        }
       }
 
-      if (headerName != null && headerName.isNotEmpty) {
-        displayArtist = headerName;
+      // If after parsing, the title is still just the station name, use "Naživo"
+      if (displayTitle.toLowerCase() == 'radio lumen') {
+        displayTitle = l10n.audioLiveTitle;
       }
-
-      developer.log(
-        'ICY Processed: Title: $displayTitle, Artist: $displayArtist',
-        name: 'audio.metadata',
-      );
 
       mediaItem.add(
         MediaItem(

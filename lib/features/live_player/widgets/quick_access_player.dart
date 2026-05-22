@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:marquee/marquee.dart';
 import 'package:radio_lumen_v2/core/audio/audio_controller.dart';
 import 'package:radio_lumen_v2/core/audio/audio_state.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
@@ -127,35 +128,27 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Metadata - Wrapped in Flexible with ellipsis to handle small screens
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  audioState.currentTitle ?? l10n.audioStationName,
-                  style: AppTextStyles.titleLarge.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+          // Metadata with Marquee support
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _ScrollingText(
+                text: audioState.currentTitle ?? l10n.audioStationName,
+                style: AppTextStyles.titleLarge.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-                if (audioState.currentArtist != null) ...[
-                  const SizedBox(height: 4),
-                  Text(
-                    audioState.currentArtist!,
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+              ),
+              if (audioState.currentArtist != null) ...[
+                const SizedBox(height: 4),
+                _ScrollingText(
+                  text: audioState.currentArtist!,
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                   ),
-                ],
+                ),
               ],
-            ),
+            ],
           ),
           const SizedBox(height: 24),
           // Volume Slider
@@ -258,6 +251,57 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ScrollingText extends StatelessWidget {
+  const _ScrollingText({required this.text, required this.style});
+
+  final String text;
+  final TextStyle style;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final textPainter = TextPainter(
+          text: TextSpan(text: text, style: style),
+          maxLines: 1,
+          textDirection: TextDirection.ltr,
+        )..layout(maxWidth: double.infinity);
+
+        // Refined overflow detection: Use a tiny epsilon to ensure marquee triggers
+        // even on sub-pixel overflows common on high-density mobile screens.
+        final overflow = textPainter.width > (constraints.maxWidth - 0.1);
+
+        if (overflow) {
+          return SizedBox(
+            height: textPainter.height,
+            child: Marquee(
+              text: text,
+              style: style,
+              scrollAxis: Axis.horizontal,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              blankSpace: 40.0,
+              velocity: 30.0,
+              pauseAfterRound: const Duration(seconds: 3),
+              startPadding: 10.0,
+              accelerationDuration: const Duration(seconds: 1),
+              accelerationCurve: Curves.linear,
+              decelerationDuration: const Duration(milliseconds: 500),
+              decelerationCurve: Curves.easeOut,
+            ),
+          );
+        }
+
+        return Text(
+          text,
+          style: style,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+        );
+      },
     );
   }
 }
