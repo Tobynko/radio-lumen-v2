@@ -30,16 +30,16 @@ class NewsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. Category Tabs at the top
+              // 1. Category Tabs at the top for better hierarchy and consistency
               _buildCategoryFilter(ref, currentFilter, l10n),
               
               // 2. Search Bar below categories
               Padding(
                 padding: const EdgeInsets.fromLTRB(
                   AppDesignTokens.screenPadding,
-                  AppDesignTokens.spacingM,
+                  AppDesignTokens.spacingM, // Reduced spacing between tabs and search
                   AppDesignTokens.screenPadding,
-                  AppDesignTokens.spacingS,
+                  AppDesignTokens.spacingS, // Small gap before the news list
                 ),
                 child: LumenSearchBar(
                   hintText: l10n.newsSearchHint,
@@ -56,7 +56,7 @@ class NewsScreen extends ConsumerWidget {
                 ),
               ),
 
-              // 3. News List with unified feedback widgets
+              // 3. News List
               Expanded(
                 child: newsAsync.when(
                   data: (items) => _buildNewsList(items, l10n),
@@ -150,7 +150,7 @@ class _NewsCard extends StatelessWidget {
         vertical: AppDesignTokens.spacingM,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFD9D9D9),
+        color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
         borderRadius: BorderRadius.circular(AppDesignTokens.radiusXXL),
         boxShadow: AppDesignTokens.cardShadow,
       ),
@@ -238,8 +238,7 @@ class _NewsCard extends StatelessWidget {
                             DateFormat('d. M.').format(item.date),
                             style: AppTextStyles.bodyMedium.copyWith(
                               color: Colors.white.withAlpha(
-                                AppDesignTokens.alphaTextSecondary + 50,
-                              ),
+                                  AppDesignTokens.alphaTextSecondary + 50),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

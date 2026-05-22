@@ -124,7 +124,7 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isActive ? AppColors.accentGold : const Color(0xFF6390B0);
+    final color = isActive ? AppColors.accentGold : AppColors.navInactive;
 
     return GestureDetector(
       onTap: onTap,

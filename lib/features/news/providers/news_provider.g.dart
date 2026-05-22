@@ -188,4 +188,4 @@ final class FilteredNewsProvider
   }
 }
 
-String _$filteredNewsHash() => r'3a7f51dcb210e29c47801dcbcd25da4dd7622794';
+String _$filteredNewsHash() => r'269cd2a4936daaa8a66d1558a4b56c46555790b5';

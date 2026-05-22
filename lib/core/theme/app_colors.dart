@@ -16,12 +16,14 @@ class AppColors {
   // Background Colors (from Figma frames)
   static const Color backgroundLoading = Color(0xFF0E3F60);
   static const Color backgroundMain = Color(0xFF2B5F84);
+  static const Color navInactive = Color(0xFF6390B0); // Desaturated blue for tabs
 
   // Surface and Neutral
   static const Color background = Color(0xFFFEFEFE);
   static const Color surface = Color(0xFFFFFFFF);
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
+  static const Color cardPlaceholder = Color(0xFF2A2A2A); // Dark fallback for images
 
   // Status colors
   static const Color success = Color(0xFF388E3C);
