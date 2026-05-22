@@ -113,7 +113,7 @@ class NewsScreen extends ConsumerWidget {
       return Center(
         child: Text(
           l10n.newsNoItems,
-          style: const TextStyle(color: Colors.white70),
+          style: AppTextStyles.bodyMedium.copyWith(color: Colors.white70),
         ),
       );
     }

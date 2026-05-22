@@ -138,36 +138,30 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Time Column
+              // Time Column - Standardized to listItemTime
               SizedBox(
                 width: 65,
                 child: Text(
                   startTimeStr,
-                  style: AppTextStyles.titleLarge.copyWith(
+                  style: AppTextStyles.listItemTime.copyWith(
                     color: AppColors.accentGold,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
                   ),
                 ),
               ),
               const SizedBox(width: AppDesignTokens.spacingM),
-              // Show Details Column
+              // Show Details Column - Standardized to listItemTitle/Subtitle
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       item.title,
-                      style: AppTextStyles.titleLarge.copyWith(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: AppTextStyles.listItemTitle,
                     ),
                     const SizedBox(height: AppDesignTokens.spacingXS),
                     Text(
                       item.description,
-                      style: AppTextStyles.bodyMedium.copyWith(
+                      style: AppTextStyles.listItemSubtitle.copyWith(
                         color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                         height: 1.3,
                       ),
@@ -186,9 +180,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                           const SizedBox(width: 6),
                           Text(
                             item.show!.host!,
-                            style: AppTextStyles.labelSmall.copyWith(
+                            style: AppTextStyles.listItemSubtitle.copyWith(
                               color: AppColors.accentTeal.withAlpha(AppDesignTokens.alphaTextSecondary + 50),
-                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],

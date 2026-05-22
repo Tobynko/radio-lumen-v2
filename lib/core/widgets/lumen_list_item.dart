@@ -37,16 +37,12 @@ class LumenListItem extends StatelessWidget {
         leading: leading,
         title: Text(
           title,
-          style: AppTextStyles.titleLarge.copyWith(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyles.listItemTitle,
         ),
         subtitle: subtitle != null
             ? Text(
                 subtitle!,
-                style: AppTextStyles.bodyMedium.copyWith(
+                style: AppTextStyles.listItemSubtitle.copyWith(
                   color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                 ),
               )

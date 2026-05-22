@@ -35,7 +35,7 @@ class LumenSearchBar extends StatelessWidget {
         cursorColor: AppColors.accentGold,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
+          hintStyle: AppTextStyles.labelSmall.copyWith(
             color: Colors.white.withAlpha(AppDesignTokens.alphaTextTertiary),
           ),
           prefixIcon: const Icon(Icons.search, color: Colors.white70),

@@ -70,7 +70,7 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Date/Time Column
+                      // Date/Time Column - Standardized to listItemTime/listItemSubtitle
                       SizedBox(
                         width: 65,
                         child: Column(
@@ -78,35 +78,29 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                           children: [
                             Text(
                               dateStr,
-                              style: AppTextStyles.titleLarge.copyWith(
+                              style: AppTextStyles.listItemTime.copyWith(
                                 color: AppColors.accentGold,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               timeStr,
-                              style: AppTextStyles.bodyMedium.copyWith(
+                              style: AppTextStyles.listItemSubtitle.copyWith(
                                 color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
-                                fontSize: 18,
+                                fontSize: 16, // Slightly larger for time subtext
                               ),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(width: AppDesignTokens.spacingM),
-                      // Episode Title
+                      // Episode Title - Standardized to listItemTitle
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               episode.title,
-                              style: AppTextStyles.titleLarge.copyWith(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: AppTextStyles.listItemTitle,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -114,9 +108,8 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                               const SizedBox(height: AppDesignTokens.spacingXS),
                               Text(
                                 episode.description,
-                                style: AppTextStyles.bodyMedium.copyWith(
+                                style: AppTextStyles.listItemSubtitle.copyWith(
                                   color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
-                                  fontSize: 14,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

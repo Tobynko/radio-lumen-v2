@@ -30,6 +30,23 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
   );
 
+  // List Item Styles (Standardized across the app)
+  static TextStyle listItemTitle = GoogleFonts.roboto(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
+  static TextStyle listItemSubtitle = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+  );
+
+  static TextStyle listItemTime = GoogleFonts.roboto(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
   // Body styles
   static TextStyle bodyLarge = GoogleFonts.roboto(
     fontSize: 16,
