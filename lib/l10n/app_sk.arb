@@ -121,8 +121,54 @@
   "@newsSearchHint": {
     "description": "Hint text for news search bar"
   },
+  "newsError": "Nastala chyba pri načítavaní aktualít.",
+  "@newsError": {
+    "description": "Error message for news load failure"
+  },
   "connectivityOffline": "Chýba internetové pripojenie",
   "@connectivityOffline": {
     "description": "Message shown when there is no internet connection"
+  },
+  "audioLiveTitle": "Naživo",
+  "@audioLiveTitle": {
+    "description": "Title for live broadcast in audio service"
+  },
+  "audioStationName": "Rádio LUMEN",
+  "@audioStationName": {
+    "description": "Name of the station"
+  },
+  "audioArchiveAlbum": "Rádio LUMEN Archív",
+  "@audioArchiveAlbum": {
+    "description": "Album name for archive playback"
+  },
+  "shareTextWithArtist": "Práve počúvam {title} od {artist} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "@shareTextWithArtist": {
+    "description": "Text shared when a song/show has an artist",
+    "placeholders": {
+      "title": { "type": "String" },
+      "artist": { "type": "String" }
+    }
+  },
+  "shareTextTitleOnly": "Práve počúvam {title} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "@shareTextTitleOnly": {
+    "description": "Text shared when a song/show only has a title",
+    "placeholders": {
+      "title": { "type": "String" }
+    }
+  },
+  "newsAuthorLabel": "Autor: {author}",
+  "@newsAuthorLabel": {
+    "description": "Label for news author",
+    "placeholders": {
+      "author": { "type": "String" }
+    }
+  },
+  "generalError": "Nastala chyba.",
+  "@generalError": {
+    "description": "Generic error message"
+  },
+  "scheduleError": "Nastala chyba pri načítavaní programu.",
+  "@scheduleError": {
+    "description": "Error message for schedule load failure"
   }
 }

@@ -1,21 +1,23 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:radio_lumen_v2/core/audio/audio_controller.dart';
 import 'package:radio_lumen_v2/core/audio/audio_handler.dart';
 import 'package:radio_lumen_v2/core/audio/audio_handler_provider.dart';
 import 'package:radio_lumen_v2/core/audio/audio_state.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
+import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_back_button.dart';
 import 'package:radio_lumen_v2/features/schedule/models/schedule_item.dart';
+import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class ArchivePlayerScreen extends ConsumerStatefulWidget {
-  final ScheduleItem item;
-
   const ArchivePlayerScreen({super.key, required this.item});
+
+  final ScheduleItem item;
 
   @override
   ConsumerState<ArchivePlayerScreen> createState() =>
@@ -40,14 +42,15 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
 
   Future<void> _playArchive(String url, String title, String? artist) async {
     final handler = ref.read(audioHandlerProviderProvider);
+    final l10n = AppLocalizations.of(context)!;
     if (handler is LumenAudioHandler) {
       await handler.setUrl(
         url,
         item: MediaItem(
           id: url,
-          album: 'Rádio LUMEN Archív',
+          album: l10n.audioArchiveAlbum,
           title: title,
-          artist: artist ?? 'Rádio LUMEN',
+          artist: artist ?? l10n.audioStationName,
         ),
       );
     }
@@ -61,14 +64,11 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () {
-            // When leaving the archive player, we should probably stop the archive playback
-            // and optionally resume the live stream. For now, let's just pause.
-            ref.read(audioHandlerProviderProvider).pause();
-            context.pop();
-          },
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Center(
+            child: LumenBackButton(),
+          ),
         ),
       ),
       extendBodyBehindAppBar: true,
@@ -111,9 +111,9 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
 }
 
 class _ArchiveAccessPlayer extends ConsumerWidget {
-  final ScheduleItem item;
-
   const _ArchiveAccessPlayer({required this.item});
+
+  final ScheduleItem item;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -129,16 +129,12 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(25),
+        color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
         borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.white.withAlpha(25)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(25),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        border: Border.all(
+          color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBorder),
+        ),
+        boxShadow: AppDesignTokens.cardShadow,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -162,7 +158,7 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                 Text(
                   item.show!.host!,
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: Colors.white.withAlpha(178),
+                    color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                     fontSize: 18,
                   ),
                   textAlign: TextAlign.center,
@@ -206,7 +202,7 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                     color: AppColors.accentGold,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.accentGold.withAlpha(102),
+                        color: AppColors.accentGold.withAlpha(AppDesignTokens.alphaGlassBorder * 4),
                         blurRadius: 20,
                         spreadRadius: 2,
                       ),
@@ -276,9 +272,9 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppColors.accentGold,
-                    inactiveTrackColor: Colors.white.withAlpha(51),
+                    inactiveTrackColor: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
                     thumbColor: Colors.white,
-                    overlayColor: AppColors.accentGold.withAlpha(51),
+                    overlayColor: AppColors.accentGold.withAlpha(AppDesignTokens.alphaDivider),
                     trackHeight: 4,
                     thumbShape: const RoundSliderThumbShape(
                       enabledThumbRadius: 6,
@@ -318,7 +314,7 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
                           ),
                         ),
                         style: AppTextStyles.labelSmall.copyWith(
-                          color: Colors.white.withAlpha(178),
+                          color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                         ),
                       ),
                       Text(
@@ -328,7 +324,7 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
                               : Duration.zero,
                         ),
                         style: AppTextStyles.labelSmall.copyWith(
-                          color: Colors.white.withAlpha(178),
+                          color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                         ),
                       ),
                     ],

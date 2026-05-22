@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:radio_lumen_v2/core/utils/l10n_utils.dart';
 
 class LumenAudioHandler extends BaseAudioHandler {
   final AudioPlayer _player = AudioPlayer();
@@ -37,8 +38,9 @@ class LumenAudioHandler extends BaseAudioHandler {
       // Usually infoTitle contains "Artist - Title" or just "Title"
       // headerName is usually the station name "RADIO LUMEN"
 
-      String displayTitle = 'Naživo';
-      String displayArtist = 'Rádio LUMEN';
+      final l10n = L10n.instance;
+      String displayTitle = l10n.audioLiveTitle;
+      String displayArtist = l10n.audioStationName;
 
       if (infoTitle != null &&
           infoTitle.isNotEmpty &&
@@ -58,7 +60,7 @@ class LumenAudioHandler extends BaseAudioHandler {
       mediaItem.add(
         MediaItem(
           id: 'radio_lumen_live',
-          album: 'Rádio LUMEN',
+          album: l10n.audioStationName,
           title: displayTitle,
           artist: displayArtist,
         ),
@@ -88,13 +90,14 @@ class LumenAudioHandler extends BaseAudioHandler {
       mediaItem.add(item);
     } else if (mediaItem.value == null ||
         mediaItem.value!.id != 'radio_lumen_live') {
-      // Default to "Naživo" if it's not already set or it was something else (like archive)
+      // Default to localized title/artist if it's not already set or it was something else (like archive)
+      final l10n = L10n.instance;
       mediaItem.add(
-        const MediaItem(
+        MediaItem(
           id: 'radio_lumen_live',
-          album: 'Rádio LUMEN',
-          title: 'Naživo',
-          artist: 'Rádio LUMEN',
+          album: l10n.audioStationName,
+          title: l10n.audioLiveTitle,
+          artist: l10n.audioStationName,
         ),
       );
     }

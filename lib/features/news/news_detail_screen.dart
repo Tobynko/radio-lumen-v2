@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
+import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
-import 'package:radio_lumen_v2/features/prayers/models/news_item.dart';
-import 'package:radio_lumen_v2/features/prayers/providers/news_content_provider.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_back_button.dart';
+import 'package:radio_lumen_v2/features/news/models/news_item.dart';
+import 'package:radio_lumen_v2/features/news/providers/news_content_provider.dart';
+import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 import 'package:html/parser.dart' show parse;
 
 class NewsDetailScreen extends ConsumerWidget {
@@ -33,13 +36,13 @@ class NewsDetailScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 32),
-                        _buildMetaInfo(),
+                        _buildMetaInfo(context),
                         const SizedBox(height: 16),
                         _buildTitle(),
                         const SizedBox(height: 24),
                         const Divider(color: Colors.white10, height: 1),
                         const SizedBox(height: 24),
-                        _buildContent(contentAsync),
+                        _buildContent(context, contentAsync),
                         const SizedBox(height: 60),
                       ],
                     ),
@@ -47,41 +50,13 @@ class NewsDetailScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            // Glassmorphism Back Button
+            // Standardized Glassmorphism Back Button
             Positioned(
               top: topPadding + 8,
               left: 16,
-              child: _buildGlassBackButton(context),
+              child: const LumenBackButton(),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildGlassBackButton(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.15),
-                width: 1.5,
-              ),
-            ),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
         ),
       ),
     );
@@ -92,13 +67,13 @@ class NewsDetailScreen extends ConsumerWidget {
       child: Container(
         height: MediaQuery.of(context).size.height * 0.30,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.transparent,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.5),
+              color: Colors.black45,
               blurRadius: 20,
-              offset: const Offset(0, 10),
+              offset: Offset(0, 10),
             ),
           ],
         ),
@@ -122,18 +97,18 @@ class NewsDetailScreen extends ConsumerWidget {
 
               // Refined Gradient Overlay to Background Color
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black.withValues(alpha: 0.3),
+                      Colors.black26,
                       Colors.transparent,
                       Colors.transparent,
-                      Colors.black.withValues(alpha: 0.6),
+                      Colors.black54,
                       Colors.black,
                     ],
-                    stops: const [0.0, 0.2, 0.6, 0.9, 1.0],
+                    stops: [0.0, 0.2, 0.6, 0.9, 1.0],
                   ),
                 ),
               ),
@@ -151,25 +126,26 @@ class NewsDetailScreen extends ConsumerWidget {
         child: Icon(
           Icons.newspaper,
           size: 80,
-          color: Colors.white.withValues(alpha: 0.1),
+          color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBorder),
         ),
       ),
     );
   }
 
-  Widget _buildMetaInfo() {
+  Widget _buildMetaInfo(BuildContext context) {
     return Row(
       children: [
-        Icon(
+        const Icon(
           Icons.calendar_today_outlined,
           size: 14,
-          color: Colors.white.withValues(alpha: 0.5),
+          color: Colors.white70,
         ),
         const SizedBox(width: 6),
         Text(
-          DateFormat('d. MMMM yyyy', 'sk').format(item.date),
+          DateFormat('d. MMMM yyyy', Localizations.localeOf(context).toString())
+              .format(item.date),
           style: AppTextStyles.bodyMedium.copyWith(
-            color: Colors.white.withValues(alpha: 0.6),
+            color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -190,7 +166,8 @@ class NewsDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildContent(AsyncValue<String> contentAsync) {
+  Widget _buildContent(BuildContext context, AsyncValue<String> contentAsync) {
+    final l10n = AppLocalizations.of(context)!;
     return contentAsync.when(
       data: (htmlContent) {
         final text = htmlContent.isEmpty ? (item.content ?? '') : htmlContent;
@@ -208,7 +185,7 @@ class NewsDetailScreen extends ConsumerWidget {
           children: [
             if (item.author.isNotEmpty) ...[
               Text(
-                'Autor: ${item.author}',
+                l10n.newsAuthorLabel(item.author),
                 style: AppTextStyles.bodyLarge.copyWith(
                   color: AppColors.accentGold,
                   fontWeight: FontWeight.bold,
@@ -223,7 +200,7 @@ class NewsDetailScreen extends ConsumerWidget {
                 child: Text(
                   p.trim(),
                   style: AppTextStyles.bodyLarge.copyWith(
-                    color: Colors.white.withValues(alpha: 0.85),
+                    color: Colors.white.withAlpha(217),
                     height: 1.7,
                     fontSize: 17,
                     letterSpacing: 0.2,
@@ -243,7 +220,7 @@ class NewsDetailScreen extends ConsumerWidget {
       error: (error, stack) => Text(
         item.content ?? '',
         style: AppTextStyles.bodyLarge.copyWith(
-          color: Colors.white.withValues(alpha: 0.85),
+          color: Colors.white.withAlpha(217),
           height: 1.7,
         ),
       ),

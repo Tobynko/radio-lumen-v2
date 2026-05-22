@@ -4,8 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
+import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_back_button.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_episode.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_program.dart';
 
@@ -25,20 +27,31 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
           program.name,
           style: AppTextStyles.titleLarge.copyWith(color: Colors.white),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () => context.pop(),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Center(
+            child: LumenBackButton(
+              onTap: () => context.pop(),
+              size: 18,
+            ),
+          ),
         ),
       ),
       extendBodyBehindAppBar: true,
       body: LumenBackground(
         child: SafeArea(
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppDesignTokens.screenPadding,
+              vertical: AppDesignTokens.spacingXXL,
+            ),
             itemCount: program.episodes.length,
             separatorBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: Divider(color: Colors.white.withAlpha(38), height: 1),
+              padding: const EdgeInsets.symmetric(vertical: AppDesignTokens.spacingM),
+              child: Divider(
+                color: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
+                height: 1,
+              ),
             ),
             itemBuilder: (context, index) {
               final episode = program.episodes[index];
@@ -53,7 +66,7 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: AppDesignTokens.spacingS),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -74,14 +87,14 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                             Text(
                               timeStr,
                               style: AppTextStyles.bodyMedium.copyWith(
-                                color: Colors.white.withAlpha(178),
+                                color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                                 fontSize: 18,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: AppDesignTokens.spacingM),
                       // Episode Title
                       Expanded(
                         child: Column(
@@ -98,11 +111,11 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             if (episode.description.isNotEmpty) ...[
-                              const SizedBox(height: 4),
+                              const SizedBox(height: AppDesignTokens.spacingXS),
                               Text(
                                 episode.description,
                                 style: AppTextStyles.bodyMedium.copyWith(
-                                  color: Colors.white.withAlpha(153),
+                                  color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                                   fontSize: 14,
                                 ),
                                 maxLines: 1,

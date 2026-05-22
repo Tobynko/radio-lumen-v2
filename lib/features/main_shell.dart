@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
+import 'package:radio_lumen_v2/core/utils/l10n_utils.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class MainShell extends ConsumerWidget {
@@ -22,6 +23,9 @@ class MainShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Initialize L10n utility for services
+    L10n.init(context);
+
     final l10n = AppLocalizations.of(context)!;
     final isOffline = ref.watch(isOfflineProvider);
 
@@ -92,7 +96,7 @@ class MainShell extends ConsumerWidget {
                 ),
                 _NavButton(
                   label: l10n.navAktuality.toUpperCase(),
-                  iconPath: 'assets/icons/prayers_symbol.svg',
+                  iconPath: 'assets/icons/news_symbol.svg',
                   isActive: navigationShell.currentIndex == 3,
                   onTap: () => _onTap(context, 3),
                 ),

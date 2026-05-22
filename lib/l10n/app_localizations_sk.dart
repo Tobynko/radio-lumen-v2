@@ -105,5 +105,38 @@ class AppLocalizationsSk extends AppLocalizations {
   String get newsSearchHint => 'Hľadať v aktualitách...';
 
   @override
+  String get newsError => 'Nastala chyba pri načítavaní aktualít.';
+
+  @override
   String get connectivityOffline => 'Chýba internetové pripojenie';
+
+  @override
+  String get audioLiveTitle => 'Naživo';
+
+  @override
+  String get audioStationName => 'Rádio LUMEN';
+
+  @override
+  String get audioArchiveAlbum => 'Rádio LUMEN Archív';
+
+  @override
+  String shareTextWithArtist(String title, String artist) {
+    return 'Práve počúvam $title od $artist na Rádiu LUMEN! 🎧 https://www.lumen.sk';
+  }
+
+  @override
+  String shareTextTitleOnly(String title) {
+    return 'Práve počúvam $title na Rádiu LUMEN! 🎧 https://www.lumen.sk';
+  }
+
+  @override
+  String newsAuthorLabel(String author) {
+    return 'Autor: $author';
+  }
+
+  @override
+  String get generalError => 'Nastala chyba.';
+
+  @override
+  String get scheduleError => 'Nastala chyba pri načítavaní programu.';
 }

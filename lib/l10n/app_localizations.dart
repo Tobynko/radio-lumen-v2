@@ -268,11 +268,65 @@ abstract class AppLocalizations {
   /// **'Hľadať v aktualitách...'**
   String get newsSearchHint;
 
+  /// Error message for news load failure
+  ///
+  /// In sk, this message translates to:
+  /// **'Nastala chyba pri načítavaní aktualít.'**
+  String get newsError;
+
   /// Message shown when there is no internet connection
   ///
   /// In sk, this message translates to:
   /// **'Chýba internetové pripojenie'**
   String get connectivityOffline;
+
+  /// Title for live broadcast in audio service
+  ///
+  /// In sk, this message translates to:
+  /// **'Naživo'**
+  String get audioLiveTitle;
+
+  /// Name of the station
+  ///
+  /// In sk, this message translates to:
+  /// **'Rádio LUMEN'**
+  String get audioStationName;
+
+  /// Album name for archive playback
+  ///
+  /// In sk, this message translates to:
+  /// **'Rádio LUMEN Archív'**
+  String get audioArchiveAlbum;
+
+  /// Text shared when a song/show has an artist
+  ///
+  /// In sk, this message translates to:
+  /// **'Práve počúvam {title} od {artist} na Rádiu LUMEN! 🎧 https://www.lumen.sk'**
+  String shareTextWithArtist(String title, String artist);
+
+  /// Text shared when a song/show only has a title
+  ///
+  /// In sk, this message translates to:
+  /// **'Práve počúvam {title} na Rádiu LUMEN! 🎧 https://www.lumen.sk'**
+  String shareTextTitleOnly(String title);
+
+  /// Label for news author
+  ///
+  /// In sk, this message translates to:
+  /// **'Autor: {author}'**
+  String newsAuthorLabel(String author);
+
+  /// Generic error message
+  ///
+  /// In sk, this message translates to:
+  /// **'Nastala chyba.'**
+  String get generalError;
+
+  /// Error message for schedule load failure
+  ///
+  /// In sk, this message translates to:
+  /// **'Nastala chyba pri načítavaní programu.'**
+  String get scheduleError;
 }
 
 class _AppLocalizationsDelegate

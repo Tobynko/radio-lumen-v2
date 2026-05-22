@@ -1,7 +1,8 @@
 import 'package:html/parser.dart' show parse;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:radio_lumen_v2/features/prayers/models/news_item.dart';
+import 'package:radio_lumen_v2/features/news/models/news_item.dart';
 import 'package:radio_lumen_v2/core/network/dio_provider.dart';
+import 'package:radio_lumen_v2/core/utils/string_utils.dart';
 import 'package:intl/intl.dart';
 
 part 'news_provider.g.dart';
@@ -111,16 +112,17 @@ Future<List<NewsItem>> news(Ref ref) async {
 @riverpod
 Future<List<NewsItem>> filteredNews(Ref ref) async {
   final news = await ref.watch(newsProvider.future);
-  final query = ref.watch(newsSearchQueryProvider).toLowerCase();
+  final query = StringUtils.normalizeForSearch(ref.watch(newsSearchQueryProvider));
 
   if (query.isEmpty) return news;
 
   return news
       .where(
         (item) =>
-            item.title.toLowerCase().contains(query) ||
-            item.author.toLowerCase().contains(query) ||
-            (item.content?.toLowerCase().contains(query) ?? false),
+            StringUtils.normalizeForSearch(item.title).contains(query) ||
+            StringUtils.normalizeForSearch(item.author).contains(query) ||
+            (item.content != null &&
+                StringUtils.normalizeForSearch(item.content!).contains(query)),
       )
       .toList();
 }

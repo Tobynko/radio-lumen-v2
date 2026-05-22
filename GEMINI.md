@@ -22,3 +22,7 @@ You are assisting with development of Radio Lumen V2.
 
 - Do not modify files, run commands, or scaffold code unless I explicitly ask.
 - If the next action is ambiguous, ask before proceeding.
+
+# UI Refactor Rules
+
+Preserve the app’s current UI design, visual identity, layout feel, and behavior. Do not redesign the app. Use the dominant existing style in the codebase as the canonical reference. Standardize only inconsistent implementations of existing patterns. Prefer extracting existing colors, spacing, typography, widgets, and layout patterns into shared theme/components rather than inventing new ones. Also ensure the UI is adaptive and responsive across screen sizes: do not simply scale everything proportionally, but use appropriate constraints, breakpoints, and layout adaptation so widgets, spacing, and text work well on small phones, large phones, tablets, and larger windows. Prevent overflow, cramped layouts, and broken wrapping, especially with localized strings. If any refactor would visibly change the UI or layout structure, stop and list that change for approval first.
