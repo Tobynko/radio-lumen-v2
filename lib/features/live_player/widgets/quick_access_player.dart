@@ -111,8 +111,11 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
     final l10n = AppLocalizations.of(context)!;
     final audioState = ref.watch(audioControllerProvider);
     final controller = ref.read(audioControllerProvider.notifier);
-    final isPlaying = audioState.status == PlaybackStatus.playing;
-    final isLoading = audioState.status == PlaybackStatus.loading;
+
+    // Only show live info and playing status if the current source is the live stream
+    final isLiveActive = audioState.currentItemId == 'radio_lumen_live';
+    final isPlaying = isLiveActive && audioState.status == PlaybackStatus.playing;
+    final isLoading = isLiveActive && audioState.status == PlaybackStatus.loading;
 
     return Container(
       width: double.infinity,
@@ -128,18 +131,20 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Metadata with Marquee support
+          // Metadata with Marquee support - Shows "Naživo" if another source is playing
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               _ScrollingText(
-                text: audioState.currentTitle ?? l10n.audioStationName,
+                text: isLiveActive
+                    ? (audioState.currentTitle ?? l10n.audioStationName)
+                    : l10n.audioLiveTitle,
                 style: AppTextStyles.titleLarge.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              if (audioState.currentArtist != null) ...[
+              if (isLiveActive && audioState.currentArtist != null) ...[
                 const SizedBox(height: 4),
                 _ScrollingText(
                   text: audioState.currentArtist!,
@@ -230,8 +235,10 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
               _PlayerIconButton(
                 icon: Icons.share_outlined,
                 onPressed: () {
-                  final title = audioState.currentTitle ?? l10n.audioStationName;
-                  final artist = audioState.currentArtist ?? '';
+                  final title = isLiveActive
+                      ? (audioState.currentTitle ?? l10n.audioStationName)
+                      : l10n.audioStationName;
+                  final artist = isLiveActive ? (audioState.currentArtist ?? '') : '';
                   final shareText = artist.isNotEmpty
                       ? l10n.shareTextWithArtist(title, artist)
                       : l10n.shareTextTitleOnly(title);

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AudioState {
 
- PlaybackStatus get status; double get volume; int get quality; bool get autoPlay; String? get currentTitle; String? get currentArtist; String? get errorMessage;
+ PlaybackStatus get status; double get volume; int get quality; bool get autoPlay; String? get currentItemId; String? get currentTitle; String? get currentArtist; String? get errorMessage;
 /// Create a copy of AudioState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AudioStateCopyWith<AudioState> get copyWith => _$AudioStateCopyWithImpl<AudioSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AudioState&&(identical(other.status, status) || other.status == status)&&(identical(other.volume, volume) || other.volume == volume)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.autoPlay, autoPlay) || other.autoPlay == autoPlay)&&(identical(other.currentTitle, currentTitle) || other.currentTitle == currentTitle)&&(identical(other.currentArtist, currentArtist) || other.currentArtist == currentArtist)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AudioState&&(identical(other.status, status) || other.status == status)&&(identical(other.volume, volume) || other.volume == volume)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.autoPlay, autoPlay) || other.autoPlay == autoPlay)&&(identical(other.currentItemId, currentItemId) || other.currentItemId == currentItemId)&&(identical(other.currentTitle, currentTitle) || other.currentTitle == currentTitle)&&(identical(other.currentArtist, currentArtist) || other.currentArtist == currentArtist)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,volume,quality,autoPlay,currentTitle,currentArtist,errorMessage);
+int get hashCode => Object.hash(runtimeType,status,volume,quality,autoPlay,currentItemId,currentTitle,currentArtist,errorMessage);
 
 @override
 String toString() {
-  return 'AudioState(status: $status, volume: $volume, quality: $quality, autoPlay: $autoPlay, currentTitle: $currentTitle, currentArtist: $currentArtist, errorMessage: $errorMessage)';
+  return 'AudioState(status: $status, volume: $volume, quality: $quality, autoPlay: $autoPlay, currentItemId: $currentItemId, currentTitle: $currentTitle, currentArtist: $currentArtist, errorMessage: $errorMessage)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AudioStateCopyWith<$Res>  {
   factory $AudioStateCopyWith(AudioState value, $Res Function(AudioState) _then) = _$AudioStateCopyWithImpl;
 @useResult
 $Res call({
- PlaybackStatus status, double volume, int quality, bool autoPlay, String? currentTitle, String? currentArtist, String? errorMessage
+ PlaybackStatus status, double volume, int quality, bool autoPlay, String? currentItemId, String? currentTitle, String? currentArtist, String? errorMessage
 });
 
 
@@ -62,13 +62,14 @@ class _$AudioStateCopyWithImpl<$Res>
 
 /// Create a copy of AudioState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? volume = null,Object? quality = null,Object? autoPlay = null,Object? currentTitle = freezed,Object? currentArtist = freezed,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? volume = null,Object? quality = null,Object? autoPlay = null,Object? currentItemId = freezed,Object? currentTitle = freezed,Object? currentArtist = freezed,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as PlaybackStatus,volume: null == volume ? _self.volume : volume // ignore: cast_nullable_to_non_nullable
 as double,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
 as int,autoPlay: null == autoPlay ? _self.autoPlay : autoPlay // ignore: cast_nullable_to_non_nullable
-as bool,currentTitle: freezed == currentTitle ? _self.currentTitle : currentTitle // ignore: cast_nullable_to_non_nullable
+as bool,currentItemId: freezed == currentItemId ? _self.currentItemId : currentItemId // ignore: cast_nullable_to_non_nullable
+as String?,currentTitle: freezed == currentTitle ? _self.currentTitle : currentTitle // ignore: cast_nullable_to_non_nullable
 as String?,currentArtist: freezed == currentArtist ? _self.currentArtist : currentArtist // ignore: cast_nullable_to_non_nullable
 as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PlaybackStatus status,  double volume,  int quality,  bool autoPlay,  String? currentTitle,  String? currentArtist,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PlaybackStatus status,  double volume,  int quality,  bool autoPlay,  String? currentItemId,  String? currentTitle,  String? currentArtist,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AudioState() when $default != null:
-return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.currentTitle,_that.currentArtist,_that.errorMessage);case _:
+return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.currentItemId,_that.currentTitle,_that.currentArtist,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.cur
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PlaybackStatus status,  double volume,  int quality,  bool autoPlay,  String? currentTitle,  String? currentArtist,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PlaybackStatus status,  double volume,  int quality,  bool autoPlay,  String? currentItemId,  String? currentTitle,  String? currentArtist,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _AudioState():
-return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.currentTitle,_that.currentArtist,_that.errorMessage);case _:
+return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.currentItemId,_that.currentTitle,_that.currentArtist,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.cur
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PlaybackStatus status,  double volume,  int quality,  bool autoPlay,  String? currentTitle,  String? currentArtist,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PlaybackStatus status,  double volume,  int quality,  bool autoPlay,  String? currentItemId,  String? currentTitle,  String? currentArtist,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _AudioState() when $default != null:
-return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.currentTitle,_that.currentArtist,_that.errorMessage);case _:
+return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.currentItemId,_that.currentTitle,_that.currentArtist,_that.errorMessage);case _:
   return null;
 
 }
@@ -212,13 +213,14 @@ return $default(_that.status,_that.volume,_that.quality,_that.autoPlay,_that.cur
 
 
 class _AudioState implements AudioState {
-  const _AudioState({this.status = PlaybackStatus.initial, this.volume = 0.5, this.quality = 128, this.autoPlay = false, this.currentTitle, this.currentArtist, this.errorMessage});
+  const _AudioState({this.status = PlaybackStatus.initial, this.volume = 0.5, this.quality = 128, this.autoPlay = false, this.currentItemId, this.currentTitle, this.currentArtist, this.errorMessage});
   
 
 @override@JsonKey() final  PlaybackStatus status;
 @override@JsonKey() final  double volume;
 @override@JsonKey() final  int quality;
 @override@JsonKey() final  bool autoPlay;
+@override final  String? currentItemId;
 @override final  String? currentTitle;
 @override final  String? currentArtist;
 @override final  String? errorMessage;
@@ -233,16 +235,16 @@ _$AudioStateCopyWith<_AudioState> get copyWith => __$AudioStateCopyWithImpl<_Aud
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AudioState&&(identical(other.status, status) || other.status == status)&&(identical(other.volume, volume) || other.volume == volume)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.autoPlay, autoPlay) || other.autoPlay == autoPlay)&&(identical(other.currentTitle, currentTitle) || other.currentTitle == currentTitle)&&(identical(other.currentArtist, currentArtist) || other.currentArtist == currentArtist)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AudioState&&(identical(other.status, status) || other.status == status)&&(identical(other.volume, volume) || other.volume == volume)&&(identical(other.quality, quality) || other.quality == quality)&&(identical(other.autoPlay, autoPlay) || other.autoPlay == autoPlay)&&(identical(other.currentItemId, currentItemId) || other.currentItemId == currentItemId)&&(identical(other.currentTitle, currentTitle) || other.currentTitle == currentTitle)&&(identical(other.currentArtist, currentArtist) || other.currentArtist == currentArtist)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,volume,quality,autoPlay,currentTitle,currentArtist,errorMessage);
+int get hashCode => Object.hash(runtimeType,status,volume,quality,autoPlay,currentItemId,currentTitle,currentArtist,errorMessage);
 
 @override
 String toString() {
-  return 'AudioState(status: $status, volume: $volume, quality: $quality, autoPlay: $autoPlay, currentTitle: $currentTitle, currentArtist: $currentArtist, errorMessage: $errorMessage)';
+  return 'AudioState(status: $status, volume: $volume, quality: $quality, autoPlay: $autoPlay, currentItemId: $currentItemId, currentTitle: $currentTitle, currentArtist: $currentArtist, errorMessage: $errorMessage)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$AudioStateCopyWith<$Res> implements $AudioStateCopyWith<$
   factory _$AudioStateCopyWith(_AudioState value, $Res Function(_AudioState) _then) = __$AudioStateCopyWithImpl;
 @override @useResult
 $Res call({
- PlaybackStatus status, double volume, int quality, bool autoPlay, String? currentTitle, String? currentArtist, String? errorMessage
+ PlaybackStatus status, double volume, int quality, bool autoPlay, String? currentItemId, String? currentTitle, String? currentArtist, String? errorMessage
 });
 
 
@@ -270,13 +272,14 @@ class __$AudioStateCopyWithImpl<$Res>
 
 /// Create a copy of AudioState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? volume = null,Object? quality = null,Object? autoPlay = null,Object? currentTitle = freezed,Object? currentArtist = freezed,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? volume = null,Object? quality = null,Object? autoPlay = null,Object? currentItemId = freezed,Object? currentTitle = freezed,Object? currentArtist = freezed,Object? errorMessage = freezed,}) {
   return _then(_AudioState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as PlaybackStatus,volume: null == volume ? _self.volume : volume // ignore: cast_nullable_to_non_nullable
 as double,quality: null == quality ? _self.quality : quality // ignore: cast_nullable_to_non_nullable
 as int,autoPlay: null == autoPlay ? _self.autoPlay : autoPlay // ignore: cast_nullable_to_non_nullable
-as bool,currentTitle: freezed == currentTitle ? _self.currentTitle : currentTitle // ignore: cast_nullable_to_non_nullable
+as bool,currentItemId: freezed == currentItemId ? _self.currentItemId : currentItemId // ignore: cast_nullable_to_non_nullable
+as String?,currentTitle: freezed == currentTitle ? _self.currentTitle : currentTitle // ignore: cast_nullable_to_non_nullable
 as String?,currentArtist: freezed == currentArtist ? _self.currentArtist : currentArtist // ignore: cast_nullable_to_non_nullable
 as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,

@@ -120,9 +120,9 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
     final audioState = ref.watch(audioControllerProvider);
 
     // Check if the current playing media matches this archive item
-    // For simplicity, we just use the global play state.
-    final isPlaying = audioState.status == PlaybackStatus.playing;
-    final isLoading = audioState.status == PlaybackStatus.loading;
+    final isArchiveActive = audioState.currentItemId == item.playUrl;
+    final isPlaying = isArchiveActive && audioState.status == PlaybackStatus.playing;
+    final isLoading = isArchiveActive && audioState.status == PlaybackStatus.loading;
     final dateStr = DateFormat('d.M.yy - HH:mm').format(item.startTime);
 
     return Container(
