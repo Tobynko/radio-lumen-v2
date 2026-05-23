@@ -64,18 +64,18 @@ flutter_launcher_icons:
   image_path: "assets/icons/launcher/foreground_icon.png"
   image_path_ios: "assets/icons/launcher/iOS_Icon.png"
   remove_alpha_ios: true
-  adaptive_icon_background: "#2B5F84"
+  adaptive_icon_background: "#232D69"
   adaptive_icon_foreground: "assets/icons/launcher/foreground_icon.png"
   adaptive_icon_foreground_inset: 20
 
 flutter_native_splash:
-  color: "#2B5F84"
-  background_image: "assets/images/splash-screen-background.png"
+  color: "#232D69"
+  # background_image: "assets/images/splash-screen-background.png"
   image: "assets/logos/logo_lumen2.png"
   android: true
   ios: true
   web: true
-  fullscreen: true
+  fullscreen: false
   android_12:
     image: "assets/logos/logo_lumen2_android12.png"
-    color: "#2B5F84"
+    color: "#232D69"
