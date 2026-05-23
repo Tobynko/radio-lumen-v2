@@ -1,94 +1,94 @@
 {
-  "@@locale": "sk",
-  "appTitle": "Rádio LUMEN",
+  "@@locale": "hu",
+  "appTitle": "LUMEN Rádió",
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homeTitle": "Domov",
+  "homeTitle": "Kezdőlap",
   "@homeTitle": {
     "description": "Title for the Home screen"
   },
-  "playerTitle": "Prehrávač",
+  "playerTitle": "Lejátszó",
   "@playerTitle": {
     "description": "Title for the Live Player screen"
   },
-  "scheduleTitle": "Program",
+  "scheduleTitle": "Műsor",
   "@scheduleTitle": {
     "description": "Title for the Schedule screen"
   },
-  "navLive": "Naživo",
+  "navLive": "Élő",
   "@navLive": {
     "description": "Label for Live tab"
   },
-  "navProgram": "Program",
+  "navProgram": "Műsor",
   "@navProgram": {
     "description": "Label for Program tab"
   },
-  "navArchiv": "Archív",
+  "navArchiv": "Archívum",
   "@navArchiv": {
     "description": "Label for Archiv tab"
   },
-  "navAktuality": "Aktuality",
+  "navAktuality": "Hírek",
   "@navAktuality": {
-    "description": "Label for Aktuality tab (formerly Modlitby)"
+    "description": "Label for Aktuality tab"
   },
-  "navHome": "Naživo",
+  "navHome": "Élő",
   "@navHome": {
     "description": "Label for Home tab"
   },
-  "qualityTitle": "KVALITA PRENOSU",
+  "qualityTitle": "ADÁSI MINŐSÉG",
   "@qualityTitle": {
     "description": "Title for the quality picker bottom sheet"
   },
-  "qualityHigh": "Vysoká kvalita (odporúčané pre Wi-Fi)",
+  "qualityHigh": "Magas minőség (Wi-Fi ajánlott)",
   "@qualityHigh": {
     "description": "Description for 128kbps quality"
   },
-  "qualityMedium": "Stredná kvalita",
+  "qualityMedium": "Közepes minőség",
   "@qualityMedium": {
     "description": "Description for 64kbps quality"
   },
-  "qualityLow": "Nízka kvalita (šetrí dáta)",
+  "qualityLow": "Alacsony minőség (adatkímélő)",
   "@qualityLow": {
     "description": "Description for 32kbps quality"
   },
-  "scheduleTabProgram": "Program",
+  "scheduleTabProgram": "Műsor",
   "@scheduleTabProgram": {
     "description": "Tab label for Program"
   },
-  "scheduleTabPlaylists": "Playlisty",
+  "scheduleTabPlaylists": "Lejátszási listák",
   "@scheduleTabPlaylists": {
     "description": "Tab label for Playlists"
   },
-  "scheduleTabShows": "Relácie",
+  "scheduleTabShows": "Műsorok",
   "@scheduleTabShows": {
     "description": "Tab label for Shows/Relacie"
   },
-  "scheduleNoItems": "Na tento deň nie je dostupný program.",
+  "scheduleNoItems": "Erre a napra nincs elérhető műsor.",
   "@scheduleNoItems": {
-    "description": "Message shown when no schedule items are available for a selected day"
+    "description": "Message shown when no schedule items are available"
   },
-  "tagSpiritual": "Duchovné slovo",
+  "tagSpiritual": "Lelki szó",
   "@tagSpiritual": {
     "description": "Tag label for spiritual content"
   },
-  "tagLive": "Naživo",
+  "tagLive": "Élő",
   "@tagLive": {
     "description": "Tag label for live broadcast"
   },
-  "archiveSearchHint": "Hľadať v archíve...",
+  "archiveSearchHint": "Keresés az archívumban...",
   "@archiveSearchHint": {
     "description": "Hint text for archive search bar"
   },
-  "archiveNoResults": "Nenašli sa žiadne výsledky.",
+  "archiveNoResults": "Nincs találat.",
   "@archiveNoResults": {
     "description": "Message shown when no search results are found in archive"
   },
-  "archiveError": "Nastala chyba pri načítavaní archívu.",
+  "archiveError": "Hiba történt az archívum betöltésekor.",
   "@archiveError": {
     "description": "Error message when archive fails to load"
   },
-  "archiveEpisodesCount": "{count, plural, one{1 epizóda} few{{count} epizódy} other{{count} epizód}}",
+  "archiveEpisodesCount": "{count, plural, one{1 epizód} other{{count} epizód}}",
   "@archiveEpisodesCount": {
     "description": "Pluralized count of episodes",
     "placeholders": {
@@ -97,51 +97,51 @@
       }
     }
   },
-  "newsCategoryAll": "Všetky",
+  "newsCategoryAll": "Mind",
   "@newsCategoryAll": {
     "description": "Category label for all news"
   },
-  "newsCategoryFromBroadcast": "Z nášho vysielania",
+  "newsCategoryFromBroadcast": "Adásunkból",
   "@newsCategoryFromBroadcast": {
     "description": "Category label for news from broadcast"
   },
-  "newsCategoryNews": "Novinky",
+  "newsCategoryNews": "Hírek",
   "@newsCategoryNews": {
     "description": "Category label for general news"
   },
-  "newsCategoryReporting": "Spravodajstvo",
+  "newsCategoryReporting": "Tudósítások",
   "@newsCategoryReporting": {
     "description": "Category label for reporting news"
   },
-  "newsNoItems": "Žiadne aktuality v tejto kategórii.",
+  "newsNoItems": "Ebben a kategóriában nincsenek hírek.",
   "@newsNoItems": {
     "description": "Message shown when no news items are available"
   },
-  "newsSearchHint": "Hľadať v aktualitách...",
+  "newsSearchHint": "Keresés a hírekben...",
   "@newsSearchHint": {
     "description": "Hint text for news search bar"
   },
-  "newsError": "Nastala chyba pri načítavaní aktualít.",
+  "newsError": "Hiba történt a hírek betöltésekor.",
   "@newsError": {
     "description": "Error message for news load failure"
   },
-  "connectivityOffline": "Chýba internetové pripojenie",
+  "connectivityOffline": "Nincs internetkapcsolat",
   "@connectivityOffline": {
     "description": "Message shown when there is no internet connection"
   },
-  "audioLiveTitle": "Naživo",
+  "audioLiveTitle": "Élő",
   "@audioLiveTitle": {
     "description": "Title for live broadcast in audio service"
   },
-  "audioStationName": "Rádio LUMEN",
+  "audioStationName": "LUMEN Rádió",
   "@audioStationName": {
     "description": "Name of the station"
   },
-  "audioArchiveAlbum": "Rádio LUMEN Archív",
+  "audioArchiveAlbum": "LUMEN Rádió Archívum",
   "@audioArchiveAlbum": {
     "description": "Album name for archive playback"
   },
-  "shareTextWithArtist": "Práve počúvam {title} od {artist} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "shareTextWithArtist": "Épp a(z) {title}-t hallgatom {artist}-tól a LUMEN Rádión! 🎧 https://www.lumen.sk",
   "@shareTextWithArtist": {
     "description": "Text shared when a song/show has an artist",
     "placeholders": {
@@ -149,40 +149,40 @@
       "artist": { "type": "String" }
     }
   },
-  "shareTextTitleOnly": "Práve počúvam {title} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "shareTextTitleOnly": "Épp a(z) {title}-t hallgatom a LUMEN Rádión! 🎧 https://www.lumen.sk",
   "@shareTextTitleOnly": {
     "description": "Text shared when a song/show only has a title",
     "placeholders": {
       "title": { "type": "String" }
     }
   },
-  "newsAuthorLabel": "Autor: {author}",
+  "newsAuthorLabel": "Szerző: {author}",
   "@newsAuthorLabel": {
     "description": "Label for news author",
     "placeholders": {
       "author": { "type": "String" }
     }
   },
-  "generalError": "Nastala chyba.",
+  "generalError": "Hiba történt.",
   "@generalError": {
     "description": "Generic error message"
   },
-  "scheduleError": "Nastala chyba pri načítavaní programu.",
+  "scheduleError": "Hiba történt a műsorrend betöltésekor.",
   "@scheduleError": {
     "description": "Error message for schedule load failure"
   },
-  "aboutTitle": "O aplikácii",
+  "aboutTitle": "Az alkalmazásról",
   "@aboutTitle": {
     "description": "Title for the About bottom sheet"
   },
-  "aboutVersion": "Verzia {version}",
+  "aboutVersion": "Verzió {version}",
   "@aboutVersion": {
     "description": "Version display text",
     "placeholders": {
       "version": { "type": "String" }
     }
   },
-  "aboutPrivacyPolicy": "Ochrana osobných údajov",
+  "aboutPrivacyPolicy": "Adatvédelmi irányelvek",
   "@aboutPrivacyPolicy": {
     "description": "Link label for Privacy Policy"
   },
@@ -190,19 +190,19 @@
   "@aboutLumenClub": {
     "description": "Link label for LUMEN Klub"
   },
-  "aboutContactUs": "Kontaktujte nás",
+  "aboutContactUs": "Kapcsolat",
   "@aboutContactUs": {
     "description": "Link label for contacting the station"
   },
-  "aboutDevelopedBy": "Aplikáciu vyvinuli",
+  "aboutDevelopedBy": "Az alkalmazást készítették",
   "@aboutDevelopedBy": {
     "description": "Label for developers section"
   },
-  "aboutCopyright": "© 2026 Rádio LUMEN. Všetky práva vyhradené.",
+  "aboutCopyright": "© 2026 LUMEN Rádió. Minden jog fenntartva.",
   "@aboutCopyright": {
     "description": "Copyright notice"
   },
-  "aboutLanguage": "Jazyk",
+  "aboutLanguage": "Nyelv",
   "@aboutLanguage": {
     "description": "Label for language selection"
   }

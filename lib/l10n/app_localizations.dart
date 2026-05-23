@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
+import 'app_localizations_hu.dart';
 import 'app_localizations_sk.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +94,11 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('sk')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('hu'),
+    Locale('sk'),
+  ];
 
   /// The title of the application
   ///
@@ -327,6 +333,54 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Nastala chyba pri načítavaní programu.'**
   String get scheduleError;
+
+  /// Title for the About bottom sheet
+  ///
+  /// In sk, this message translates to:
+  /// **'O aplikácii'**
+  String get aboutTitle;
+
+  /// Version display text
+  ///
+  /// In sk, this message translates to:
+  /// **'Verzia {version}'**
+  String aboutVersion(String version);
+
+  /// Link label for Privacy Policy
+  ///
+  /// In sk, this message translates to:
+  /// **'Ochrana osobných údajov'**
+  String get aboutPrivacyPolicy;
+
+  /// Link label for LUMEN Klub
+  ///
+  /// In sk, this message translates to:
+  /// **'LUMEN Klub'**
+  String get aboutLumenClub;
+
+  /// Link label for contacting the station
+  ///
+  /// In sk, this message translates to:
+  /// **'Kontaktujte nás'**
+  String get aboutContactUs;
+
+  /// Label for developers section
+  ///
+  /// In sk, this message translates to:
+  /// **'Aplikáciu vyvinuli'**
+  String get aboutDevelopedBy;
+
+  /// Copyright notice
+  ///
+  /// In sk, this message translates to:
+  /// **'© 2026 Rádio LUMEN. Všetky práva vyhradené.'**
+  String get aboutCopyright;
+
+  /// Label for language selection
+  ///
+  /// In sk, this message translates to:
+  /// **'Jazyk'**
+  String get aboutLanguage;
 }
 
 class _AppLocalizationsDelegate
@@ -340,7 +394,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['sk'].contains(locale.languageCode);
+      <String>['en', 'hu', 'sk'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -349,6 +403,10 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+    case 'hu':
+      return AppLocalizationsHu();
     case 'sk':
       return AppLocalizationsSk();
   }

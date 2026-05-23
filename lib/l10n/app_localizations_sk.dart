@@ -139,4 +139,30 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get scheduleError => 'Nastala chyba pri načítavaní programu.';
+
+  @override
+  String get aboutTitle => 'O aplikácii';
+
+  @override
+  String aboutVersion(String version) {
+    return 'Verzia $version';
+  }
+
+  @override
+  String get aboutPrivacyPolicy => 'Ochrana osobných údajov';
+
+  @override
+  String get aboutLumenClub => 'LUMEN Klub';
+
+  @override
+  String get aboutContactUs => 'Kontaktujte nás';
+
+  @override
+  String get aboutDevelopedBy => 'Aplikáciu vyvinuli';
+
+  @override
+  String get aboutCopyright => '© 2026 Rádio LUMEN. Všetky práva vyhradené.';
+
+  @override
+  String get aboutLanguage => 'Jazyk';
 }

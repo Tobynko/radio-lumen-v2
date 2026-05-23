@@ -1,14 +1,14 @@
 {
-  "@@locale": "sk",
-  "appTitle": "Rádio LUMEN",
+  "@@locale": "en",
+  "appTitle": "Radio LUMEN",
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homeTitle": "Domov",
+  "homeTitle": "Home",
   "@homeTitle": {
     "description": "Title for the Home screen"
   },
-  "playerTitle": "Prehrávač",
+  "playerTitle": "Player",
   "@playerTitle": {
     "description": "Title for the Live Player screen"
   },
@@ -16,79 +16,79 @@
   "@scheduleTitle": {
     "description": "Title for the Schedule screen"
   },
-  "navLive": "Naživo",
+  "navLive": "Live",
   "@navLive": {
     "description": "Label for Live tab"
   },
-  "navProgram": "Program",
+  "navProgram": "Schedule",
   "@navProgram": {
     "description": "Label for Program tab"
   },
-  "navArchiv": "Archív",
+  "navArchiv": "Archive",
   "@navArchiv": {
     "description": "Label for Archiv tab"
   },
-  "navAktuality": "Aktuality",
+  "navAktuality": "News",
   "@navAktuality": {
-    "description": "Label for Aktuality tab (formerly Modlitby)"
+    "description": "Label for Aktuality tab"
   },
-  "navHome": "Naživo",
+  "navHome": "Live",
   "@navHome": {
     "description": "Label for Home tab"
   },
-  "qualityTitle": "KVALITA PRENOSU",
+  "qualityTitle": "STREAM QUALITY",
   "@qualityTitle": {
     "description": "Title for the quality picker bottom sheet"
   },
-  "qualityHigh": "Vysoká kvalita (odporúčané pre Wi-Fi)",
+  "qualityHigh": "High quality (recommended for Wi-Fi)",
   "@qualityHigh": {
     "description": "Description for 128kbps quality"
   },
-  "qualityMedium": "Stredná kvalita",
+  "qualityMedium": "Medium quality",
   "@qualityMedium": {
     "description": "Description for 64kbps quality"
   },
-  "qualityLow": "Nízka kvalita (šetrí dáta)",
+  "qualityLow": "Low quality (saves data)",
   "@qualityLow": {
     "description": "Description for 32kbps quality"
   },
-  "scheduleTabProgram": "Program",
+  "scheduleTabProgram": "Schedule",
   "@scheduleTabProgram": {
     "description": "Tab label for Program"
   },
-  "scheduleTabPlaylists": "Playlisty",
+  "scheduleTabPlaylists": "Playlists",
   "@scheduleTabPlaylists": {
     "description": "Tab label for Playlists"
   },
-  "scheduleTabShows": "Relácie",
+  "scheduleTabShows": "Shows",
   "@scheduleTabShows": {
     "description": "Tab label for Shows/Relacie"
   },
-  "scheduleNoItems": "Na tento deň nie je dostupný program.",
+  "scheduleNoItems": "No program available for this day.",
   "@scheduleNoItems": {
-    "description": "Message shown when no schedule items are available for a selected day"
+    "description": "Message shown when no schedule items are available"
   },
-  "tagSpiritual": "Duchovné slovo",
+  "tagSpiritual": "Spiritual word",
   "@tagSpiritual": {
     "description": "Tag label for spiritual content"
   },
-  "tagLive": "Naživo",
+  "tagLive": "Live",
   "@tagLive": {
     "description": "Tag label for live broadcast"
   },
-  "archiveSearchHint": "Hľadať v archíve...",
+  "archiveSearchHint": "Search in archive...",
   "@archiveSearchHint": {
     "description": "Hint text for archive search bar"
   },
-  "archiveNoResults": "Nenašli sa žiadne výsledky.",
+  "archiveNoResults": "No results found.",
   "@archiveNoResults": {
     "description": "Message shown when no search results are found in archive"
   },
-  "archiveError": "Nastala chyba pri načítavaní archívu.",
+  "archiveError": "An error occurred while loading the archive.",
   "@archiveError": {
     "description": "Error message when archive fails to load"
   },
-  "archiveEpisodesCount": "{count, plural, one{1 epizóda} few{{count} epizódy} other{{count} epizód}}",
+  "archiveEpisodesCount": "{count, plural, one{1 episode} other{{count} episodes}}",
   "@archiveEpisodesCount": {
     "description": "Pluralized count of episodes",
     "placeholders": {
@@ -97,51 +97,51 @@
       }
     }
   },
-  "newsCategoryAll": "Všetky",
+  "newsCategoryAll": "All",
   "@newsCategoryAll": {
     "description": "Category label for all news"
   },
-  "newsCategoryFromBroadcast": "Z nášho vysielania",
+  "newsCategoryFromBroadcast": "From our broadcast",
   "@newsCategoryFromBroadcast": {
     "description": "Category label for news from broadcast"
   },
-  "newsCategoryNews": "Novinky",
+  "newsCategoryNews": "News",
   "@newsCategoryNews": {
     "description": "Category label for general news"
   },
-  "newsCategoryReporting": "Spravodajstvo",
+  "newsCategoryReporting": "Reporting",
   "@newsCategoryReporting": {
     "description": "Category label for reporting news"
   },
-  "newsNoItems": "Žiadne aktuality v tejto kategórii.",
+  "newsNoItems": "No news items in this category.",
   "@newsNoItems": {
     "description": "Message shown when no news items are available"
   },
-  "newsSearchHint": "Hľadať v aktualitách...",
+  "newsSearchHint": "Search in news...",
   "@newsSearchHint": {
     "description": "Hint text for news search bar"
   },
-  "newsError": "Nastala chyba pri načítavaní aktualít.",
+  "newsError": "An error occurred while loading news.",
   "@newsError": {
     "description": "Error message for news load failure"
   },
-  "connectivityOffline": "Chýba internetové pripojenie",
+  "connectivityOffline": "No internet connection",
   "@connectivityOffline": {
     "description": "Message shown when there is no internet connection"
   },
-  "audioLiveTitle": "Naživo",
+  "audioLiveTitle": "Live",
   "@audioLiveTitle": {
     "description": "Title for live broadcast in audio service"
   },
-  "audioStationName": "Rádio LUMEN",
+  "audioStationName": "Radio LUMEN",
   "@audioStationName": {
     "description": "Name of the station"
   },
-  "audioArchiveAlbum": "Rádio LUMEN Archív",
+  "audioArchiveAlbum": "Radio LUMEN Archive",
   "@audioArchiveAlbum": {
     "description": "Album name for archive playback"
   },
-  "shareTextWithArtist": "Práve počúvam {title} od {artist} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "shareTextWithArtist": "I'm listening to {title} by {artist} on Radio LUMEN! 🎧 https://www.lumen.sk",
   "@shareTextWithArtist": {
     "description": "Text shared when a song/show has an artist",
     "placeholders": {
@@ -149,60 +149,60 @@
       "artist": { "type": "String" }
     }
   },
-  "shareTextTitleOnly": "Práve počúvam {title} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "shareTextTitleOnly": "I'm listening to {title} on Radio LUMEN! 🎧 https://www.lumen.sk",
   "@shareTextTitleOnly": {
     "description": "Text shared when a song/show only has a title",
     "placeholders": {
       "title": { "type": "String" }
     }
   },
-  "newsAuthorLabel": "Autor: {author}",
+  "newsAuthorLabel": "Author: {author}",
   "@newsAuthorLabel": {
     "description": "Label for news author",
     "placeholders": {
       "author": { "type": "String" }
     }
   },
-  "generalError": "Nastala chyba.",
+  "generalError": "An error occurred.",
   "@generalError": {
     "description": "Generic error message"
   },
-  "scheduleError": "Nastala chyba pri načítavaní programu.",
+  "scheduleError": "An error occurred while loading the schedule.",
   "@scheduleError": {
     "description": "Error message for schedule load failure"
   },
-  "aboutTitle": "O aplikácii",
+  "aboutTitle": "About application",
   "@aboutTitle": {
     "description": "Title for the About bottom sheet"
   },
-  "aboutVersion": "Verzia {version}",
+  "aboutVersion": "Version {version}",
   "@aboutVersion": {
     "description": "Version display text",
     "placeholders": {
       "version": { "type": "String" }
     }
   },
-  "aboutPrivacyPolicy": "Ochrana osobných údajov",
+  "aboutPrivacyPolicy": "Privacy Policy",
   "@aboutPrivacyPolicy": {
     "description": "Link label for Privacy Policy"
   },
-  "aboutLumenClub": "LUMEN Klub",
+  "aboutLumenClub": "LUMEN Club",
   "@aboutLumenClub": {
     "description": "Link label for LUMEN Klub"
   },
-  "aboutContactUs": "Kontaktujte nás",
+  "aboutContactUs": "Contact us",
   "@aboutContactUs": {
     "description": "Link label for contacting the station"
   },
-  "aboutDevelopedBy": "Aplikáciu vyvinuli",
+  "aboutDevelopedBy": "Developed by",
   "@aboutDevelopedBy": {
     "description": "Label for developers section"
   },
-  "aboutCopyright": "© 2026 Rádio LUMEN. Všetky práva vyhradené.",
+  "aboutCopyright": "© 2026 Radio LUMEN. All rights reserved.",
   "@aboutCopyright": {
     "description": "Copyright notice"
   },
-  "aboutLanguage": "Jazyk",
+  "aboutLanguage": "Language",
   "@aboutLanguage": {
     "description": "Label for language selection"
   }

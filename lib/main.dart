@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:radio_lumen_v2/core/audio/audio_handler.dart';
+import 'package:radio_lumen_v2/core/settings/language_provider.dart';
 import 'package:radio_lumen_v2/core/settings/shared_preferences_provider.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
@@ -42,19 +43,22 @@ Future<void> main() async {
   FlutterNativeSplash.remove();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Initialize L10n utility to allow context-free access to localized strings
     L10n.init(context);
+
+    final currentLocale = ref.watch(languageProvider);
 
     return MaterialApp.router(
       title: 'Rádio LUMEN',
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
+      locale: currentLocale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
