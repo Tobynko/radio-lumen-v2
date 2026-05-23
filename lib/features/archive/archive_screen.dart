@@ -52,9 +52,9 @@ class ArchiveScreen extends ConsumerWidget {
                 child: archiveAsync.when(
                   data: (programs) => _buildProgramList(context, programs),
                   loading: () => const LumenLoadingView(),
+                  // Pattern: Removed manual retry button to favor automatic refresh via provider logic
                   error: (error, stackTrace) => LumenErrorView(
                     message: l10n.archiveError,
-                    onRetry: () => ref.refresh(archiveProgramsProvider),
                   ),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:html/parser.dart' show parse;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:radio_lumen_v2/features/news/models/news_item.dart';
 import 'package:radio_lumen_v2/core/network/dio_provider.dart';
+import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
 import 'package:radio_lumen_v2/core/utils/string_utils.dart';
 import 'package:intl/intl.dart';
 
@@ -29,6 +30,10 @@ class NewsSearchQuery extends _$NewsSearchQuery {
 
 @riverpod
 Future<List<NewsItem>> news(Ref ref) async {
+  // Watching connectivity status enables automatic re-fetching
+  // as soon as the device comes back online.
+  ref.watch(isOfflineProvider);
+  
   final dio = ref.watch(dioClientProvider);
   final currentFilter = ref.watch(newsFilterProvider);
 

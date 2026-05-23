@@ -39,89 +39,87 @@ class DioClient {
     final items = <Map<String, dynamic>>[];
 
     Future<void> fetchBatch(int timestamp, int batchIndex) async {
-      try {
-        final response = await _dio.post<String>(
-          'https://www.lumen.sk/newpages/ajax/aktualnyProgram.php',
-          data: {'from': timestamp.toString(), 'root': 'https://www.lumen.sk/'},
-          options: Options(
-            contentType: Headers.formUrlEncodedContentType,
-            responseType: ResponseType.plain,
-          ),
+      // Logic: Removed silent try-catch to allow error propagation to the caller (Riverpod).
+      // This ensures the UI can differentiate between "Empty" and "Network Error".
+      final response = await _dio.post<String>(
+        'https://www.lumen.sk/newpages/ajax/aktualnyProgram.php',
+        data: {'from': timestamp.toString(), 'root': 'https://www.lumen.sk/'},
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+          responseType: ResponseType.plain,
+        ),
+      );
+
+      final Map<String, dynamic> data = jsonDecode(response.data ?? '{}');
+
+      for (int i = 1; i <= 6; i++) {
+        final tabHeaderHtml = data['tab$i']?.toString() ?? '';
+        final tabContentHtml = data['tab${i}t']?.toString() ?? '';
+
+        final headerDoc = parse(tabHeaderHtml);
+        final text = headerDoc.body?.text.trim() ?? '';
+        final dateMatch = RegExp(
+          r'(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})',
+        ).firstMatch(text);
+
+        if (dateMatch == null) continue;
+
+        final date = DateTime(
+          int.parse(dateMatch.group(3)!),
+          int.parse(dateMatch.group(2)!),
+          int.parse(dateMatch.group(1)!),
         );
 
-        final Map<String, dynamic> data = jsonDecode(response.data ?? '{}');
+        final contentDoc = parse(tabContentHtml);
+        final programItems = contentDoc.querySelectorAll('ul.program > li');
 
-        for (int i = 1; i <= 6; i++) {
-          final tabHeaderHtml = data['tab$i']?.toString() ?? '';
-          final tabContentHtml = data['tab${i}t']?.toString() ?? '';
+        for (int j = 0; j < programItems.length; j++) {
+          final li = programItems[j];
+          final timeText = li.querySelector('.time')?.text.trim() ?? '';
+          final title =
+              li.querySelector('h3 a')?.text.trim() ??
+              li.querySelector('h3')?.text.trim() ??
+              '';
 
-          final headerDoc = parse(tabHeaderHtml);
-          final text = headerDoc.body?.text.trim() ?? '';
-          final dateMatch = RegExp(
-            r'(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})',
-          ).firstMatch(text);
+          final pTags = li.querySelectorAll('p');
+          String description = '';
+          for (final p in pTags) {
+            final text = p.text.trim();
+            if (text.isNotEmpty) {
+              if (description.isNotEmpty) description += '\n';
+              description += text;
+            }
+          }
 
-          if (dateMatch == null) continue;
+          int hour = 0;
+          int minute = 0;
+          final timeParts = timeText.split(':');
+          if (timeParts.length == 2) {
+            hour = int.tryParse(timeParts[0]) ?? 0;
+            minute = int.tryParse(timeParts[1]) ?? 0;
+          }
 
-          final date = DateTime(
-            int.parse(dateMatch.group(3)!),
-            int.parse(dateMatch.group(2)!),
-            int.parse(dateMatch.group(1)!),
+          final startTime = DateTime(
+            date.year,
+            date.month,
+            date.day,
+            hour,
+            minute,
           );
 
-          final contentDoc = parse(tabContentHtml);
-          final programItems = contentDoc.querySelectorAll('ul.program > li');
+          final playBtn = li.querySelector('a.jp-play');
+          final playUrlStr = playBtn?.attributes['rel'];
 
-          for (int j = 0; j < programItems.length; j++) {
-            final li = programItems[j];
-            final timeText = li.querySelector('.time')?.text.trim() ?? '';
-            final title =
-                li.querySelector('h3 a')?.text.trim() ??
-                li.querySelector('h3')?.text.trim() ??
-                '';
-
-            final pTags = li.querySelectorAll('p');
-            String description = '';
-            for (final p in pTags) {
-              final text = p.text.trim();
-              if (text.isNotEmpty) {
-                if (description.isNotEmpty) description += '\n';
-                description += text;
-              }
-            }
-
-            int hour = 0;
-            int minute = 0;
-            final timeParts = timeText.split(':');
-            if (timeParts.length == 2) {
-              hour = int.tryParse(timeParts[0]) ?? 0;
-              minute = int.tryParse(timeParts[1]) ?? 0;
-            }
-
-            final startTime = DateTime(
-              date.year,
-              date.month,
-              date.day,
-              hour,
-              minute,
-            );
-
-            final playBtn = li.querySelector('a.jp-play');
-            final playUrlStr = playBtn?.attributes['rel'];
-
-            items.add({
-              'id': 'b${batchIndex}_tab${i}_$j',
-              'title': title,
-              'description': description,
-              'start_time': startTime.toIso8601String(),
-              'tags': <String>[],
-              if (playUrlStr != null)
-                'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
-            });
-          }
+          items.add({
+            'id': 'b${batchIndex}_tab${i}_$j',
+            'title': title,
+            'description': description,
+            'start_time': startTime.toIso8601String(),
+            'tags': <String>[],
+            if (playUrlStr != null)
+              'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
+          });
         }
-      } catch (e) {
-        developer.log('Error fetching batch $batchIndex: $e');
       }
     }
 
@@ -155,7 +153,7 @@ class DioClient {
 
       return {'data': items};
     } catch (e) {
-      throw Exception('Failed to parse schedule: $e');
+      rethrow; // Correctly propagate errors to Riverpod
     }
   }
 
@@ -182,7 +180,7 @@ class DioClient {
       );
       return response.data ?? '';
     } catch (e) {
-      throw Exception('Failed to fetch archive: $e');
+      rethrow;
     }
   }
 

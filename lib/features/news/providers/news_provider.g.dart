@@ -149,7 +149,7 @@ final class NewsProvider
   }
 }
 
-String _$newsHash() => r'66e4c50579d853a19f8fb7fa0d27494ac122e28a';
+String _$newsHash() => r'af11231157763f26940cf6e8c89a4ac7004d83ec';
 
 @ProviderFor(filteredNews)
 final filteredNewsProvider = FilteredNewsProvider._();

@@ -61,9 +61,9 @@ class NewsScreen extends ConsumerWidget {
                 child: newsAsync.when(
                   data: (items) => _buildNewsList(items, l10n),
                   loading: () => const LumenLoadingView(),
+                  // Pattern: Removed manual retry button to favor automatic refresh via provider logic
                   error: (error, stackTrace) => LumenErrorView(
                     message: l10n.newsError,
-                    onRetry: () => ref.refresh(newsProvider),
                   ),
                 ),
               ),

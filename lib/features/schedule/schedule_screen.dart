@@ -49,16 +49,14 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                     _buildDaysFilter(),
                     const SizedBox(height: AppDesignTokens.spacingL),
                     Expanded(
-                      child: ref
-                          .watch(scheduleProvider)
-                          .when(
-                            data: (items) => _buildScheduleList(l10n, items),
-                            loading: () => const LumenLoadingView(),
-                            error: (error, stackTrace) => LumenErrorView(
-                              message: l10n.scheduleError,
-                              onRetry: () => ref.refresh(scheduleProvider),
-                            ),
-                          ),
+                      child: ref.watch(scheduleProvider).when(
+                        data: (items) => _buildScheduleList(l10n, items),
+                        loading: () => const LumenLoadingView(),
+                        // Pattern: Removed manual retry button to favor automatic refresh via provider logic
+                        error: (error, stackTrace) => LumenErrorView(
+                          message: l10n.scheduleError,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -125,7 +123,10 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
       itemCount: items.length,
       separatorBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: AppDesignTokens.spacingL),
-        child: Divider(color: Colors.white.withAlpha(AppDesignTokens.alphaDivider), height: 1),
+        child: Divider(
+          color: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
+          height: 1,
+        ),
       ),
       itemBuilder: (context, index) {
         final item = items[index];
@@ -162,7 +163,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                     Text(
                       item.description,
                       style: AppTextStyles.listItemSubtitle.copyWith(
-                        color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                        color: Colors.white.withAlpha(
+                          AppDesignTokens.alphaTextSecondary,
+                        ),
                         height: 1.3,
                       ),
                       maxLines: 2,
@@ -175,13 +178,17 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                           Icon(
                             Icons.mic,
                             size: 16,
-                            color: AppColors.accentTeal.withAlpha(AppDesignTokens.alphaTextSecondary + 50),
+                            color: AppColors.accentTeal.withAlpha(
+                              AppDesignTokens.alphaTextSecondary + 50,
+                            ),
                           ),
                           const SizedBox(width: 6),
                           Text(
                             item.show!.host!,
                             style: AppTextStyles.listItemSubtitle.copyWith(
-                              color: AppColors.accentTeal.withAlpha(AppDesignTokens.alphaTextSecondary + 50),
+                              color: AppColors.accentTeal.withAlpha(
+                                AppDesignTokens.alphaTextSecondary + 50,
+                              ),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
