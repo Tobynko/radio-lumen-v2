@@ -20,6 +20,7 @@ class AppDesignTokens {
   static const double elementSpacing = spacingS; // 8.0
 
   // Radii
+  static const double radiusXS = 4.0;
   static const double radiusS = 8.0;
   static const double radiusM = 12.0;
   static const double radiusL = 16.0;

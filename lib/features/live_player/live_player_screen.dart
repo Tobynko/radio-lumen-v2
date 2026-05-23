@@ -40,7 +40,8 @@ class LivePlayerScreen extends ConsumerWidget {
                   return SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                      constraints:
+                          BoxConstraints(minHeight: constraints.maxHeight),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppDesignTokens.screenPadding,
@@ -69,8 +70,8 @@ class LivePlayerScreen extends ConsumerWidget {
               ),
               // Info Icon
               Positioned(
-                top: 8,
-                right: 16,
+                top: AppDesignTokens.spacingS,
+                right: AppDesignTokens.spacingL,
                 child: IconButton(
                   icon: const Icon(
                     Icons.info_outline_rounded,
@@ -110,13 +111,16 @@ class _AboutSheetContent extends ConsumerWidget {
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.primary,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppDesignTokens.radiusXXL),
+        ),
       ),
       padding: EdgeInsets.only(
-        top: 24,
+        top: AppDesignTokens.spacingXXL,
         left: AppDesignTokens.screenPadding,
         right: AppDesignTokens.screenPadding,
-        bottom: MediaQuery.of(context).padding.bottom + 24,
+        bottom:
+            MediaQuery.of(context).padding.bottom + AppDesignTokens.spacingXXL,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -125,10 +129,10 @@ class _AboutSheetContent extends ConsumerWidget {
           Container(
             width: 40,
             height: 4,
-            margin: const EdgeInsets.only(bottom: 32),
+            margin: const EdgeInsets.only(bottom: AppDesignTokens.spacingXXXL),
             decoration: BoxDecoration(
               color: Colors.white.withAlpha(50),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(AppDesignTokens.radiusXS),
             ),
           ),
 
@@ -141,7 +145,7 @@ class _AboutSheetContent extends ConsumerWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppDesignTokens.spacingS),
           Text(
             l10n.aboutVersion(version),
             style: AppTextStyles.bodyMedium.copyWith(
@@ -149,7 +153,7 @@ class _AboutSheetContent extends ConsumerWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDesignTokens.spacingXXXL),
 
           // Flexible scroll area
           Flexible(
@@ -159,35 +163,38 @@ class _AboutSheetContent extends ConsumerWidget {
                 children: [
                   // Language Selector Section
                   const _LanguageSelector(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppDesignTokens.spacingXXL),
 
                   // Links Section
                   _AboutLinkItem(
                     label: l10n.aboutLumenClub,
                     icon: Icons.stars_rounded,
-                    onTap: () => _launchUrl('https://www.lumen.sk/lumen-klub.html'),
+                    onTap: () =>
+                        _launchUrl('https://www.lumen.sk/lumen-klub.html'),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppDesignTokens.spacingM),
                   _AboutLinkItem(
                     label: l10n.aboutContactUs,
                     icon: Icons.email_outlined,
                     onTap: () => _launchUrl('https://www.lumen.sk/kontakty.html'),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppDesignTokens.spacingM),
                   _AboutLinkItem(
                     label: l10n.aboutPrivacyPolicy,
                     icon: Icons.privacy_tip_outlined,
-                    onTap: () => _launchUrl('https://www.lumen.sk/ochrana-osobnych-udajov.html'),
+                    onTap: () => _launchUrl(
+                        'https://www.lumen.sk/ochrana-osobnych-udajov.html'),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: AppDesignTokens.spacingXXXL),
 
                   // Developers Section
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(AppDesignTokens.spacingXL),
                     decoration: BoxDecoration(
                       color: Colors.white.withAlpha(15),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius:
+                          BorderRadius.circular(AppDesignTokens.radiusXL),
                       border: Border.all(
                         color: Colors.white.withAlpha(10),
                       ),
@@ -202,7 +209,7 @@ class _AboutSheetContent extends ConsumerWidget {
                             letterSpacing: 1.2,
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: AppDesignTokens.spacingM),
                         Text(
                           'Bc. Tobiáš Bulko',
                           style: AppTextStyles.bodyLarge.copyWith(
@@ -210,7 +217,7 @@ class _AboutSheetContent extends ConsumerWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppDesignTokens.spacingXS),
                         Text(
                           'Bc. Janka Danišová',
                           style: AppTextStyles.bodyLarge.copyWith(
@@ -221,7 +228,7 @@ class _AboutSheetContent extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: AppDesignTokens.spacingXXXL),
 
                   // Copyright
                   Text(
@@ -232,7 +239,7 @@ class _AboutSheetContent extends ConsumerWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppDesignTokens.spacingS),
                 ],
               ),
             ),
@@ -261,7 +268,8 @@ class _LanguageSelector extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 12),
+          padding:
+              const EdgeInsets.only(left: 4, bottom: AppDesignTokens.spacingM),
           child: Text(
             l10n.aboutLanguage.toUpperCase(),
             style: AppTextStyles.labelSmall.copyWith(
@@ -277,19 +285,24 @@ class _LanguageSelector extends ConsumerWidget {
             final isSelected = currentLocale.languageCode == lang['code'];
             return Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppDesignTokens.spacingXS),
                 child: GestureDetector(
                   onTap: () {
-                    ref.read(languageProvider.notifier).setLanguage(lang['code']!);
+                    ref
+                        .read(languageProvider.notifier)
+                        .setLanguage(lang['code']!);
                   },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppDesignTokens.spacingM),
                     decoration: BoxDecoration(
                       color: isSelected
                           ? AppColors.accentGold
                           : Colors.white.withAlpha(15),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius:
+                          BorderRadius.circular(AppDesignTokens.radiusM),
                       border: Border.all(
                         color: isSelected
                             ? AppColors.accentGold
@@ -302,12 +315,13 @@ class _LanguageSelector extends ConsumerWidget {
                           lang['flag']!,
                           style: const TextStyle(fontSize: 20),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppDesignTokens.spacingXS),
                         Text(
                           lang['label']!,
                           style: AppTextStyles.bodyMedium.copyWith(
                             color: isSelected ? AppColors.primary : Colors.white,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            fontWeight:
+                                isSelected ? FontWeight.bold : FontWeight.normal,
                           ),
                         ),
                       ],
@@ -339,10 +353,13 @@ class _AboutLinkItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDesignTokens.screenPadding,
+          vertical: AppDesignTokens.spacingL,
+        ),
         decoration: BoxDecoration(
           color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppDesignTokens.radiusL),
           border: Border.all(
             color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBorder),
           ),
@@ -350,7 +367,7 @@ class _AboutLinkItem extends StatelessWidget {
         child: Row(
           children: [
             Icon(icon, color: AppColors.accentGold, size: 24),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppDesignTokens.spacingL),
             Expanded(
               child: Text(
                 label,

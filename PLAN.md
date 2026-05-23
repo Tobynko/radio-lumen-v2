@@ -12,6 +12,8 @@
 8. [x] **Internet Connectivity Check**: Implement real-time network status monitoring using connectivity_plus; display a non-intrusive banner or snackbar when the connection is lost.
 9. [x] **Multi-Language Support (SK, EN, HU):** Implement persistent language switching (Riverpod + SharedPreferences), full translation parity across all ARB files, and a visual Language Selector in the About sheet.
 10. [x] **Refined About & Info:** Implement reactive "About application" panel with dynamic versioning, legal links, and professional developer attribution for Bc. Tobiáš Bulko and Bc. Janka Danišová.
+11. [x] **iOS System Integration:** Restore status bar visibility (Time, Battery, Wi-Fi) and register EN/HU support at the system level via Info.plist.
+12. [x] **Android System Integration:** Enable Android 13+ per-app language settings and ensure status bar visibility and transparency across themes.
 
 ---
 
