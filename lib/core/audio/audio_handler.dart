@@ -10,7 +10,18 @@ class LumenAudioHandler extends BaseAudioHandler {
   AudioPlayer get player => _player;
 
   LumenAudioHandler() {
-    _player.playbackEventStream.map(_transformEvent).pipe(playbackState);
+    _player.playbackEventStream.listen(
+      (event) => playbackState.add(_transformEvent(event)),
+      onError: (Object e, StackTrace st) {
+        developer.log('Audio stream error', name: 'audio.core', error: e, stackTrace: st);
+        playbackState.add(
+          playbackState.value.copyWith(
+            processingState: AudioProcessingState.error,
+            errorMessage: e.toString(),
+          ),
+        );
+      },
+    );
 
     // Listen to duration changes (especially for archive/VOD)
     _player.durationStream.listen((duration) {

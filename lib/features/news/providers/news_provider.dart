@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'package:html/parser.dart' show parse;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:radio_lumen_v2/features/news/models/news_item.dart';
@@ -57,60 +58,64 @@ Future<List<NewsItem>> news(Ref ref) async {
     final List<NewsItem> items = [];
 
     for (final element in itemElements) {
-      final title =
-          element.querySelector('.news__item__title')?.text.trim() ?? '';
+      try {
+        final title =
+            element.querySelector('.news__item__title')?.text.trim() ?? '';
 
-      // Extract image URL from background-image style
-      final imgWrap = element.querySelector('.imgwrap');
-      String? imageUrl;
-      if (imgWrap != null) {
-        final style = imgWrap.attributes['style'] ?? '';
-        final match = RegExp(r"url\('(.+?)'\)").firstMatch(style);
-        if (match != null) {
-          imageUrl = match.group(1);
+        // Extract image URL from background-image style
+        final imgWrap = element.querySelector('.imgwrap');
+        String? imageUrl;
+        if (imgWrap != null) {
+          final style = imgWrap.attributes['style'] ?? '';
+          final match = RegExp(r"url\('(.+?)'\)").firstMatch(style);
+          if (match != null) {
+            imageUrl = match.group(1);
+          }
         }
-      }
 
-      // Extract date and author
-      // <div class="news__item__date"> 20.05.2026 <strong>Kathpress.at</strong> </div>
-      final dateContainer = element.querySelector('.news__item__date');
-      String author = '';
-      DateTime date = DateTime.now();
+        // Extract date and author
+        // <div class="news__item__date"> 20.05.2026 <strong>Kathpress.at</strong> </div>
+        final dateContainer = element.querySelector('.news__item__date');
+        String author = '';
+        DateTime date = DateTime.now();
 
-      if (dateContainer != null) {
-        final authorElement = dateContainer.querySelector('strong');
-        author = authorElement?.text.trim() ?? '';
+        if (dateContainer != null) {
+          final authorElement = dateContainer.querySelector('strong');
+          author = authorElement?.text.trim() ?? '';
 
-        // Remove author text from container to get the date string
-        String dateText = dateContainer.text.replaceAll(author, '').trim();
-        try {
-          // Date format on site is usually DD.MM.YYYY
-          date = DateFormat('dd.MM.yyyy').parse(dateText);
-        } catch (_) {
-          // Fallback if parsing fails
+          // Remove author text from container to get the date string
+          String dateText = dateContainer.text.replaceAll(author, '').trim();
+          try {
+            // Date format on site is usually DD.MM.YYYY
+            date = DateFormat('dd.MM.yyyy').parse(dateText);
+          } catch (_) {
+            // Fallback if parsing fails
+          }
         }
+
+        final perex = element.querySelector('p')?.text.trim() ?? '';
+        final link = element.attributes['href'] ?? '';
+
+        items.add(
+          NewsItem(
+            id: link,
+            title: title,
+            author: author,
+            date: date,
+            category: currentFilter,
+            imageUrl: imageUrl,
+            content: perex,
+          ),
+        );
+      } catch (itemError) {
+        developer.log('Failed to parse a news item, skipping.', name: 'news_provider', error: itemError);
       }
-
-      final perex = element.querySelector('p')?.text.trim() ?? '';
-      final link = element.attributes['href'] ?? '';
-
-      items.add(
-        NewsItem(
-          id: link,
-          title: title,
-          author: author,
-          date: date,
-          category: currentFilter,
-          imageUrl: imageUrl,
-          content: perex,
-        ),
-      );
     }
 
     return items;
   } catch (e) {
-    // Return empty list or throw to handle in UI
-    rethrow;
+    developer.log('Critical failure parsing news DOM', name: 'news_provider', error: e);
+    throw Exception('Failed to load news due to an unexpected layout change.');
   }
 }
 

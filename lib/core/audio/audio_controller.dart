@@ -65,7 +65,12 @@ class AudioController extends _$AudioController {
       final isPlaying = playbackState.playing;
       final processingState = playbackState.processingState;
 
-      if (processingState == AudioProcessingState.loading ||
+      if (processingState == AudioProcessingState.error) {
+        state = state.copyWith(
+          status: PlaybackStatus.error,
+          errorMessage: playbackState.errorMessage,
+        );
+      } else if (processingState == AudioProcessingState.loading ||
           processingState == AudioProcessingState.buffering) {
         state = state.copyWith(status: PlaybackStatus.loading);
       } else if (isPlaying) {

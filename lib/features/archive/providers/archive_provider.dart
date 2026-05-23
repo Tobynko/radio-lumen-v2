@@ -1,4 +1,5 @@
 // Path: lib/features/archive/providers/archive_provider.dart
+import 'dart:developer' as developer;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:radio_lumen_v2/core/network/dio_provider.dart';
 import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
@@ -114,8 +115,9 @@ DateTime _parseRssDate(String dateStr) {
     // Fallback to basic parsing if DateFormat fails
     try {
       return DateTime.parse(dateStr);
-    } catch (_) {
-      return DateTime.now();
+    } catch (e2) {
+      developer.log('Failed to parse RSS date: $dateStr', name: 'archive_provider', error: e2);
+      return DateTime.fromMillisecondsSinceEpoch(0);
     }
   }
 }

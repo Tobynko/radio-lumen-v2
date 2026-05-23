@@ -74,51 +74,55 @@ class DioClient {
         final programItems = contentDoc.querySelectorAll('ul.program > li');
 
         for (int j = 0; j < programItems.length; j++) {
-          final li = programItems[j];
-          final timeText = li.querySelector('.time')?.text.trim() ?? '';
-          final title =
-              li.querySelector('h3 a')?.text.trim() ??
-              li.querySelector('h3')?.text.trim() ??
-              '';
+          try {
+            final li = programItems[j];
+            final timeText = li.querySelector('.time')?.text.trim() ?? '';
+            final title =
+                li.querySelector('h3 a')?.text.trim() ??
+                li.querySelector('h3')?.text.trim() ??
+                '';
 
-          final pTags = li.querySelectorAll('p');
-          String description = '';
-          for (final p in pTags) {
-            final text = p.text.trim();
-            if (text.isNotEmpty) {
-              if (description.isNotEmpty) description += '\n';
-              description += text;
+            final pTags = li.querySelectorAll('p');
+            String description = '';
+            for (final p in pTags) {
+              final text = p.text.trim();
+              if (text.isNotEmpty) {
+                if (description.isNotEmpty) description += '\n';
+                description += text;
+              }
             }
+
+            int hour = 0;
+            int minute = 0;
+            final timeParts = timeText.split(':');
+            if (timeParts.length == 2) {
+              hour = int.tryParse(timeParts[0]) ?? 0;
+              minute = int.tryParse(timeParts[1]) ?? 0;
+            }
+
+            final startTime = DateTime(
+              date.year,
+              date.month,
+              date.day,
+              hour,
+              minute,
+            );
+
+            final playBtn = li.querySelector('a.jp-play');
+            final playUrlStr = playBtn?.attributes['rel'];
+
+            items.add({
+              'id': 'b${batchIndex}_tab${i}_$j',
+              'title': title,
+              'description': description,
+              'start_time': startTime.toIso8601String(),
+              'tags': <String>[],
+              if (playUrlStr != null)
+                'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
+            });
+          } catch (itemError) {
+            developer.log('Failed to parse a schedule item, skipping.', name: 'dio_client', error: itemError);
           }
-
-          int hour = 0;
-          int minute = 0;
-          final timeParts = timeText.split(':');
-          if (timeParts.length == 2) {
-            hour = int.tryParse(timeParts[0]) ?? 0;
-            minute = int.tryParse(timeParts[1]) ?? 0;
-          }
-
-          final startTime = DateTime(
-            date.year,
-            date.month,
-            date.day,
-            hour,
-            minute,
-          );
-
-          final playBtn = li.querySelector('a.jp-play');
-          final playUrlStr = playBtn?.attributes['rel'];
-
-          items.add({
-            'id': 'b${batchIndex}_tab${i}_$j',
-            'title': title,
-            'description': description,
-            'start_time': startTime.toIso8601String(),
-            'tags': <String>[],
-            if (playUrlStr != null)
-              'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
-          });
         }
       }
     }
@@ -153,7 +157,8 @@ class DioClient {
 
       return {'data': items};
     } catch (e) {
-      rethrow; // Correctly propagate errors to Riverpod
+      developer.log('Critical failure parsing schedule DOM', name: 'dio_client', error: e);
+      throw Exception('Failed to load schedule due to an unexpected layout change.');
     }
   }
 
