@@ -27,11 +27,10 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
           program.name,
           style: AppTextStyles.titleLarge.copyWith(color: Colors.white),
         ),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: AppDesignTokens.spacingS),
           child: Center(
             child: LumenBackButton(
-              onTap: () => context.pop(),
               size: 18,
             ),
           ),
@@ -47,7 +46,9 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
             ),
             itemCount: program.episodes.length,
             separatorBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppDesignTokens.spacingM),
+              padding: const EdgeInsets.symmetric(
+                vertical: AppDesignTokens.spacingM,
+              ),
               child: Divider(
                 color: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
                 height: 1,
@@ -66,13 +67,15 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppDesignTokens.spacingS),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppDesignTokens.spacingS,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Date/Time Column - Standardized to listItemTime/listItemSubtitle
+                      // Date/Time Column - Standardized to timeColumnWidth
                       SizedBox(
-                        width: 65,
+                        width: AppDesignTokens.timeColumnWidth,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -85,15 +88,17 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                             Text(
                               timeStr,
                               style: AppTextStyles.listItemSubtitle.copyWith(
-                                color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
-                                fontSize: 16, // Slightly larger for time subtext
+                                color: Colors.white.withAlpha(
+                                  AppDesignTokens.alphaTextSecondary,
+                                ),
+                                fontSize: 16,
                               ),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(width: AppDesignTokens.spacingM),
-                      // Episode Title - Standardized to listItemTitle
+                      // Episode Title
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +114,9 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                               Text(
                                 episode.description,
                                 style: AppTextStyles.listItemSubtitle.copyWith(
-                                  color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                                  color: Colors.white.withAlpha(
+                                    AppDesignTokens.alphaTextSecondary,
+                                  ),
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -121,7 +128,7 @@ class ArchiveEpisodesScreen extends ConsumerWidget {
                       IconButton(
                         icon: const Icon(Icons.play_circle_fill),
                         color: AppColors.accentGold,
-                        iconSize: 36,
+                        iconSize: AppDesignTokens.archiveIconSize,
                         onPressed: () {
                           context.push(
                             '/archive-player',

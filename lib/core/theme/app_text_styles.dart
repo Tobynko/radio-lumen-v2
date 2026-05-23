@@ -59,7 +59,7 @@ class AppTextStyles {
   );
 
   static TextStyle labelSmall = GoogleFonts.roboto(
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Colors.grey,
   );

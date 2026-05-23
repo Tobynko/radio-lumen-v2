@@ -12,15 +12,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Radio LUMEN';
 
   @override
-  String get homeTitle => 'Home';
-
-  @override
-  String get playerTitle => 'Player';
-
-  @override
-  String get scheduleTitle => 'Program';
-
-  @override
   String get navLive => 'Live';
 
   @override
@@ -31,9 +22,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navAktuality => 'News';
-
-  @override
-  String get navHome => 'Live';
 
   @override
   String get qualityTitle => 'STREAM QUALITY';
@@ -48,22 +36,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qualityLow => 'Low quality (saves data)';
 
   @override
-  String get scheduleTabProgram => 'Schedule';
-
-  @override
-  String get scheduleTabPlaylists => 'Playlists';
-
-  @override
-  String get scheduleTabShows => 'Shows';
-
-  @override
   String get scheduleNoItems => 'No program available for this day.';
-
-  @override
-  String get tagSpiritual => 'Spiritual word';
-
-  @override
-  String get tagLive => 'Live';
 
   @override
   String get archiveSearchHint => 'Search in archive...';
@@ -134,7 +107,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get generalError => 'An error occurred.';
+  String get tagSpiritual => 'Spiritual word';
+
+  @override
+  String get tagLive => 'Live';
 
   @override
   String get scheduleError => 'An error occurred while loading the schedule.';
@@ -164,4 +140,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutLanguage => 'Language';
+
+  @override
+  String get quoteTitle => 'Daily Wisdom';
+
+  @override
+  String get quoteError => 'Failed to load quote.';
 }

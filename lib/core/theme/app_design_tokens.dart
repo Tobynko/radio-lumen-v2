@@ -13,11 +13,20 @@ class AppDesignTokens {
   static const double spacingXL = 20.0;
   static const double spacingXXL = 24.0;
   static const double spacingXXXL = 32.0;
+  static const double spacingXXXXL = 40.0;
 
   // Semantic Spacing
   static const double screenPadding = spacingXL; // 20.0
   static const double contentPadding = spacingL; // 16.0
   static const double elementSpacing = spacingS; // 8.0
+
+  // Component Specific Sizes
+  static const double logoSizeLarge = 180.0;
+  static const double timeColumnWidth = 65.0;
+  static const double navIconSize = 30.0;
+  static const double archiveIconSize = 36.0;
+  static const double playerIconSize = 42.0;
+  static const double playerIconLargeSize = 48.0;
 
   // Radii
   static const double radiusXS = 4.0;

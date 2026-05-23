@@ -1,209 +1,44 @@
 {
   "@@locale": "hu",
   "appTitle": "LUMEN Rádió",
-  "@appTitle": {
-    "description": "The title of the application"
-  },
-  "homeTitle": "Kezdőlap",
-  "@homeTitle": {
-    "description": "Title for the Home screen"
-  },
-  "playerTitle": "Lejátszó",
-  "@playerTitle": {
-    "description": "Title for the Live Player screen"
-  },
-  "scheduleTitle": "Műsor",
-  "@scheduleTitle": {
-    "description": "Title for the Schedule screen"
-  },
   "navLive": "Élő",
-  "@navLive": {
-    "description": "Label for Live tab"
-  },
   "navProgram": "Műsor",
-  "@navProgram": {
-    "description": "Label for Program tab"
-  },
   "navArchiv": "Archívum",
-  "@navArchiv": {
-    "description": "Label for Archiv tab"
-  },
   "navAktuality": "Hírek",
-  "@navAktuality": {
-    "description": "Label for Aktuality tab"
-  },
-  "navHome": "Élő",
-  "@navHome": {
-    "description": "Label for Home tab"
-  },
   "qualityTitle": "ADÁSI MINŐSÉG",
-  "@qualityTitle": {
-    "description": "Title for the quality picker bottom sheet"
-  },
   "qualityHigh": "Magas minőség (Wi-Fi ajánlott)",
-  "@qualityHigh": {
-    "description": "Description for 128kbps quality"
-  },
   "qualityMedium": "Közepes minőség",
-  "@qualityMedium": {
-    "description": "Description for 64kbps quality"
-  },
   "qualityLow": "Alacsony minőség (adatkímélő)",
-  "@qualityLow": {
-    "description": "Description for 32kbps quality"
-  },
-  "scheduleTabProgram": "Műsor",
-  "@scheduleTabProgram": {
-    "description": "Tab label for Program"
-  },
-  "scheduleTabPlaylists": "Lejátszási listák",
-  "@scheduleTabPlaylists": {
-    "description": "Tab label for Playlists"
-  },
-  "scheduleTabShows": "Műsorok",
-  "@scheduleTabShows": {
-    "description": "Tab label for Shows/Relacie"
-  },
   "scheduleNoItems": "Erre a napra nincs elérhető műsor.",
-  "@scheduleNoItems": {
-    "description": "Message shown when no schedule items are available"
-  },
-  "tagSpiritual": "Lelki szó",
-  "@tagSpiritual": {
-    "description": "Tag label for spiritual content"
-  },
-  "tagLive": "Élő",
-  "@tagLive": {
-    "description": "Tag label for live broadcast"
-  },
   "archiveSearchHint": "Keresés az archívumban...",
-  "@archiveSearchHint": {
-    "description": "Hint text for archive search bar"
-  },
   "archiveNoResults": "Nincs találat.",
-  "@archiveNoResults": {
-    "description": "Message shown when no search results are found in archive"
-  },
   "archiveError": "Hiba történt az archívum betöltésekor.",
-  "@archiveError": {
-    "description": "Error message when archive fails to load"
-  },
   "archiveEpisodesCount": "{count, plural, one{1 epizód} other{{count} epizód}}",
-  "@archiveEpisodesCount": {
-    "description": "Pluralized count of episodes",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "newsCategoryAll": "Mind",
-  "@newsCategoryAll": {
-    "description": "Category label for all news"
-  },
   "newsCategoryFromBroadcast": "Adásunkból",
-  "@newsCategoryFromBroadcast": {
-    "description": "Category label for news from broadcast"
-  },
   "newsCategoryNews": "Hírek",
-  "@newsCategoryNews": {
-    "description": "Category label for general news"
-  },
   "newsCategoryReporting": "Tudósítások",
-  "@newsCategoryReporting": {
-    "description": "Category label for reporting news"
-  },
   "newsNoItems": "Ebben a kategóriában nincsenek hírek.",
-  "@newsNoItems": {
-    "description": "Message shown when no news items are available"
-  },
   "newsSearchHint": "Keresés a hírekben...",
-  "@newsSearchHint": {
-    "description": "Hint text for news search bar"
-  },
   "newsError": "Hiba történt a hírek betöltésekor.",
-  "@newsError": {
-    "description": "Error message for news load failure"
-  },
   "connectivityOffline": "Nincs internetkapcsolat",
-  "@connectivityOffline": {
-    "description": "Message shown when there is no internet connection"
-  },
   "audioLiveTitle": "Élő",
-  "@audioLiveTitle": {
-    "description": "Title for live broadcast in audio service"
-  },
   "audioStationName": "LUMEN Rádió",
-  "@audioStationName": {
-    "description": "Name of the station"
-  },
   "audioArchiveAlbum": "LUMEN Rádió Archívum",
-  "@audioArchiveAlbum": {
-    "description": "Album name for archive playback"
-  },
   "shareTextWithArtist": "Épp a(z) {title}-t hallgatom {artist}-tól a LUMEN Rádión! 🎧 https://www.lumen.sk",
-  "@shareTextWithArtist": {
-    "description": "Text shared when a song/show has an artist",
-    "placeholders": {
-      "title": { "type": "String" },
-      "artist": { "type": "String" }
-    }
-  },
   "shareTextTitleOnly": "Épp a(z) {title}-t hallgatom a LUMEN Rádión! 🎧 https://www.lumen.sk",
-  "@shareTextTitleOnly": {
-    "description": "Text shared when a song/show only has a title",
-    "placeholders": {
-      "title": { "type": "String" }
-    }
-  },
   "newsAuthorLabel": "Szerző: {author}",
-  "@newsAuthorLabel": {
-    "description": "Label for news author",
-    "placeholders": {
-      "author": { "type": "String" }
-    }
-  },
-  "generalError": "Hiba történt.",
-  "@generalError": {
-    "description": "Generic error message"
-  },
+  "tagSpiritual": "Lelki szó",
+  "tagLive": "Élő",
   "scheduleError": "Hiba történt a műsorrend betöltésekor.",
-  "@scheduleError": {
-    "description": "Error message for schedule load failure"
-  },
   "aboutTitle": "Az alkalmazásról",
-  "@aboutTitle": {
-    "description": "Title for the About bottom sheet"
-  },
   "aboutVersion": "Verzió {version}",
-  "@aboutVersion": {
-    "description": "Version display text",
-    "placeholders": {
-      "version": { "type": "String" }
-    }
-  },
   "aboutPrivacyPolicy": "Adatvédelmi irányelvek",
-  "@aboutPrivacyPolicy": {
-    "description": "Link label for Privacy Policy"
-  },
   "aboutLumenClub": "LUMEN Klub",
-  "@aboutLumenClub": {
-    "description": "Link label for LUMEN Klub"
-  },
   "aboutContactUs": "Kapcsolat",
-  "@aboutContactUs": {
-    "description": "Link label for contacting the station"
-  },
   "aboutDevelopedBy": "Az alkalmazást készítették",
-  "@aboutDevelopedBy": {
-    "description": "Label for developers section"
-  },
   "aboutCopyright": "© 2026 LUMEN Rádió. Minden jog fenntartva.",
-  "@aboutCopyright": {
-    "description": "Copyright notice"
-  },
   "aboutLanguage": "Nyelv",
-  "@aboutLanguage": {
-    "description": "Label for language selection"
-  }
+  "quoteTitle": "A nap idézete",
+  "quoteError": "Nem sikerült betölteni az idézetet."
 }

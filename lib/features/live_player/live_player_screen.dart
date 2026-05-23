@@ -6,6 +6,7 @@ import 'package:radio_lumen_v2/core/theme/app_colors.dart';
 import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
+import 'package:radio_lumen_v2/features/home/widgets/daily_quote_card.dart';
 import 'package:radio_lumen_v2/features/live_player/widgets/quick_access_player.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -49,18 +50,21 @@ class LivePlayerScreen extends ConsumerWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 40),
+                            const SizedBox(height: AppDesignTokens.spacingXXXXL),
                             // Logo Section
                             Center(
                               child: Image.asset(
                                 'assets/logos/logo.png',
-                                height: 180,
+                                height: AppDesignTokens.logoSizeLarge,
                               ),
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: AppDesignTokens.spacingXXXXL),
                             // Quick Access Player Card
                             const QuickAccessPlayer(),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: AppDesignTokens.spacingXXXL),
+                            // Daily Wisdom Section
+                            const DailyQuoteCard(),
+                            const SizedBox(height: AppDesignTokens.spacingXXXXL),
                           ],
                         ),
                       ),

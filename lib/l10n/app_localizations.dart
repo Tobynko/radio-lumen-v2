@@ -106,24 +106,6 @@ abstract class AppLocalizations {
   /// **'Rádio LUMEN'**
   String get appTitle;
 
-  /// Title for the Home screen
-  ///
-  /// In sk, this message translates to:
-  /// **'Domov'**
-  String get homeTitle;
-
-  /// Title for the Live Player screen
-  ///
-  /// In sk, this message translates to:
-  /// **'Prehrávač'**
-  String get playerTitle;
-
-  /// Title for the Schedule screen
-  ///
-  /// In sk, this message translates to:
-  /// **'Program'**
-  String get scheduleTitle;
-
   /// Label for Live tab
   ///
   /// In sk, this message translates to:
@@ -147,12 +129,6 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Aktuality'**
   String get navAktuality;
-
-  /// Label for Home tab
-  ///
-  /// In sk, this message translates to:
-  /// **'Naživo'**
-  String get navHome;
 
   /// Title for the quality picker bottom sheet
   ///
@@ -178,41 +154,11 @@ abstract class AppLocalizations {
   /// **'Nízka kvalita (šetrí dáta)'**
   String get qualityLow;
 
-  /// Tab label for Program
-  ///
-  /// In sk, this message translates to:
-  /// **'Program'**
-  String get scheduleTabProgram;
-
-  /// Tab label for Playlists
-  ///
-  /// In sk, this message translates to:
-  /// **'Playlisty'**
-  String get scheduleTabPlaylists;
-
-  /// Tab label for Shows/Relacie
-  ///
-  /// In sk, this message translates to:
-  /// **'Relácie'**
-  String get scheduleTabShows;
-
   /// Message shown when no schedule items are available for a selected day
   ///
   /// In sk, this message translates to:
   /// **'Na tento deň nie je dostupný program.'**
   String get scheduleNoItems;
-
-  /// Tag label for spiritual content
-  ///
-  /// In sk, this message translates to:
-  /// **'Duchovné slovo'**
-  String get tagSpiritual;
-
-  /// Tag label for live broadcast
-  ///
-  /// In sk, this message translates to:
-  /// **'Naživo'**
-  String get tagLive;
 
   /// Hint text for archive search bar
   ///
@@ -322,11 +268,17 @@ abstract class AppLocalizations {
   /// **'Autor: {author}'**
   String newsAuthorLabel(String author);
 
-  /// Generic error message
+  /// Tag label for spiritual content
   ///
   /// In sk, this message translates to:
-  /// **'Nastala chyba.'**
-  String get generalError;
+  /// **'Duchovné slovo'**
+  String get tagSpiritual;
+
+  /// Tag label for live broadcast
+  ///
+  /// In sk, this message translates to:
+  /// **'Naživo'**
+  String get tagLive;
 
   /// Error message for schedule load failure
   ///
@@ -381,6 +333,18 @@ abstract class AppLocalizations {
   /// In sk, this message translates to:
   /// **'Jazyk'**
   String get aboutLanguage;
+
+  /// Title for the Daily Wisdom card
+  ///
+  /// In sk, this message translates to:
+  /// **'Citát dňa'**
+  String get quoteTitle;
+
+  /// Error message shown when a quote fails to load
+  ///
+  /// In sk, this message translates to:
+  /// **'Nepodarilo sa načítať citát.'**
+  String get quoteError;
 }
 
 class _AppLocalizationsDelegate

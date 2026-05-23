@@ -31,19 +31,24 @@ class NewsDetailScreen extends ConsumerWidget {
                 _buildHeaderImage(context),
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDesignTokens.screenPadding,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 32),
+                        const SizedBox(height: AppDesignTokens.spacingXXXL),
                         _buildMetaInfo(context),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppDesignTokens.spacingL),
                         _buildTitle(),
-                        const SizedBox(height: 24),
-                        const Divider(color: Colors.white10, height: 1),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: AppDesignTokens.spacingXXL),
+                        const Divider(
+                          color: Colors.white10,
+                          height: 1,
+                        ),
+                        const SizedBox(height: AppDesignTokens.spacingXXL),
                         _buildContent(context, contentAsync),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: AppDesignTokens.spacingXXXXL),
                       ],
                     ),
                   ),
@@ -52,8 +57,8 @@ class NewsDetailScreen extends ConsumerWidget {
             ),
             // Standardized Glassmorphism Back Button
             Positioned(
-              top: topPadding + 8,
-              left: 16,
+              top: topPadding + AppDesignTokens.spacingS,
+              left: AppDesignTokens.spacingL,
               child: const LumenBackButton(),
             ),
           ],
@@ -79,8 +84,8 @@ class NewsDetailScreen extends ConsumerWidget {
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(32),
-            bottomRight: Radius.circular(32),
+            bottomLeft: Radius.circular(AppDesignTokens.radiusXXL),
+            bottomRight: Radius.circular(AppDesignTokens.radiusXXL),
           ),
           child: Stack(
             fit: StackFit.expand,
@@ -121,7 +126,7 @@ class NewsDetailScreen extends ConsumerWidget {
 
   Widget _buildPlaceholder() {
     return Container(
-      color: const Color(0xFF2A2A2A),
+      color: AppColors.cardPlaceholder,
       child: Center(
         child: Icon(
           Icons.newspaper,
@@ -192,11 +197,12 @@ class NewsDetailScreen extends ConsumerWidget {
                   letterSpacing: 0.5,
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: AppDesignTokens.spacingXXXL),
             ],
             ...paragraphs.map(
               (p) => Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding:
+                    const EdgeInsets.only(bottom: AppDesignTokens.spacingXL),
                 child: Text(
                   p.trim(),
                   style: AppTextStyles.bodyLarge.copyWith(
@@ -213,7 +219,7 @@ class NewsDetailScreen extends ConsumerWidget {
       },
       loading: () => const Center(
         child: Padding(
-          padding: EdgeInsets.all(40.0),
+          padding: EdgeInsets.all(AppDesignTokens.spacingXXXXL),
           child: CircularProgressIndicator(color: AppColors.accentGold),
         ),
       ),

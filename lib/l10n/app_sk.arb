@@ -4,18 +4,6 @@
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homeTitle": "Domov",
-  "@homeTitle": {
-    "description": "Title for the Home screen"
-  },
-  "playerTitle": "Prehrávač",
-  "@playerTitle": {
-    "description": "Title for the Live Player screen"
-  },
-  "scheduleTitle": "Program",
-  "@scheduleTitle": {
-    "description": "Title for the Schedule screen"
-  },
   "navLive": "Naživo",
   "@navLive": {
     "description": "Label for Live tab"
@@ -31,10 +19,6 @@
   "navAktuality": "Aktuality",
   "@navAktuality": {
     "description": "Label for Aktuality tab (formerly Modlitby)"
-  },
-  "navHome": "Naživo",
-  "@navHome": {
-    "description": "Label for Home tab"
   },
   "qualityTitle": "KVALITA PRENOSU",
   "@qualityTitle": {
@@ -52,29 +36,9 @@
   "@qualityLow": {
     "description": "Description for 32kbps quality"
   },
-  "scheduleTabProgram": "Program",
-  "@scheduleTabProgram": {
-    "description": "Tab label for Program"
-  },
-  "scheduleTabPlaylists": "Playlisty",
-  "@scheduleTabPlaylists": {
-    "description": "Tab label for Playlists"
-  },
-  "scheduleTabShows": "Relácie",
-  "@scheduleTabShows": {
-    "description": "Tab label for Shows/Relacie"
-  },
   "scheduleNoItems": "Na tento deň nie je dostupný program.",
   "@scheduleNoItems": {
     "description": "Message shown when no schedule items are available for a selected day"
-  },
-  "tagSpiritual": "Duchovné slovo",
-  "@tagSpiritual": {
-    "description": "Tag label for spiritual content"
-  },
-  "tagLive": "Naživo",
-  "@tagLive": {
-    "description": "Tag label for live broadcast"
   },
   "archiveSearchHint": "Hľadať v archíve...",
   "@archiveSearchHint": {
@@ -163,9 +127,13 @@
       "author": { "type": "String" }
     }
   },
-  "generalError": "Nastala chyba.",
-  "@generalError": {
-    "description": "Generic error message"
+  "tagSpiritual": "Duchovné slovo",
+  "@tagSpiritual": {
+    "description": "Tag label for spiritual content"
+  },
+  "tagLive": "Naživo",
+  "@tagLive": {
+    "description": "Tag label for live broadcast"
   },
   "scheduleError": "Nastala chyba pri načítavaní programu.",
   "@scheduleError": {
@@ -205,5 +173,13 @@
   "aboutLanguage": "Jazyk",
   "@aboutLanguage": {
     "description": "Label for language selection"
+  },
+  "quoteTitle": "Citát dňa",
+  "@quoteTitle": {
+    "description": "Title for the Daily Wisdom card"
+  },
+  "quoteError": "Nepodarilo sa načítať citát.",
+  "@quoteError": {
+    "description": "Error message shown when a quote fails to load"
   }
 }

@@ -30,13 +30,16 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
         return Container(
           decoration: const BoxDecoration(
             color: AppColors.primary,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppDesignTokens.radiusXXL),
+            ),
           ),
           padding: EdgeInsets.only(
-            top: 24,
-            left: 20, // Reduced from 24 for better fit on small screens
-            right: 20,
-            bottom: MediaQuery.of(context).padding.bottom + 20,
+            top: AppDesignTokens.spacingXXL,
+            left: AppDesignTokens.screenPadding,
+            right: AppDesignTokens.screenPadding,
+            bottom: MediaQuery.of(context).padding.bottom +
+                AppDesignTokens.screenPadding,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -45,10 +48,10 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
               Container(
                 width: 40,
                 height: 4,
-                margin: const EdgeInsets.only(bottom: 20),
+                margin: const EdgeInsets.only(bottom: AppDesignTokens.spacingXL),
                 decoration: BoxDecoration(
                   color: Colors.white.withAlpha(50),
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(AppDesignTokens.radiusXS),
                 ),
               ),
               Text(
@@ -56,11 +59,11 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                 style: AppTextStyles.titleLarge.copyWith(
                   color: AppColors.accentGold,
                   fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5, // Reduced from 2.0 to prevent horizontal overflow
+                  letterSpacing: 1.5,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppDesignTokens.spacingXXL),
               Flexible(
                 child: SingleChildScrollView(
                   child: Column(
@@ -75,7 +78,7 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                           Navigator.pop(context);
                         },
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppDesignTokens.spacingM),
                       _QualityOption(
                         label: '64 kbps',
                         description: l10n.qualityMedium,
@@ -85,7 +88,7 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                           Navigator.pop(context);
                         },
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppDesignTokens.spacingM),
                       _QualityOption(
                         label: '32 kbps',
                         description: l10n.qualityLow,
@@ -114,15 +117,20 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
 
     // Only show live info and playing status if the current source is the live stream
     final isLiveActive = audioState.currentItemId == 'radio_lumen_live';
-    final isPlaying = isLiveActive && audioState.status == PlaybackStatus.playing;
-    final isLoading = isLiveActive && audioState.status == PlaybackStatus.loading;
+    final isPlaying =
+        isLiveActive && audioState.status == PlaybackStatus.playing;
+    final isLoading =
+        isLiveActive && audioState.status == PlaybackStatus.loading;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDesignTokens.spacingXXL,
+        vertical: AppDesignTokens.spacingXXXL,
+      ),
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusXXL),
         border: Border.all(
           color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBorder),
         ),
@@ -145,32 +153,36 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                 ),
               ),
               if (isLiveActive && audioState.currentArtist != null) ...[
-                const SizedBox(height: 4),
+                const SizedBox(height: AppDesignTokens.spacingXS),
                 _ScrollingText(
                   text: audioState.currentArtist!,
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                    color: Colors.white
+                        .withAlpha(AppDesignTokens.alphaTextSecondary),
                   ),
                 ),
               ],
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppDesignTokens.spacingXXL),
           // Volume Slider
           Row(
             children: [
               Icon(
                 audioState.volume == 0 ? Icons.volume_off : Icons.volume_down,
-                color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                color:
+                    Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                 size: 20,
               ),
               Expanded(
                 child: SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppColors.accentGold,
-                    inactiveTrackColor: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
+                    inactiveTrackColor:
+                        Colors.white.withAlpha(AppDesignTokens.alphaDivider),
                     thumbColor: Colors.white,
-                    overlayColor: AppColors.accentGold.withAlpha(AppDesignTokens.alphaDivider),
+                    overlayColor: AppColors.accentGold
+                        .withAlpha(AppDesignTokens.alphaDivider),
                     trackHeight: 4,
                     thumbShape: const RoundSliderThumbShape(
                       enabledThumbRadius: 6,
@@ -186,12 +198,13 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
               ),
               Icon(
                 Icons.volume_up,
-                color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                color:
+                    Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                 size: 20,
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppDesignTokens.spacingXXL),
           // Control Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -211,7 +224,8 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                     color: AppColors.accentGold,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.accentGold.withAlpha(AppDesignTokens.alphaGlassBorder * 4),
+                        color: AppColors.accentGold.withAlpha(
+                            AppDesignTokens.alphaGlassBorder * 4),
                         blurRadius: 20,
                         spreadRadius: 2,
                       ),
@@ -238,7 +252,8 @@ class _QuickAccessPlayerState extends ConsumerState<QuickAccessPlayer> {
                   final title = isLiveActive
                       ? (audioState.currentTitle ?? l10n.audioStationName)
                       : l10n.audioStationName;
-                  final artist = isLiveActive ? (audioState.currentArtist ?? '') : '';
+                  final artist =
+                      isLiveActive ? (audioState.currentArtist ?? '') : '';
                   final shareText = artist.isNotEmpty
                       ? l10n.shareTextWithArtist(title, artist)
                       : l10n.shareTextTitleOnly(title);
@@ -331,12 +346,12 @@ class _QualityOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppDesignTokens.spacingL),
         decoration: BoxDecoration(
           color: isSelected
               ? AppColors.accentGold.withAlpha(AppDesignTokens.alphaGlassBorder)
               : Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppDesignTokens.radiusL),
           border: Border.all(
             color: isSelected
                 ? AppColors.accentGold
@@ -360,7 +375,8 @@ class _QualityOption extends StatelessWidget {
                   Text(
                     description,
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                      color: Colors.white
+                          .withAlpha(AppDesignTokens.alphaTextSecondary),
                     ),
                   ),
                 ],
@@ -400,7 +416,7 @@ class _PlayerIconButtonState extends State<_PlayerIconButton> {
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeInOut,
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(AppDesignTokens.spacingM),
           decoration: BoxDecoration(
             color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
             shape: BoxShape.circle,
@@ -410,7 +426,8 @@ class _PlayerIconButtonState extends State<_PlayerIconButton> {
           ),
           child: Icon(
             widget.icon,
-            color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary + 50),
+            color:
+                Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary + 50),
             size: 26,
           ),
         ),

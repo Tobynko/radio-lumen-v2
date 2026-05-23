@@ -52,7 +52,6 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                       child: ref.watch(scheduleProvider).when(
                         data: (items) => _buildScheduleList(l10n, items),
                         loading: () => const LumenLoadingView(),
-                        // Pattern: Removed manual retry button to favor automatic refresh via provider logic
                         error: (error, stackTrace) => LumenErrorView(
                           message: l10n.scheduleError,
                         ),
@@ -122,7 +121,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
       ),
       itemCount: items.length,
       separatorBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppDesignTokens.spacingL),
+        padding: const EdgeInsets.symmetric(
+          vertical: AppDesignTokens.spacingL,
+        ),
         child: Divider(
           color: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
           height: 1,
@@ -139,9 +140,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Time Column - Standardized to listItemTime
+              // Time Column - Standardized to timeColumnWidth
               SizedBox(
-                width: 65,
+                width: AppDesignTokens.timeColumnWidth,
                 child: Text(
                   startTimeStr,
                   style: AppTextStyles.listItemTime.copyWith(
@@ -150,7 +151,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                 ),
               ),
               const SizedBox(width: AppDesignTokens.spacingM),
-              // Show Details Column - Standardized to listItemTitle/Subtitle
+              // Show Details Column
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,7 +204,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                 IconButton(
                   icon: const Icon(Icons.play_circle_fill),
                   color: AppColors.accentGold,
-                  iconSize: 36,
+                  iconSize: AppDesignTokens.archiveIconSize,
                   onPressed: () {
                     context.push('/archive-player', extra: item);
                   },

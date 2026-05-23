@@ -25,14 +25,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.3.0
-  share_plus: ^13.1.0
+  share_plus: ^12.0.2
   html: ^0.15.6
   xml: ^6.5.0
   connectivity_plus: ^7.1.1
   flutter_native_splash: ^2.4.7
   marquee: ^2.3.0
   url_launcher: ^6.3.2
-  package_info_plus: ^10.1.0
+  # Downgraded to version 8 to avoid problematic objective_c FFI dependency in 10.x
+  # Version 8.2.2 is widely used and stable.
+  package_info_plus: ^8.2.2
 
 dev_dependencies:
   flutter_test:

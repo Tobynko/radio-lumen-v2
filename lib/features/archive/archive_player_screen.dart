@@ -65,7 +65,7 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const Padding(
-          padding: EdgeInsets.only(left: 8.0),
+          padding: EdgeInsets.only(left: AppDesignTokens.spacingS),
           child: Center(
             child: LumenBackButton(),
           ),
@@ -81,11 +81,13 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppDesignTokens.screenPadding,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 40),
+                        const SizedBox(height: AppDesignTokens.spacingXXXXL),
                         // Logo Section
                         Center(
                           child: Image.asset(
@@ -93,10 +95,10 @@ class _ArchivePlayerScreenState extends ConsumerState<ArchivePlayerScreen> {
                             height: 180,
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: AppDesignTokens.spacingXXXXL),
                         // Archive Player Card
                         _ArchiveAccessPlayer(item: widget.item),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: AppDesignTokens.spacingXXXXL),
                       ],
                     ),
                   ),
@@ -121,16 +123,21 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
 
     // Check if the current playing media matches this archive item
     final isArchiveActive = audioState.currentItemId == item.playUrl;
-    final isPlaying = isArchiveActive && audioState.status == PlaybackStatus.playing;
-    final isLoading = isArchiveActive && audioState.status == PlaybackStatus.loading;
+    final isPlaying =
+        isArchiveActive && audioState.status == PlaybackStatus.playing;
+    final isLoading =
+        isArchiveActive && audioState.status == PlaybackStatus.loading;
     final dateStr = DateFormat('d.M.yy - HH:mm').format(item.startTime);
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDesignTokens.spacingXXL,
+        vertical: AppDesignTokens.spacingXXXL,
+      ),
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusXXL),
         border: Border.all(
           color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBorder),
         ),
@@ -154,17 +161,18 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               if (item.show?.host != null) ...[
-                const SizedBox(height: 8),
+                const SizedBox(height: AppDesignTokens.spacingS),
                 Text(
                   item.show!.host!,
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                    color: Colors.white
+                        .withAlpha(AppDesignTokens.alphaTextSecondary),
                     fontSize: 18,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ],
-              const SizedBox(height: 12),
+              const SizedBox(height: AppDesignTokens.spacingM),
               Text(
                 dateStr,
                 style: AppTextStyles.bodyMedium.copyWith(
@@ -176,10 +184,10 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDesignTokens.spacingXXXL),
           // Progress Slider
           const _ArchiveProgressBar(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppDesignTokens.spacingXXL),
           // Control Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -202,7 +210,8 @@ class _ArchiveAccessPlayer extends ConsumerWidget {
                     color: AppColors.accentGold,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.accentGold.withAlpha(AppDesignTokens.alphaGlassBorder * 4),
+                        color: AppColors.accentGold.withAlpha(
+                            AppDesignTokens.alphaGlassBorder * 4),
                         blurRadius: 20,
                         spreadRadius: 2,
                       ),
@@ -263,18 +272,19 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
             final safeDuration = duration.inMilliseconds > 0
                 ? duration
                 : const Duration(seconds: 1);
-            final safePosition = position > safeDuration
-                ? safeDuration
-                : position;
+            final safePosition =
+                position > safeDuration ? safeDuration : position;
 
             return Column(
               children: [
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppColors.accentGold,
-                    inactiveTrackColor: Colors.white.withAlpha(AppDesignTokens.alphaDivider),
+                    inactiveTrackColor:
+                        Colors.white.withAlpha(AppDesignTokens.alphaDivider),
                     thumbColor: Colors.white,
-                    overlayColor: AppColors.accentGold.withAlpha(AppDesignTokens.alphaDivider),
+                    overlayColor: AppColors.accentGold
+                        .withAlpha(AppDesignTokens.alphaDivider),
                     trackHeight: 4,
                     thumbShape: const RoundSliderThumbShape(
                       enabledThumbRadius: 6,
@@ -300,21 +310,23 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppDesignTokens.spacingL,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         _formatDuration(
                           Duration(
-                            milliseconds:
-                                (_dragValue ??
-                                        safePosition.inMilliseconds.toDouble())
-                                    .round(),
+                            milliseconds: (_dragValue ??
+                                    safePosition.inMilliseconds.toDouble())
+                                .round(),
                           ),
                         ),
                         style: AppTextStyles.labelSmall.copyWith(
-                          color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                          color: Colors.white
+                              .withAlpha(AppDesignTokens.alphaTextSecondary),
                         ),
                       ),
                       Text(
@@ -324,7 +336,8 @@ class _ArchiveProgressBarState extends ConsumerState<_ArchiveProgressBar> {
                               : Duration.zero,
                         ),
                         style: AppTextStyles.labelSmall.copyWith(
-                          color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                          color: Colors.white
+                              .withAlpha(AppDesignTokens.alphaTextSecondary),
                         ),
                       ),
                     ],

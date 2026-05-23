@@ -12,15 +12,6 @@ class AppLocalizationsSk extends AppLocalizations {
   String get appTitle => 'Rádio LUMEN';
 
   @override
-  String get homeTitle => 'Domov';
-
-  @override
-  String get playerTitle => 'Prehrávač';
-
-  @override
-  String get scheduleTitle => 'Program';
-
-  @override
   String get navLive => 'Naživo';
 
   @override
@@ -31,9 +22,6 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get navAktuality => 'Aktuality';
-
-  @override
-  String get navHome => 'Naživo';
 
   @override
   String get qualityTitle => 'KVALITA PRENOSU';
@@ -48,22 +36,7 @@ class AppLocalizationsSk extends AppLocalizations {
   String get qualityLow => 'Nízka kvalita (šetrí dáta)';
 
   @override
-  String get scheduleTabProgram => 'Program';
-
-  @override
-  String get scheduleTabPlaylists => 'Playlisty';
-
-  @override
-  String get scheduleTabShows => 'Relácie';
-
-  @override
   String get scheduleNoItems => 'Na tento deň nie je dostupný program.';
-
-  @override
-  String get tagSpiritual => 'Duchovné slovo';
-
-  @override
-  String get tagLive => 'Naživo';
 
   @override
   String get archiveSearchHint => 'Hľadať v archíve...';
@@ -135,7 +108,10 @@ class AppLocalizationsSk extends AppLocalizations {
   }
 
   @override
-  String get generalError => 'Nastala chyba.';
+  String get tagSpiritual => 'Duchovné slovo';
+
+  @override
+  String get tagLive => 'Naživo';
 
   @override
   String get scheduleError => 'Nastala chyba pri načítavaní programu.';
@@ -165,4 +141,10 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get aboutLanguage => 'Jazyk';
+
+  @override
+  String get quoteTitle => 'Citát dňa';
+
+  @override
+  String get quoteError => 'Nepodarilo sa načítať citát.';
 }

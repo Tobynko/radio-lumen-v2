@@ -12,15 +12,6 @@ class AppLocalizationsHu extends AppLocalizations {
   String get appTitle => 'LUMEN Rádió';
 
   @override
-  String get homeTitle => 'Kezdőlap';
-
-  @override
-  String get playerTitle => 'Lejátszó';
-
-  @override
-  String get scheduleTitle => 'Műsor';
-
-  @override
   String get navLive => 'Élő';
 
   @override
@@ -31,9 +22,6 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get navAktuality => 'Hírek';
-
-  @override
-  String get navHome => 'Élő';
 
   @override
   String get qualityTitle => 'ADÁSI MINŐSÉG';
@@ -48,22 +36,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get qualityLow => 'Alacsony minőség (adatkímélő)';
 
   @override
-  String get scheduleTabProgram => 'Műsor';
-
-  @override
-  String get scheduleTabPlaylists => 'Lejátszási listák';
-
-  @override
-  String get scheduleTabShows => 'Műsorok';
-
-  @override
   String get scheduleNoItems => 'Erre a napra nincs elérhető műsor.';
-
-  @override
-  String get tagSpiritual => 'Lelki szó';
-
-  @override
-  String get tagLive => 'Élő';
 
   @override
   String get archiveSearchHint => 'Keresés az archívumban...';
@@ -134,7 +107,10 @@ class AppLocalizationsHu extends AppLocalizations {
   }
 
   @override
-  String get generalError => 'Hiba történt.';
+  String get tagSpiritual => 'Lelki szó';
+
+  @override
+  String get tagLive => 'Élő';
 
   @override
   String get scheduleError => 'Hiba történt a műsorrend betöltésekor.';
@@ -164,4 +140,10 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get aboutLanguage => 'Nyelv';
+
+  @override
+  String get quoteTitle => 'A nap idézete';
+
+  @override
+  String get quoteError => 'Nem sikerült betölteni az idézetet.';
 }

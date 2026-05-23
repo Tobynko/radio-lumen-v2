@@ -47,8 +47,8 @@ class LumenSearchBar extends StatelessWidget {
               : null,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 12,
+            horizontal: AppDesignTokens.screenPadding,
+            vertical: AppDesignTokens.spacingM,
           ),
         ),
       ),

@@ -27,12 +27,12 @@ class LumenListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LumenCard(
-      margin: margin ?? const EdgeInsets.only(bottom: 12),
+      margin: margin ?? const EdgeInsets.only(bottom: AppDesignTokens.spacingM),
       onTap: onTap,
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 8,
+          horizontal: AppDesignTokens.screenPadding,
+          vertical: AppDesignTokens.spacingS,
         ),
         leading: leading,
         title: Text(
@@ -43,7 +43,8 @@ class LumenListItem extends StatelessWidget {
             ? Text(
                 subtitle!,
                 style: AppTextStyles.listItemSubtitle.copyWith(
-                  color: Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
+                  color:
+                      Colors.white.withAlpha(AppDesignTokens.alphaTextSecondary),
                 ),
               )
             : null,

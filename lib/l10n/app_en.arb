@@ -1,209 +1,44 @@
 {
   "@@locale": "en",
   "appTitle": "Radio LUMEN",
-  "@appTitle": {
-    "description": "The title of the application"
-  },
-  "homeTitle": "Home",
-  "@homeTitle": {
-    "description": "Title for the Home screen"
-  },
-  "playerTitle": "Player",
-  "@playerTitle": {
-    "description": "Title for the Live Player screen"
-  },
-  "scheduleTitle": "Program",
-  "@scheduleTitle": {
-    "description": "Title for the Schedule screen"
-  },
   "navLive": "Live",
-  "@navLive": {
-    "description": "Label for Live tab"
-  },
   "navProgram": "Schedule",
-  "@navProgram": {
-    "description": "Label for Program tab"
-  },
   "navArchiv": "Archive",
-  "@navArchiv": {
-    "description": "Label for Archiv tab"
-  },
   "navAktuality": "News",
-  "@navAktuality": {
-    "description": "Label for Aktuality tab"
-  },
-  "navHome": "Live",
-  "@navHome": {
-    "description": "Label for Home tab"
-  },
   "qualityTitle": "STREAM QUALITY",
-  "@qualityTitle": {
-    "description": "Title for the quality picker bottom sheet"
-  },
   "qualityHigh": "High quality (recommended for Wi-Fi)",
-  "@qualityHigh": {
-    "description": "Description for 128kbps quality"
-  },
   "qualityMedium": "Medium quality",
-  "@qualityMedium": {
-    "description": "Description for 64kbps quality"
-  },
   "qualityLow": "Low quality (saves data)",
-  "@qualityLow": {
-    "description": "Description for 32kbps quality"
-  },
-  "scheduleTabProgram": "Schedule",
-  "@scheduleTabProgram": {
-    "description": "Tab label for Program"
-  },
-  "scheduleTabPlaylists": "Playlists",
-  "@scheduleTabPlaylists": {
-    "description": "Tab label for Playlists"
-  },
-  "scheduleTabShows": "Shows",
-  "@scheduleTabShows": {
-    "description": "Tab label for Shows/Relacie"
-  },
   "scheduleNoItems": "No program available for this day.",
-  "@scheduleNoItems": {
-    "description": "Message shown when no schedule items are available"
-  },
-  "tagSpiritual": "Spiritual word",
-  "@tagSpiritual": {
-    "description": "Tag label for spiritual content"
-  },
-  "tagLive": "Live",
-  "@tagLive": {
-    "description": "Tag label for live broadcast"
-  },
   "archiveSearchHint": "Search in archive...",
-  "@archiveSearchHint": {
-    "description": "Hint text for archive search bar"
-  },
   "archiveNoResults": "No results found.",
-  "@archiveNoResults": {
-    "description": "Message shown when no search results are found in archive"
-  },
   "archiveError": "An error occurred while loading the archive.",
-  "@archiveError": {
-    "description": "Error message when archive fails to load"
-  },
   "archiveEpisodesCount": "{count, plural, one{1 episode} other{{count} episodes}}",
-  "@archiveEpisodesCount": {
-    "description": "Pluralized count of episodes",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "newsCategoryAll": "All",
-  "@newsCategoryAll": {
-    "description": "Category label for all news"
-  },
   "newsCategoryFromBroadcast": "From our broadcast",
-  "@newsCategoryFromBroadcast": {
-    "description": "Category label for news from broadcast"
-  },
   "newsCategoryNews": "News",
-  "@newsCategoryNews": {
-    "description": "Category label for general news"
-  },
   "newsCategoryReporting": "Reporting",
-  "@newsCategoryReporting": {
-    "description": "Category label for reporting news"
-  },
   "newsNoItems": "No news items in this category.",
-  "@newsNoItems": {
-    "description": "Message shown when no news items are available"
-  },
   "newsSearchHint": "Search in news...",
-  "@newsSearchHint": {
-    "description": "Hint text for news search bar"
-  },
   "newsError": "An error occurred while loading news.",
-  "@newsError": {
-    "description": "Error message for news load failure"
-  },
   "connectivityOffline": "No internet connection",
-  "@connectivityOffline": {
-    "description": "Message shown when there is no internet connection"
-  },
   "audioLiveTitle": "Live",
-  "@audioLiveTitle": {
-    "description": "Title for live broadcast in audio service"
-  },
   "audioStationName": "Radio LUMEN",
-  "@audioStationName": {
-    "description": "Name of the station"
-  },
   "audioArchiveAlbum": "Radio LUMEN Archive",
-  "@audioArchiveAlbum": {
-    "description": "Album name for archive playback"
-  },
   "shareTextWithArtist": "I'm listening to {title} by {artist} on Radio LUMEN! 🎧 https://www.lumen.sk",
-  "@shareTextWithArtist": {
-    "description": "Text shared when a song/show has an artist",
-    "placeholders": {
-      "title": { "type": "String" },
-      "artist": { "type": "String" }
-    }
-  },
   "shareTextTitleOnly": "I'm listening to {title} on Radio LUMEN! 🎧 https://www.lumen.sk",
-  "@shareTextTitleOnly": {
-    "description": "Text shared when a song/show only has a title",
-    "placeholders": {
-      "title": { "type": "String" }
-    }
-  },
   "newsAuthorLabel": "Author: {author}",
-  "@newsAuthorLabel": {
-    "description": "Label for news author",
-    "placeholders": {
-      "author": { "type": "String" }
-    }
-  },
-  "generalError": "An error occurred.",
-  "@generalError": {
-    "description": "Generic error message"
-  },
+  "tagSpiritual": "Spiritual word",
+  "tagLive": "Live",
   "scheduleError": "An error occurred while loading the schedule.",
-  "@scheduleError": {
-    "description": "Error message for schedule load failure"
-  },
   "aboutTitle": "About application",
-  "@aboutTitle": {
-    "description": "Title for the About bottom sheet"
-  },
   "aboutVersion": "Version {version}",
-  "@aboutVersion": {
-    "description": "Version display text",
-    "placeholders": {
-      "version": { "type": "String" }
-    }
-  },
   "aboutPrivacyPolicy": "Privacy Policy",
-  "@aboutPrivacyPolicy": {
-    "description": "Link label for Privacy Policy"
-  },
   "aboutLumenClub": "LUMEN Club",
-  "@aboutLumenClub": {
-    "description": "Link label for LUMEN Klub"
-  },
   "aboutContactUs": "Contact us",
-  "@aboutContactUs": {
-    "description": "Link label for contacting the station"
-  },
   "aboutDevelopedBy": "Developed by",
-  "@aboutDevelopedBy": {
-    "description": "Label for developers section"
-  },
   "aboutCopyright": "© 2026 Radio LUMEN. All rights reserved.",
-  "@aboutCopyright": {
-    "description": "Copyright notice"
-  },
   "aboutLanguage": "Language",
-  "@aboutLanguage": {
-    "description": "Label for language selection"
-  }
+  "quoteTitle": "Daily Wisdom",
+  "quoteError": "Failed to load quote."
 }
