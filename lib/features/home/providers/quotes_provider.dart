@@ -14,10 +14,10 @@ class Quotes extends _$Quotes {
   Future<QuoteItem> build() async {
     // Watch connectivity to auto-retry when back online
     ref.watch(isOfflineProvider);
-    
+
     // Watch language to automatically switch translation when app language changes
     final locale = ref.watch(languageProvider);
-    
+
     return _fetchRandomVerse(locale.languageCode);
   }
 
@@ -28,7 +28,7 @@ class Quotes extends _$Quotes {
     // Map app language to Bible translation ID
     String translationId = 'slk_bib'; // Default to Slovak
     if (languageCode == 'en') {
-      translationId = 'eng_bsb'; // Berean Standard Bible
+      translationId = 'BSB'; // Berean Standard Bible
     } else if (languageCode == 'hu') {
       translationId = 'hun_bib'; // Hungarian Open New Testament
     }
@@ -38,7 +38,7 @@ class Quotes extends _$Quotes {
       final booksResponse = await dio.get(
         'https://bible.helloao.org/api/$translationId/books.json',
       );
-      
+
       final List<dynamic> books = booksResponse.data['books'];
       final randomBook = books[random.nextInt(books.length)];
       final String bookId = randomBook['id'];
@@ -54,20 +54,22 @@ class Quotes extends _$Quotes {
       );
 
       final List<dynamic> content = chapterResponse.data['chapter']['content'];
-      
+
       // Filter for actual verse items
-      final List<dynamic> actualVerses = content.where((v) => v['type'] == 'verse').toList();
-      
+      final List<dynamic> actualVerses = content
+          .where((v) => v['type'] == 'verse')
+          .toList();
+
       if (actualVerses.isEmpty) {
         throw Exception('No verses found in chapter');
       }
 
       final randomVerse = actualVerses[random.nextInt(actualVerses.length)];
-      
+
       // Robust content extraction
       String verseText = '';
       final verseContent = randomVerse['content'];
-      
+
       if (verseContent is List) {
         for (var part in verseContent) {
           if (part is Map) {
