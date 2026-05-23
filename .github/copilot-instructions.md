@@ -62,15 +62,14 @@ Use these live public targets for feature implementation. Do not hardcode them s
 - **Novinky:** `https://www.lumen.sk/aktuality/novinky.html`
 - **Spravodajstvo:** `https://www.lumen.sk/aktuality/spravodajstvo.html%60%60`
 
-### Daily Wisdom / Myšlienky dňa (Local Curated Data)
+### Daily Wisdom / Myšlienky dňa (HelloAO Bible API)
 
-- **Primary Source:** Curated local database of Slovak spiritual and philosophical quotes.
-- **Authors & Sources:**
-    - Holy Scripture (The Bible - Psalms, Proverbs, Gospels)
-    - Catholic Saints (Sv. Ján Pavol II., Sv. Matka Tereza, Sv. František Saleský, Sv. Terézia z Avily)
-    - Philosophical Wisdom (Mark Twain, Aristotle, Anonymous)
-    - Lumen "Myšlienky dňa" archives
-- **Interaction:** Tap to cycle logic implemented via Riverpod local state.
+- **Primary Source:** Random bible verses via the external Free Use Bible API (https://bible.helloao.org/).
+- **Supported Translations:**
+    - Slovak: Biblica® Nádej pre každého (`slk_bib`)
+    - English: Berean Standard Bible (`BSB`)
+    - Hungarian: Hungarian Open New Testament (`hun_bib`)
+- **Interaction:** Tap to cycle logic implemented via Riverpod local state, fetching randomly from available books and chapters.
 
 ## Project Structure
 
