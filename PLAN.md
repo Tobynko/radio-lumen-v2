@@ -9,7 +9,9 @@
 5. [x] Configure shared code generation workflow (`build_runner`) for Riverpod and model generation
 6. [x] **Home Screen:** App header with branding, quick access live play button, and short overview of current/upcoming programs (Overview skipped/postponed per user request)
 7. [x] Configure and generate native application icons (App Icons) for iOS and Android
-8. [x] Internet Connectivity Check: Implement real-time network status monitoring using connectivity_plus; display a non-intrusive banner or snackbar when the connection is lost.
+8. [x] **Internet Connectivity Check**: Implement real-time network status monitoring using connectivity_plus; display a non-intrusive banner or snackbar when the connection is lost.
+9. [x] **Multi-Language Support (SK, EN, HU):** Implement persistent language switching (Riverpod + SharedPreferences), full translation parity across all ARB files, and a visual Language Selector in the About sheet.
+10. [x] **Refined About & Info:** Implement reactive "About application" panel with dynamic versioning, legal links, and professional developer attribution for Bc. Tobiáš Bulko and Bc. Janka Danišová.
 
 ---
 
