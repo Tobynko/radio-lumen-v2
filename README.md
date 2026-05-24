@@ -6,7 +6,7 @@ Existujúcu aplikáciu Rádio LUMEN (dostupná v [App Store](https://apps.apple.
 
 ## Hlavné vlastnosti
 
-- _Živé online vysielanie_ – počúvanie programuv reálnom čase bezplatne.
+- _Živé online vysielanie_ – počúvanie programov reálnom čase bezplatne.
 - _Mobilná aplikácia_ – prehľadné rozhranie na streamovanie priamo v smartfóne.
 - _Program a relácie_ – aktuálny program, playlisty, rozpis relácií (hudba, modlitby, rozhovory, spravodajstvo).
 - _Náboženský a kultúrny obsah_ – kresťanské hodnoty, liturgia, duchovné rozhovory a upokojujúca hudba.
@@ -64,7 +64,11 @@ dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
+> **Poznámka k backendu:** Aplikácia nemá vlastný samostatný backend. Dáta o programe a novinkách získava dynamicky priamo z oficiálneho webu cez web scraping a audio streamy z verejných Icecast feedov. Pre spustenie teda nie je potrebná žiadna dodatočná konfigurácia serverových služieb.
+
 ## Zvolené LLM
+
+Tento systém nám ukázal, že kvalita výstupu LLM priamo závisí od kvality dodaného kontextu a inštrukcií. Naučili sme sa, že moderný vývoj s podporou AI nie je len o písaní promptov, ale najmä o **správe kontextu a definovaní mantinelov**, v ktorých sa asistent pohybuje.
 
 Pôvodný plán bol využiť pri vývoji _GitHub Copilot_, keďže sme mali prístup k _Education Pack for Students_. Avšak v čase, keď sme po dôkladnom plánovaní chceli začať s vývojom, GitHub práve pozastavil svoje predplatiteľské služby.
 
@@ -82,7 +86,10 @@ npm install -g @google/gemini-cli
 ```
 
 <p align="center">
-  <img src="docs/screenshots/tobias/gemini-models.png" width="49%" />
+  <img src="docs/screenshots/tobias/gemini.png" width="100%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tobias/gemini2.png" width="100%" />
 </p>
 
 Aby sme zabezpečili, že kód vygenerovaný pomocou AI bude čo najkvalitnejší, nainštalovali sme do Gemini CLI aj oficiálne rozšírenie (MCP) pre Flutter. Toto rozšírenie rozširuje a dopĺňa pravidlá kvality kódu (code quality) z našich vlastných inštrukcií a zároveň v sebe integruje dodatočné nástroje na testovanie a statickú analýzu čistoty kódu. Okrem toho sme integrovali aj Figma Flutter MCP pre priamu prácu s grafickými návrhmi a UI podkladmi z platformy Figma.
@@ -131,10 +138,31 @@ Významným faktorom pri práci s Gemini CLI bol rozdiel v efektivite a manažme
 **Efektivita Gemini CLI a MCP:** Veľkým benefitom bola schopnosť nástroja rýchlo a presne pracovať s lokálnymi súbormi a prostrednívom MCP (Model Context Protocol) analyzovať štruktúru Figma projektov. Podmienkou úspechu boli dostatočne detailné a sémanticky jasne napísané úlohy.
 **Testovanie funkcionality úloh:** Gemini CLI sa ukázal ako mimoriadne efektívny pomocník pri spracovávaní a validácii funkčných testov pre už hotové úlohy. Dokázal rýchlo overiť správnosť implementácie a odhaliť prípadné logické nedostatky, čo výrazne urýchlilo fázu kontroly kódu. Nehovoriac o tom, že pri erroroch počas testovacích fáz automaticky riešil aj opravu kódu až kým testy nevyšli úspešne.
 
+<p align="center">
+  <img src="docs/screenshots/prompts/Screenshot 2026-05-23 at 22.18.00.png" width="100%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/prompts/Screenshot 2026-05-23 at 21.09.10.png" width="100%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/prompts/Screenshot 2026-05-23 at 20.31.33.png" width="100%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/prompts/Screenshot 2026-05-19 at 15.15.46.png" width="100%" />
+</p>
+
 #### Nevýhody a technické obmedzenia
 
 **Nestabilita spojenia s Figma API:** Pri integrácii s platformou Figma sme narážali na technické obmedzenie na strane ich API. Bezpečnostné mechanizmy Figmy a striktné limity na frekvenciu dopytov (rate limiting) vyhodnocovali intenzívne čítanie dizajnových vrstiev cez Gemini CLI ako podozrivú aktivitu (automated scraping), čo viedlo k predčasnému ukončovaniu relácií a odpájaniu API tokenu.
 **Alternatívne riešenie:** Tento problém sme riešili buď opakovaným generovaním nových API kľúčov, alebo vkladaním screenshotov používateľského rozhrania priamo do vyhradených súborov v projekte. Nástroj dokázal vďaka pokročilému vizuálnemu engine spracovať vizuálne podklady s prekvapivou presnosťou a efektivitou.
+
+### Osvojenie práce s AI inštrukciami a plánovaním
+
+Významnou súčasťou našej skúsenosti bolo osvojenie si práce so špeciálnymi inštrukčnými súbormi, ktoré slúžili ako „dlhodobá pamäť“ a súbor pravidiel pre AI agenta. Tento prístup výrazne zvýšil efektivitu vývoja a konzistenciu kódu:
+
+- **Definícia globálnych pravidiel:** Súbor `.github/copilot-instructions.md` sme využili na presné zadefinovanie architektúry projektu (Feature-First) a kódovacích štandardov. Vďaka tomu AI automaticky dodržiavala dohodnuté konvencie bez nutnosti opakovaného vysvetľovania v každom prompte.
+- **Riadenie správania agenta:** V súbore `GEMINI.md` sme definovali operačné inštrukcie pre správanie AI agenta, pravidlá bezpečnej manipulácie s kódom a riadenie MCP nástrojov.
+- **Iteratívne plánovanie a roadmapa:** Proces vývoja sme riadili cez `PLAN.md`. Tento súbor slúžil ako živý dokument, kde sme s AI asistentom spoločne navrhovali kroky implementácie, sledovali progres a koordinovali delegovanie úloh. AI dokázala na základe tohto plánu udržiavať kontext o celkovom stave projektu.
 
 ## Zoznam technológií a použitých knižníc
 
