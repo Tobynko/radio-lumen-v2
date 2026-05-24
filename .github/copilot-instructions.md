@@ -21,21 +21,40 @@ App Goal: To provide spiritual and cultural content while building a community o
 
 ## Tech Stack
 
-- Dart
-- Flutter (Android & iOS)
-- flutter_localizations (Flutter l10n)
-- Riverpod (state management - MUST use modern `@riverpod` code generation syntax)
-- dio (HTTP networking)
-- html (HTML parsing for schedule web scraping)
-- freezed (data models)
-- json_serializable (data models)
-- build_runner (code generation)
-- go_router (navigation and deep linking)
-- shared_preferences (local settings storage)
-- just_audio (audio streaming and playback)
-- audio_service (background audio, lock screen controls)
-- flutter_svg (SVG rendering for Figma vector icons)
-- Figma Flutter MCP (Figma-to-Flutter widget generation via AI)
+### Core
+- **Dart** & **Flutter** (Android & iOS)
+- **go_router** (declarative navigation and deep linking)
+- **flutter_localizations** & **intl** (i18n and l10n support)
+
+### State Management & Code Generation
+- **Riverpod** (MUST use modern `@riverpod` code generation syntax)
+- **freezed** (immutable data models)
+- **json_serializable** (JSON serialization/deserialization)
+- **build_runner** (standardized code generation tool)
+
+### Networking & Data
+- **dio** (feature-rich HTTP client for networking)
+- **connectivity_plus** (monitoring network status)
+- **html** (HTML parsing for schedule web scraping)
+- **xml** (XML parsing for specialized data feeds)
+
+### Audio & Media
+- **just_audio** (feature-rich audio streaming and playback)
+- **audio_service** (background audio, lock screen controls)
+- **flutter_svg** (SVG rendering for Figma vector icons)
+- **marquee** (scrolling text for long song titles/show names)
+
+### UI & Assets
+- **google_fonts** (dynamic typography)
+- **flutter_native_splash** (native splash screen generation)
+- **flutter_launcher_icons** (app icon management)
+- **Figma Flutter MCP** (AI-powered Figma-to-Flutter widget generation)
+
+### Utilities
+- **shared_preferences** (local persistent settings storage)
+- **share_plus** (system-level sharing functionality)
+- **url_launcher** (launching external URLs and apps)
+- **package_info_plus** (retrieving app version and build info)
 
 ## External Data Sources & Endpoints
 
@@ -165,17 +184,27 @@ Follow latest official docs:
 - **Flutter Localization:** https://docs.flutter.dev/development/accessibility-and-localization/internationalization
 - **Riverpod:** https://riverpod.dev/docs/introduction/getting_started
 - **Riverpod Code Gen:** https://riverpod.dev/docs/concepts/about_code_generation
-- **dio:** https://pub.dev/packages/dio
-- **html:** https://pub.dev/packages/html
+- **go_router:** https://pub.dev/packages/go_router
+- **intl:** https://pub.dev/packages/intl
 - **freezed:** https://pub.dev/packages/freezed
 - **json_serializable:** https://pub.dev/packages/json_serializable
 - **build_runner:** https://pub.dev/packages/build_runner
-- **go_router:** https://pub.dev/packages/go_router
-- **shared_preferences:** https://pub.dev/packages/shared_preferences
+- **dio:** https://pub.dev/packages/dio
+- **connectivity_plus:** https://pub.dev/packages/connectivity_plus
+- **html:** https://pub.dev/packages/html
+- **xml:** https://pub.dev/packages/xml
 - **just_audio:** https://pub.dev/packages/just_audio
 - **audio_service:** https://pub.dev/packages/audio_service
 - **flutter_svg:** https://pub.dev/packages/flutter_svg
+- **marquee:** https://pub.dev/packages/marquee
+- **google_fonts:** https://pub.dev/packages/google_fonts
+- **flutter_native_splash:** https://pub.dev/packages/flutter_native_splash
+- **flutter_launcher_icons:** https://pub.dev/packages/flutter_launcher_icons
 - **Figma Flutter MCP:** https://github.com/mhmzdev/figma-flutter-mcp
+- **shared_preferences:** https://pub.dev/packages/shared_preferences
+- **share_plus:** https://pub.dev/packages/share_plus
+- **url_launcher:** https://pub.dev/packages/url_launcher
+- **package_info_plus:** https://pub.dev/packages/package_info_plus
 
 ## Git Workflow
 
