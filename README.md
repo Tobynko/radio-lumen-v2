@@ -70,8 +70,6 @@ flutter run
 
 ## Zvolené LLM
 
-Tento systém nám ukázal, že kvalita výstupu LLM priamo závisí od kvality dodaného kontextu a inštrukcií. Naučili sme sa, že moderný vývoj s podporou AI nie je len o písaní promptov, ale najmä o **správe kontextu a definovaní mantinelov**, v ktorých sa asistent pohybuje.
-
 Pôvodný plán bol využiť pri vývoji _GitHub Copilot_, keďže sme mali prístup k _Education Pack for Students_. Avšak v čase, keď sme po dôkladnom plánovaní chceli začať s vývojom, GitHub práve pozastavil svoje predplatiteľské služby.
 
 - [Announcement & FAQ: Changes to GitHub Copilot Individual Plans](https://github.com/orgs/community/discussions/192963)
@@ -168,6 +166,8 @@ Významnou súčasťou našej skúsenosti bolo osvojenie si práce so špeciáln
 - **Definícia globálnych pravidiel:** Súbor `.github/copilot-instructions.md` sme využili na presné zadefinovanie architektúry projektu (Feature-First) a kódovacích štandardov. Vďaka tomu AI automaticky dodržiavala dohodnuté konvencie bez nutnosti opakovaného vysvetľovania v každom prompte.
 - **Riadenie správania agenta:** V súbore `GEMINI.md` sme definovali operačné inštrukcie pre správanie AI agenta, pravidlá bezpečnej manipulácie s kódom a riadenie MCP nástrojov.
 - **Iteratívne plánovanie a roadmapa:** Proces vývoja sme riadili cez `PLAN.md`. Tento súbor slúžil ako živý dokument, kde sme s AI asistentom spoločne navrhovali kroky implementácie, sledovali progres a koordinovali delegovanie úloh. AI dokázala na základe tohto plánu udržiavať kontext o celkovom stave projektu.
+
+Tento systém nám ukázal, že kvalita výstupu LLM priamo závisí od kvality dodaného kontextu a inštrukcií. Naučili sme sa, že moderný vývoj s podporou AI nie je len o písaní promptov, ale najmä o **správe kontextu a definovaní mantinelov**, v ktorých sa asistent pohybuje.
 
 ## Zoznam technológií a použitých knižníc
 
