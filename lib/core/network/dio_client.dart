@@ -53,76 +53,88 @@ class DioClient {
       final Map<String, dynamic> data = jsonDecode(response.data ?? '{}');
 
       for (int i = 1; i <= 6; i++) {
-        final tabHeaderHtml = data['tab$i']?.toString() ?? '';
-        final tabContentHtml = data['tab${i}t']?.toString() ?? '';
+        try {
+          final tabHeaderHtml = data['tab$i']?.toString() ?? '';
+          final tabContentHtml = data['tab${i}t']?.toString() ?? '';
 
-        final headerDoc = parse(tabHeaderHtml);
-        final text = headerDoc.body?.text.trim() ?? '';
-        final dateMatch = RegExp(
-          r'(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})',
-        ).firstMatch(text);
+          final headerDoc = parse(tabHeaderHtml);
+          final text = headerDoc.body?.text.trim() ?? '';
+          final dateMatch = RegExp(
+            r'(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})',
+          ).firstMatch(text);
 
-        if (dateMatch == null) continue;
+          if (dateMatch == null) continue;
 
-        final date = DateTime(
-          int.parse(dateMatch.group(3)!),
-          int.parse(dateMatch.group(2)!),
-          int.parse(dateMatch.group(1)!),
-        );
+          final date = DateTime(
+            int.parse(dateMatch.group(3)!),
+            int.parse(dateMatch.group(2)!),
+            int.parse(dateMatch.group(1)!),
+          );
 
-        final contentDoc = parse(tabContentHtml);
-        final programItems = contentDoc.querySelectorAll('ul.program > li');
+          final contentDoc = parse(tabContentHtml);
+          final programItems = contentDoc.querySelectorAll('ul.program > li');
 
-        for (int j = 0; j < programItems.length; j++) {
-          try {
-            final li = programItems[j];
-            final timeText = li.querySelector('.time')?.text.trim() ?? '';
-            final title =
-                li.querySelector('h3 a')?.text.trim() ??
-                li.querySelector('h3')?.text.trim() ??
-                '';
+          for (int j = 0; j < programItems.length; j++) {
+            try {
+              final li = programItems[j];
+              final timeText = li.querySelector('.time')?.text.trim() ?? '';
+              final title =
+                  li.querySelector('h3 a')?.text.trim() ??
+                  li.querySelector('h3')?.text.trim() ??
+                  '';
 
-            final pTags = li.querySelectorAll('p');
-            String description = '';
-            for (final p in pTags) {
-              final text = p.text.trim();
-              if (text.isNotEmpty) {
-                if (description.isNotEmpty) description += '\n';
-                description += text;
+              final pTags = li.querySelectorAll('p');
+              String description = '';
+              for (final p in pTags) {
+                final text = p.text.trim();
+                if (text.isNotEmpty) {
+                  if (description.isNotEmpty) description += '\n';
+                  description += text;
+                }
               }
+
+              int hour = 0;
+              int minute = 0;
+              final timeParts = timeText.split(':');
+              if (timeParts.length == 2) {
+                hour = int.tryParse(timeParts[0]) ?? 0;
+                minute = int.tryParse(timeParts[1]) ?? 0;
+              }
+
+              final startTime = DateTime(
+                date.year,
+                date.month,
+                date.day,
+                hour,
+                minute,
+              );
+
+              final playBtn = li.querySelector('a.jp-play');
+              final playUrlStr = playBtn?.attributes['rel'];
+
+              items.add({
+                'id': 'b${batchIndex}_tab${i}_$j',
+                'title': title,
+                'description': description,
+                'start_time': startTime.toIso8601String(),
+                'tags': <String>[],
+                if (playUrlStr != null)
+                  'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
+              });
+            } catch (itemError) {
+              developer.log(
+                'Failed to parse a schedule item, skipping.',
+                name: 'dio_client',
+                error: itemError,
+              );
             }
-
-            int hour = 0;
-            int minute = 0;
-            final timeParts = timeText.split(':');
-            if (timeParts.length == 2) {
-              hour = int.tryParse(timeParts[0]) ?? 0;
-              minute = int.tryParse(timeParts[1]) ?? 0;
-            }
-
-            final startTime = DateTime(
-              date.year,
-              date.month,
-              date.day,
-              hour,
-              minute,
-            );
-
-            final playBtn = li.querySelector('a.jp-play');
-            final playUrlStr = playBtn?.attributes['rel'];
-
-            items.add({
-              'id': 'b${batchIndex}_tab${i}_$j',
-              'title': title,
-              'description': description,
-              'start_time': startTime.toIso8601String(),
-              'tags': <String>[],
-              if (playUrlStr != null)
-                'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
-            });
-          } catch (itemError) {
-            developer.log('Failed to parse a schedule item, skipping.', name: 'dio_client', error: itemError);
           }
+        } catch (tabError) {
+          developer.log(
+            'Failed to parse tab $i, skipping.',
+            name: 'dio_client',
+            error: tabError,
+          );
         }
       }
     }
@@ -156,9 +168,17 @@ class DioClient {
       }
 
       return {'data': items};
+    } on DioException {
+      rethrow;
     } catch (e) {
-      developer.log('Critical failure parsing schedule DOM', name: 'dio_client', error: e);
-      throw Exception('Failed to load schedule due to an unexpected layout change.');
+      developer.log(
+        'Critical failure parsing schedule DOM',
+        name: 'dio_client',
+        error: e,
+      );
+      throw Exception(
+        'Failed to load schedule due to an unexpected layout change.',
+      );
     }
   }
 

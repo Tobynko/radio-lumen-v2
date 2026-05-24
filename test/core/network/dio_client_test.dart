@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:radio_lumen_v2/core/network/dio_client.dart';
@@ -7,13 +8,20 @@ void main() {
     test('fetchScheduleData returns a Map on success', () async {
       // Arrange: create a Dio instance with an interceptor to mock responses
       final mockDio = Dio();
+      
+      // Mock HTML response data structure as expected by DioClient
+      final mockData = {
+        'tab1': '<div>19. 05. 2026</div>',
+        'tab1t': '<ul class="program"><li class="item"><span class="time">08:00</span><h3>Test Show</h3><p>Description</p></li></ul>',
+      };
+      
       mockDio.interceptors.add(
         InterceptorsWrapper(
           onRequest: (options, handler) {
             return handler.resolve(
               Response(
                 requestOptions: options,
-                data: {'status': 'success', 'schedule': []},
+                data: jsonEncode(mockData),
                 statusCode: 200,
               ),
             );
@@ -28,7 +36,10 @@ void main() {
 
       // Assert
       expect(result, isA<Map<String, dynamic>>());
-      expect(result['status'], 'success');
+      expect(result.containsKey('data'), isTrue);
+      expect(result['data'], isA<List>());
+      expect(result['data'].length, greaterThan(0));
+      expect(result['data'][0]['title'], 'Test Show');
     });
 
     test('fetchPlaylistData returns a List on success', () async {
@@ -84,8 +95,8 @@ void main() {
       expect(
         () => dioClient.fetchScheduleData(),
         throwsA(
-          isA<Exception>().having(
-            (e) => e.toString(),
+          isA<DioException>().having(
+            (e) => e.message,
             'message',
             contains('Connection failed'),
           ),

@@ -139,6 +139,9 @@ Významným faktorom pri práci s Gemini CLI bol rozdiel v efektivite a manažme
 **Testovanie funkcionality úloh:** Gemini CLI sa ukázal ako mimoriadne efektívny pomocník pri spracovávaní a validácii funkčných testov pre už hotové úlohy. Dokázal rýchlo overiť správnosť implementácie a odhaliť prípadné logické nedostatky, čo výrazne urýchlilo fázu kontroly kódu. Nehovoriac o tom, že pri erroroch počas testovacích fáz automaticky riešil aj opravu kódu až kým testy nevyšli úspešne.
 
 <p align="center">
+  <img src="docs/screenshots/prompts/Screenshot 2026-05-24 at 11.27.15.png" width="100%" />
+</p>
+<p align="center">
   <img src="docs/screenshots/prompts/Screenshot 2026-05-23 at 22.18.00.png" width="100%" />
 </p>
 <p align="center">
