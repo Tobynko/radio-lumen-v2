@@ -39,40 +39,42 @@ class DioClient {
     final items = <Map<String, dynamic>>[];
 
     Future<void> fetchBatch(int timestamp, int batchIndex) async {
-      try {
-        final response = await _dio.post<String>(
-          'https://www.lumen.sk/newpages/ajax/aktualnyProgram.php',
-          data: {'from': timestamp.toString(), 'root': 'https://www.lumen.sk/'},
-          options: Options(
-            contentType: Headers.formUrlEncodedContentType,
-            responseType: ResponseType.plain,
-          ),
+      // Logic: Removed silent try-catch to allow error propagation to the caller (Riverpod).
+      // This ensures the UI can differentiate between "Empty" and "Network Error".
+      final response = await _dio.post<String>(
+        'https://www.lumen.sk/newpages/ajax/aktualnyProgram.php',
+        data: {'from': timestamp.toString(), 'root': 'https://www.lumen.sk/'},
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+          responseType: ResponseType.plain,
+        ),
+      );
+
+      final Map<String, dynamic> data = jsonDecode(response.data ?? '{}');
+
+      for (int i = 1; i <= 6; i++) {
+        final tabHeaderHtml = data['tab$i']?.toString() ?? '';
+        final tabContentHtml = data['tab${i}t']?.toString() ?? '';
+
+        final headerDoc = parse(tabHeaderHtml);
+        final text = headerDoc.body?.text.trim() ?? '';
+        final dateMatch = RegExp(
+          r'(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})',
+        ).firstMatch(text);
+
+        if (dateMatch == null) continue;
+
+        final date = DateTime(
+          int.parse(dateMatch.group(3)!),
+          int.parse(dateMatch.group(2)!),
+          int.parse(dateMatch.group(1)!),
         );
 
-        final Map<String, dynamic> data = jsonDecode(response.data ?? '{}');
+        final contentDoc = parse(tabContentHtml);
+        final programItems = contentDoc.querySelectorAll('ul.program > li');
 
-        for (int i = 1; i <= 6; i++) {
-          final tabHeaderHtml = data['tab$i']?.toString() ?? '';
-          final tabContentHtml = data['tab${i}t']?.toString() ?? '';
-
-          final headerDoc = parse(tabHeaderHtml);
-          final text = headerDoc.body?.text.trim() ?? '';
-          final dateMatch = RegExp(
-            r'(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})',
-          ).firstMatch(text);
-
-          if (dateMatch == null) continue;
-
-          final date = DateTime(
-            int.parse(dateMatch.group(3)!),
-            int.parse(dateMatch.group(2)!),
-            int.parse(dateMatch.group(1)!),
-          );
-
-          final contentDoc = parse(tabContentHtml);
-          final programItems = contentDoc.querySelectorAll('ul.program > li');
-
-          for (int j = 0; j < programItems.length; j++) {
+        for (int j = 0; j < programItems.length; j++) {
+          try {
             final li = programItems[j];
             final timeText = li.querySelector('.time')?.text.trim() ?? '';
             final title =
@@ -118,10 +120,10 @@ class DioClient {
               if (playUrlStr != null)
                 'play_url': 'https://audiox.lumen.sk/archiv/$playUrlStr',
             });
+          } catch (itemError) {
+            developer.log('Failed to parse a schedule item, skipping.', name: 'dio_client', error: itemError);
           }
         }
-      } catch (e) {
-        developer.log('Error fetching batch $batchIndex: $e');
       }
     }
 
@@ -155,7 +157,8 @@ class DioClient {
 
       return {'data': items};
     } catch (e) {
-      throw Exception('Failed to parse schedule: $e');
+      developer.log('Critical failure parsing schedule DOM', name: 'dio_client', error: e);
+      throw Exception('Failed to load schedule due to an unexpected layout change.');
     }
   }
 
@@ -182,7 +185,7 @@ class DioClient {
       );
       return response.data ?? '';
     } catch (e) {
-      throw Exception('Failed to fetch archive: $e');
+      rethrow;
     }
   }
 

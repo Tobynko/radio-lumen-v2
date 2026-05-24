@@ -14,11 +14,20 @@ part 'audio_controller.g.dart';
 class AudioController extends _$AudioController {
   late AudioHandler _handler;
   late SettingsProvider _settings;
+  StreamSubscription? _playbackSubscription;
+  StreamSubscription? _mediaItemSubscription;
 
   @override
   AudioState build() {
     _handler = ref.watch(audioHandlerProviderProvider);
     _settings = ref.watch(settingsProviderProvider);
+
+    _setupListeners();
+
+    ref.onDispose(() {
+      _playbackSubscription?.cancel();
+      _mediaItemSubscription?.cancel();
+    });
 
     // Watch connectivity status
     ref.listen(isOfflineProvider, (previous, next) {
@@ -28,31 +37,6 @@ class AudioController extends _$AudioController {
       // If we transition from offline to online AND we were supposed to be playing
       if (wasOffline && isNowOnline && state.status != PlaybackStatus.paused) {
         scheduleMicrotask(() => playLive());
-      }
-    });
-
-    // Listen to handler state changes
-    _handler.playbackState.listen((playbackState) {
-      final isPlaying = playbackState.playing;
-      final processingState = playbackState.processingState;
-
-      if (processingState == AudioProcessingState.loading ||
-          processingState == AudioProcessingState.buffering) {
-        state = state.copyWith(status: PlaybackStatus.loading);
-      } else if (isPlaying) {
-        state = state.copyWith(status: PlaybackStatus.playing);
-      } else {
-        state = state.copyWith(status: PlaybackStatus.paused);
-      }
-    });
-
-    // Listen to metadata changes
-    _handler.mediaItem.listen((item) {
-      if (item != null) {
-        state = state.copyWith(
-          currentTitle: item.title,
-          currentArtist: item.artist,
-        );
       }
     });
 
@@ -73,12 +57,51 @@ class AudioController extends _$AudioController {
     return AudioState(volume: volume, quality: quality, autoPlay: autoPlay);
   }
 
+  void _setupListeners() {
+    _playbackSubscription?.cancel();
+    _mediaItemSubscription?.cancel();
+
+    _playbackSubscription = _handler.playbackState.listen((playbackState) {
+      final isPlaying = playbackState.playing;
+      final processingState = playbackState.processingState;
+
+      if (processingState == AudioProcessingState.error) {
+        state = state.copyWith(
+          status: PlaybackStatus.error,
+          errorMessage: playbackState.errorMessage,
+        );
+      } else if (processingState == AudioProcessingState.loading ||
+          processingState == AudioProcessingState.buffering) {
+        state = state.copyWith(status: PlaybackStatus.loading);
+      } else if (isPlaying) {
+        state = state.copyWith(status: PlaybackStatus.playing);
+      } else {
+        state = state.copyWith(status: PlaybackStatus.paused);
+      }
+    });
+
+    _mediaItemSubscription = _handler.mediaItem.listen((item) {
+      if (item != null) {
+        state = state.copyWith(
+          currentItemId: item.id,
+          currentTitle: item.title,
+          currentArtist: item.artist,
+        );
+      }
+    });
+  }
+
   Future<void> playLive() async {
     try {
+      // Set loading state immediately for UI feedback
       state = state.copyWith(status: PlaybackStatus.loading);
+      
       final url = AudioEndpoints.getUrl(state.quality);
 
       if (_handler is LumenAudioHandler) {
+        // Stop current playback (archive/rerun) before switching to live stream
+        // This ensures the audio engine can clean up resources faster and prevents "freezing"
+        await _handler.stop();
         await (_handler as LumenAudioHandler).setUrl(url);
       }
 
@@ -95,10 +118,19 @@ class AudioController extends _$AudioController {
     await _handler.pause();
   }
 
+  /// Toggles playback for the Live Broadcast.
+  /// 
+  /// Logic (Best Practice):
+  /// - If another source is active (e.g. rerun), always switch to Live broadcast in one click.
+  /// - If Live is active and playing, pause it.
+  /// - If Live is active and paused, resume it.
   Future<void> togglePlay() async {
-    if (state.status == PlaybackStatus.playing) {
+    final isLiveActive = state.currentItemId == 'radio_lumen_live';
+    
+    if (isLiveActive && state.status == PlaybackStatus.playing) {
       await pause();
     } else {
+      // Force switch to live immediately even if a rerun was playing
       await playLive();
     }
   }
@@ -117,7 +149,9 @@ class AudioController extends _$AudioController {
     state = state.copyWith(quality: quality);
     await _settings.setQuality(quality);
 
-    if (state.status == PlaybackStatus.playing) {
+    // Only restart if the live stream is the current active source
+    final isLiveActive = state.currentItemId == 'radio_lumen_live';
+    if (isLiveActive && state.status == PlaybackStatus.playing) {
       await playLive(); // Restart with new quality
     }
   }

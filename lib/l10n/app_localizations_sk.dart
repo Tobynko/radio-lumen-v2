@@ -12,15 +12,6 @@ class AppLocalizationsSk extends AppLocalizations {
   String get appTitle => 'Rádio LUMEN';
 
   @override
-  String get homeTitle => 'Domov';
-
-  @override
-  String get playerTitle => 'Prehrávač';
-
-  @override
-  String get scheduleTitle => 'Program';
-
-  @override
   String get navLive => 'Naživo';
 
   @override
@@ -31,9 +22,6 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get navAktuality => 'Aktuality';
-
-  @override
-  String get navHome => 'Naživo';
 
   @override
   String get qualityTitle => 'KVALITA PRENOSU';
@@ -48,22 +36,7 @@ class AppLocalizationsSk extends AppLocalizations {
   String get qualityLow => 'Nízka kvalita (šetrí dáta)';
 
   @override
-  String get scheduleTabProgram => 'Program';
-
-  @override
-  String get scheduleTabPlaylists => 'Playlisty';
-
-  @override
-  String get scheduleTabShows => 'Relácie';
-
-  @override
   String get scheduleNoItems => 'Na tento deň nie je dostupný program.';
-
-  @override
-  String get tagSpiritual => 'Duchovné slovo';
-
-  @override
-  String get tagLive => 'Naživo';
 
   @override
   String get archiveSearchHint => 'Hľadať v archíve...';
@@ -105,5 +78,73 @@ class AppLocalizationsSk extends AppLocalizations {
   String get newsSearchHint => 'Hľadať v aktualitách...';
 
   @override
+  String get newsError => 'Nastala chyba pri načítavaní aktualít.';
+
+  @override
   String get connectivityOffline => 'Chýba internetové pripojenie';
+
+  @override
+  String get audioLiveTitle => 'Naživo';
+
+  @override
+  String get audioStationName => 'Rádio LUMEN';
+
+  @override
+  String get audioArchiveAlbum => 'Rádio LUMEN Archív';
+
+  @override
+  String shareTextWithArtist(String title, String artist) {
+    return 'Práve počúvam $title od $artist na Rádiu LUMEN! 🎧 https://www.lumen.sk';
+  }
+
+  @override
+  String shareTextTitleOnly(String title) {
+    return 'Práve počúvam $title na Rádiu LUMEN! 🎧 https://www.lumen.sk';
+  }
+
+  @override
+  String newsAuthorLabel(String author) {
+    return 'Autor: $author';
+  }
+
+  @override
+  String get tagSpiritual => 'Duchovné slovo';
+
+  @override
+  String get tagLive => 'Naživo';
+
+  @override
+  String get scheduleError => 'Nastala chyba pri načítavaní programu.';
+
+  @override
+  String get aboutTitle => 'O aplikácii';
+
+  @override
+  String aboutVersion(String version) {
+    return 'Verzia $version';
+  }
+
+  @override
+  String get aboutPrivacyPolicy => 'Ochrana osobných údajov';
+
+  @override
+  String get aboutLumenClub => 'LUMEN Klub';
+
+  @override
+  String get aboutContactUs => 'Kontaktujte nás';
+
+  @override
+  String get aboutDevelopedBy => 'Aplikáciu vyvinuli';
+
+  @override
+  String get aboutCopyright => '© 2026 Rádio LUMEN. Všetky práva vyhradené.';
+
+  @override
+  String get aboutLanguage => 'Jazyk';
+
+  @override
+  String get quoteTitle => 'Citát dňa';
+
+  @override
+  String get quoteError => 'Nepodarilo sa načítať citát.';
 }

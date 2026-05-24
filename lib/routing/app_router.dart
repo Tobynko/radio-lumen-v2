@@ -6,9 +6,9 @@ import 'package:radio_lumen_v2/features/archive/archive_screen.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_program.dart';
 import 'package:radio_lumen_v2/features/live_player/live_player_screen.dart';
 import 'package:radio_lumen_v2/features/main_shell.dart';
-import 'package:radio_lumen_v2/features/prayers/news_detail_screen.dart';
-import 'package:radio_lumen_v2/features/prayers/prayers_screen.dart';
-import 'package:radio_lumen_v2/features/prayers/models/news_item.dart';
+import 'package:radio_lumen_v2/features/news/news_detail_screen.dart';
+import 'package:radio_lumen_v2/features/news/news_screen.dart';
+import 'package:radio_lumen_v2/features/news/models/news_item.dart';
 import 'package:radio_lumen_v2/features/schedule/schedule_screen.dart';
 
 import 'package:radio_lumen_v2/features/schedule/program_detail_screen.dart';
@@ -21,8 +21,8 @@ final _shellNavigatorProgramKey = GlobalKey<NavigatorState>(
 final _shellNavigatorArchivKey = GlobalKey<NavigatorState>(
   debugLabel: 'shellArchiv',
 );
-final _shellNavigatorModlitbyKey = GlobalKey<NavigatorState>(
-  debugLabel: 'shellModlitby',
+final _shellNavigatorNewsKey = GlobalKey<NavigatorState>(
+  debugLabel: 'shellNews',
 );
 final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(
   debugLabel: 'shellHome',
@@ -90,7 +90,7 @@ final appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorModlitbyKey,
+          navigatorKey: _shellNavigatorNewsKey,
           routes: [
             GoRoute(
               path: '/aktuality',

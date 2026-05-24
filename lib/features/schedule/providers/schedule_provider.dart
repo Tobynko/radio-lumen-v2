@@ -1,12 +1,17 @@
 // Path: lib/features/schedule/providers/schedule_provider.dart
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:radio_lumen_v2/core/network/dio_provider.dart';
+import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
 import 'package:radio_lumen_v2/features/schedule/models/schedule_item.dart';
 
 part 'schedule_provider.g.dart';
 
 @riverpod
 Future<List<ScheduleItem>> schedule(Ref ref) async {
+  // Watching connectivity status enables automatic re-fetching
+  // as soon as the device comes back online.
+  ref.watch(isOfflineProvider);
+  
   final dioClient = ref.watch(dioClientProvider);
   final rawData = await dioClient.fetchScheduleData();
 

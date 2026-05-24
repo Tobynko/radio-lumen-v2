@@ -1,6 +1,8 @@
 // Path: lib/features/archive/providers/archive_provider.dart
+import 'dart:developer' as developer;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:radio_lumen_v2/core/network/dio_provider.dart';
+import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
 import 'package:radio_lumen_v2/core/utils/string_utils.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_episode.dart';
 import 'package:radio_lumen_v2/features/archive/models/archive_program.dart';
@@ -11,6 +13,10 @@ part 'archive_provider.g.dart';
 
 @riverpod
 Future<List<ArchiveProgram>> archivePrograms(Ref ref) async {
+  // Watching connectivity status enables automatic re-fetching
+  // as soon as the device comes back online.
+  ref.watch(isOfflineProvider);
+  
   final dioClient = ref.watch(dioClientProvider);
   final xmlString = await dioClient.fetchArchiveXml();
 
@@ -109,8 +115,9 @@ DateTime _parseRssDate(String dateStr) {
     // Fallback to basic parsing if DateFormat fails
     try {
       return DateTime.parse(dateStr);
-    } catch (_) {
-      return DateTime.now();
+    } catch (e2) {
+      developer.log('Failed to parse RSS date: $dateStr', name: 'archive_provider', error: e2);
+      return DateTime.fromMillisecondsSinceEpoch(0);
     }
   }
 }

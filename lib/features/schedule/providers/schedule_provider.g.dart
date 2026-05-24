@@ -48,4 +48,4 @@ final class ScheduleProvider
   }
 }
 
-String _$scheduleHash() => r'5fe86c4990a1a1a2d3e0fb6fbd840b5e3f0859db';
+String _$scheduleHash() => r'8712c94e679ce8ade9ddfa2b3fbbd0b63f25eb4f';

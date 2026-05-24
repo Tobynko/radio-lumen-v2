@@ -4,18 +4,6 @@
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homeTitle": "Domov",
-  "@homeTitle": {
-    "description": "Title for the Home screen"
-  },
-  "playerTitle": "Prehrávač",
-  "@playerTitle": {
-    "description": "Title for the Live Player screen"
-  },
-  "scheduleTitle": "Program",
-  "@scheduleTitle": {
-    "description": "Title for the Schedule screen"
-  },
   "navLive": "Naživo",
   "@navLive": {
     "description": "Label for Live tab"
@@ -31,10 +19,6 @@
   "navAktuality": "Aktuality",
   "@navAktuality": {
     "description": "Label for Aktuality tab (formerly Modlitby)"
-  },
-  "navHome": "Naživo",
-  "@navHome": {
-    "description": "Label for Home tab"
   },
   "qualityTitle": "KVALITA PRENOSU",
   "@qualityTitle": {
@@ -52,29 +36,9 @@
   "@qualityLow": {
     "description": "Description for 32kbps quality"
   },
-  "scheduleTabProgram": "Program",
-  "@scheduleTabProgram": {
-    "description": "Tab label for Program"
-  },
-  "scheduleTabPlaylists": "Playlisty",
-  "@scheduleTabPlaylists": {
-    "description": "Tab label for Playlists"
-  },
-  "scheduleTabShows": "Relácie",
-  "@scheduleTabShows": {
-    "description": "Tab label for Shows/Relacie"
-  },
   "scheduleNoItems": "Na tento deň nie je dostupný program.",
   "@scheduleNoItems": {
     "description": "Message shown when no schedule items are available for a selected day"
-  },
-  "tagSpiritual": "Duchovné slovo",
-  "@tagSpiritual": {
-    "description": "Tag label for spiritual content"
-  },
-  "tagLive": "Naživo",
-  "@tagLive": {
-    "description": "Tag label for live broadcast"
   },
   "archiveSearchHint": "Hľadať v archíve...",
   "@archiveSearchHint": {
@@ -121,8 +85,101 @@
   "@newsSearchHint": {
     "description": "Hint text for news search bar"
   },
+  "newsError": "Nastala chyba pri načítavaní aktualít.",
+  "@newsError": {
+    "description": "Error message for news load failure"
+  },
   "connectivityOffline": "Chýba internetové pripojenie",
   "@connectivityOffline": {
     "description": "Message shown when there is no internet connection"
+  },
+  "audioLiveTitle": "Naživo",
+  "@audioLiveTitle": {
+    "description": "Title for live broadcast in audio service"
+  },
+  "audioStationName": "Rádio LUMEN",
+  "@audioStationName": {
+    "description": "Name of the station"
+  },
+  "audioArchiveAlbum": "Rádio LUMEN Archív",
+  "@audioArchiveAlbum": {
+    "description": "Album name for archive playback"
+  },
+  "shareTextWithArtist": "Práve počúvam {title} od {artist} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "@shareTextWithArtist": {
+    "description": "Text shared when a song/show has an artist",
+    "placeholders": {
+      "title": { "type": "String" },
+      "artist": { "type": "String" }
+    }
+  },
+  "shareTextTitleOnly": "Práve počúvam {title} na Rádiu LUMEN! 🎧 https://www.lumen.sk",
+  "@shareTextTitleOnly": {
+    "description": "Text shared when a song/show only has a title",
+    "placeholders": {
+      "title": { "type": "String" }
+    }
+  },
+  "newsAuthorLabel": "Autor: {author}",
+  "@newsAuthorLabel": {
+    "description": "Label for news author",
+    "placeholders": {
+      "author": { "type": "String" }
+    }
+  },
+  "tagSpiritual": "Duchovné slovo",
+  "@tagSpiritual": {
+    "description": "Tag label for spiritual content"
+  },
+  "tagLive": "Naživo",
+  "@tagLive": {
+    "description": "Tag label for live broadcast"
+  },
+  "scheduleError": "Nastala chyba pri načítavaní programu.",
+  "@scheduleError": {
+    "description": "Error message for schedule load failure"
+  },
+  "aboutTitle": "O aplikácii",
+  "@aboutTitle": {
+    "description": "Title for the About bottom sheet"
+  },
+  "aboutVersion": "Verzia {version}",
+  "@aboutVersion": {
+    "description": "Version display text",
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+  "aboutPrivacyPolicy": "Ochrana osobných údajov",
+  "@aboutPrivacyPolicy": {
+    "description": "Link label for Privacy Policy"
+  },
+  "aboutLumenClub": "LUMEN Klub",
+  "@aboutLumenClub": {
+    "description": "Link label for LUMEN Klub"
+  },
+  "aboutContactUs": "Kontaktujte nás",
+  "@aboutContactUs": {
+    "description": "Link label for contacting the station"
+  },
+  "aboutDevelopedBy": "Aplikáciu vyvinuli",
+  "@aboutDevelopedBy": {
+    "description": "Label for developers section"
+  },
+  "aboutCopyright": "© 2026 Rádio LUMEN. Všetky práva vyhradené.",
+  "@aboutCopyright": {
+    "description": "Copyright notice"
+  },
+  "aboutLanguage": "Jazyk",
+  "@aboutLanguage": {
+    "description": "Label for language selection"
+  },
+  "quoteTitle": "Citát dňa",
+  "@quoteTitle": {
+    "description": "Title for the Daily Wisdom card"
+  },
+  "quoteError": "Nepodarilo sa načítať citát.",
+  "@quoteError": {
+    "description": "Error message shown when a quote fails to load"
   }
 }

@@ -149,7 +149,7 @@ final class NewsProvider
   }
 }
 
-String _$newsHash() => r'66e4c50579d853a19f8fb7fa0d27494ac122e28a';
+String _$newsHash() => r'af11231157763f26940cf6e8c89a4ac7004d83ec';
 
 @ProviderFor(filteredNews)
 final filteredNewsProvider = FilteredNewsProvider._();
@@ -188,4 +188,4 @@ final class FilteredNewsProvider
   }
 }
 
-String _$filteredNewsHash() => r'3a7f51dcb210e29c47801dcbcd25da4dd7622794';
+String _$filteredNewsHash() => r'269cd2a4936daaa8a66d1558a4b56c46555790b5';

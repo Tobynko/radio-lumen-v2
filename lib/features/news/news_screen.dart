@@ -1,12 +1,16 @@
+// Path: lib/features/news/news_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:radio_lumen_v2/core/theme/app_colors.dart';
+import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
 import 'package:radio_lumen_v2/core/widgets/app_background.dart';
-import 'package:radio_lumen_v2/features/prayers/models/news_item.dart';
-import 'package:radio_lumen_v2/features/prayers/providers/news_provider.dart';
-import 'package:radio_lumen_v2/features/prayers/widgets/news_search_bar.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_search_bar.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_filter_bar.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_loading_view.dart';
+import 'package:radio_lumen_v2/core/widgets/lumen_error_view.dart';
+import 'package:radio_lumen_v2/features/news/models/news_item.dart';
+import 'package:radio_lumen_v2/features/news/providers/news_provider.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,36 +22,48 @@ class NewsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final newsAsync = ref.watch(filteredNewsProvider);
     final currentFilter = ref.watch(newsFilterProvider);
+    final searchQuery = ref.watch(newsSearchQueryProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundMain,
       body: LumenBackground(
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeader(),
+              // 1. Category Tabs at the top for better hierarchy and consistency
               _buildCategoryFilter(ref, currentFilter, l10n),
-              const SizedBox(height: 16),
+              
+              // 2. Search Bar below categories
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppDesignTokens.screenPadding,
+                  AppDesignTokens.spacingM, // Reduced spacing between tabs and search
+                  AppDesignTokens.screenPadding,
+                  AppDesignTokens.spacingS, // Small gap before the news list
+                ),
+                child: LumenSearchBar(
+                  hintText: l10n.newsSearchHint,
+                  controller: TextEditingController(text: searchQuery)
+                    ..selection = TextSelection.fromPosition(
+                      TextPosition(offset: searchQuery.length),
+                    ),
+                  onChanged: (value) {
+                    ref.read(newsSearchQueryProvider.notifier).setQuery(value);
+                  },
+                  onClear: () {
+                    ref.read(newsSearchQueryProvider.notifier).setQuery('');
+                  },
+                ),
+              ),
+
+              // 3. News List
               Expanded(
                 child: newsAsync.when(
                   data: (items) => _buildNewsList(items, l10n),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.accentGold,
-                    ),
-                  ),
-                  error: (error, stackTrace) => Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Text(
-                        l10n.archiveError,
-                        style: AppTextStyles.bodyLarge.copyWith(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                  loading: () => const LumenLoadingView(),
+                  // Pattern: Removed manual retry button to favor automatic refresh via provider logic
+                  error: (error, stackTrace) => LumenErrorView(
+                    message: l10n.newsError,
                   ),
                 ),
               ),
@@ -58,19 +74,11 @@ class NewsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader() {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(20, 16, 20, 8),
-      child: NewsSearchBar(),
-    );
-  }
-
   Widget _buildCategoryFilter(
     WidgetRef ref,
     String currentFilter,
     AppLocalizations l10n,
   ) {
-    // Stable keys matching the provider logic
     final categories = [
       'Všetky',
       'Novinky',
@@ -78,77 +86,24 @@ class NewsScreen extends ConsumerWidget {
       'Z nášho vysielania',
     ];
 
-    return SizedBox(
-      height: 48,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemBuilder: (context, index) {
-          final categoryKey = categories[index];
-          final isSelected = categoryKey == currentFilter;
-
-          // Display name from localization
-          String displayName = categoryKey;
-          if (categoryKey == 'Všetky') {
-            displayName = l10n.newsCategoryAll;
-          }
-          if (categoryKey == 'Novinky') {
-            displayName = l10n.newsCategoryNews;
-          }
-          if (categoryKey == 'Spravodajstvo') {
-            displayName = l10n.newsCategoryReporting;
-          }
-          if (categoryKey == 'Z nášho vysielania') {
-            displayName = l10n.newsCategoryFromBroadcast;
-          }
-
-          return GestureDetector(
-            onTap: () {
-              ref.read(newsFilterProvider.notifier).setFilter(categoryKey);
-            },
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-              margin: const EdgeInsets.symmetric(horizontal: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.accentGold
-                    : Colors.white.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(
-                  color: isSelected
-                      ? AppColors.accentGold
-                      : Colors.white.withValues(alpha: 0.15),
-                  width: 1,
-                ),
-                boxShadow: isSelected
-                    ? [
-                        BoxShadow(
-                          color: AppColors.accentGold.withValues(alpha: 0.4),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ]
-                    : null,
-              ),
-              child: Center(
-                child: Text(
-                  displayName.toUpperCase(),
-                  style: AppTextStyles.bodyLarge.copyWith(
-                    color: isSelected
-                        ? AppColors.primary
-                        : Colors.white.withValues(alpha: 0.85),
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    fontSize: 13,
-                    letterSpacing: 1.1,
-                  ),
-                ),
-              ),
-            ),
-          );
+    return Padding(
+      padding: const EdgeInsets.only(top: AppDesignTokens.spacingL),
+      child: LumenFilterBar<String>(
+        items: categories,
+        selectedItem: currentFilter,
+        onSelected: (categoryKey) {
+          ref.read(newsFilterProvider.notifier).setFilter(categoryKey);
         },
+        labelBuilder: (categoryKey) {
+          if (categoryKey == 'Všetky') return l10n.newsCategoryAll;
+          if (categoryKey == 'Novinky') return l10n.newsCategoryNews;
+          if (categoryKey == 'Spravodajstvo') return l10n.newsCategoryReporting;
+          if (categoryKey == 'Z nášho vysielania') {
+            return l10n.newsCategoryFromBroadcast;
+          }
+          return categoryKey;
+        },
+        height: 48,
       ),
     );
   }
@@ -158,14 +113,19 @@ class NewsScreen extends ConsumerWidget {
       return Center(
         child: Text(
           l10n.newsNoItems,
-          style: const TextStyle(color: Colors.white70),
+          style: AppTextStyles.bodyMedium.copyWith(color: Colors.white70),
         ),
       );
     }
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.only(
+        left: AppDesignTokens.contentPadding,
+        right: AppDesignTokens.contentPadding,
+        top: AppDesignTokens.spacingS,
+        bottom: AppDesignTokens.spacingL,
+      ),
       itemCount: items.length,
       itemBuilder: (context, index) {
         return _NewsCard(item: items[index]);
@@ -185,20 +145,17 @@ class _NewsCard extends StatelessWidget {
 
     return Container(
       width: size.width * 0.75,
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      margin: const EdgeInsets.symmetric(
+        horizontal: AppDesignTokens.spacingS,
+        vertical: AppDesignTokens.spacingM,
+      ),
       decoration: BoxDecoration(
-        color: const Color(0xFFD9D9D9),
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
+        color: Colors.white.withAlpha(AppDesignTokens.alphaGlassBackground),
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusXXL),
+        boxShadow: AppDesignTokens.cardShadow,
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(AppDesignTokens.radiusXXL),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -208,7 +165,6 @@ class _NewsCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // Background Image
                 if (item.imageUrl != null)
                   Image.network(
                     item.imageUrl!,
@@ -217,16 +173,19 @@ class _NewsCard extends StatelessWidget {
                         const SizedBox.shrink(),
                   ),
 
-                // Gradient overlay to ensure text readability
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black.withValues(alpha: 0.1),
-                        Colors.black.withValues(alpha: 0.2),
-                        Colors.black.withValues(alpha: 0.7),
+                        Colors.black.withAlpha(
+                          AppDesignTokens.alphaGlassBorder,
+                        ),
+                        Colors.black.withAlpha(AppDesignTokens.alphaDivider),
+                        Colors.black.withAlpha(
+                          AppDesignTokens.alphaTextSecondary + 50,
+                        ),
                       ],
                       stops: const [0.0, 0.4, 1.0],
                     ),
@@ -234,7 +193,7 @@ class _NewsCard extends StatelessWidget {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(AppDesignTokens.spacingXXL),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -257,7 +216,7 @@ class _NewsCard extends StatelessWidget {
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppDesignTokens.spacingM),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -265,18 +224,21 @@ class _NewsCard extends StatelessWidget {
                             child: Text(
                               item.author,
                               style: AppTextStyles.bodyMedium.copyWith(
-                                color: Colors.white.withValues(alpha: 0.9),
+                                color: Colors.white.withAlpha(
+                                  AppDesignTokens.alphaTextSecondary + 50,
+                                ),
                                 fontWeight: FontWeight.bold,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: AppDesignTokens.spacingS),
                           Text(
                             DateFormat('d. M.').format(item.date),
                             style: AppTextStyles.bodyMedium.copyWith(
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.white.withAlpha(
+                                  AppDesignTokens.alphaTextSecondary + 50),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

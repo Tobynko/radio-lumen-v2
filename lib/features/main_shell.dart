@@ -5,7 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:radio_lumen_v2/core/network/connectivity_provider.dart';
 import 'package:radio_lumen_v2/core/theme/app_colors.dart';
+import 'package:radio_lumen_v2/core/theme/app_design_tokens.dart';
 import 'package:radio_lumen_v2/core/theme/app_text_styles.dart';
+import 'package:radio_lumen_v2/core/utils/l10n_utils.dart';
 import 'package:radio_lumen_v2/l10n/app_localizations.dart';
 
 class MainShell extends ConsumerWidget {
@@ -22,6 +24,9 @@ class MainShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Initialize L10n utility for services
+    L10n.init(context);
+
     final l10n = AppLocalizations.of(context)!;
     final isOffline = ref.watch(isOfflineProvider);
 
@@ -39,7 +44,9 @@ class MainShell extends ConsumerWidget {
                 bottom: false,
                 child: Container(
                   color: AppColors.error.withValues(alpha: 0.9),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppDesignTokens.spacingS,
+                  ),
                   child: Text(
                     l10n.connectivityOffline,
                     textAlign: TextAlign.center,
@@ -56,7 +63,9 @@ class MainShell extends ConsumerWidget {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: AppColors.primary,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(AppDesignTokens.radiusXXL),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.3),
@@ -92,7 +101,7 @@ class MainShell extends ConsumerWidget {
                 ),
                 _NavButton(
                   label: l10n.navAktuality.toUpperCase(),
-                  iconPath: 'assets/icons/prayers_symbol.svg',
+                  iconPath: 'assets/icons/news_symbol.svg',
                   isActive: navigationShell.currentIndex == 3,
                   onTap: () => _onTap(context, 3),
                 ),
@@ -120,7 +129,7 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isActive ? AppColors.accentGold : const Color(0xFF6390B0);
+    final color = isActive ? AppColors.accentGold : AppColors.navInactive;
 
     return GestureDetector(
       onTap: onTap,
@@ -137,11 +146,11 @@ class _NavButton extends StatelessWidget {
               letterSpacing: 1.2,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppDesignTokens.spacingS),
           SvgPicture.asset(
             iconPath,
-            width: 30,
-            height: 30,
+            width: AppDesignTokens.navIconSize,
+            height: AppDesignTokens.navIconSize,
             fit: BoxFit.contain,
             colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
           ),

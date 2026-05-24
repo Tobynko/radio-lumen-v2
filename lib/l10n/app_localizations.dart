@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
+import 'app_localizations_hu.dart';
 import 'app_localizations_sk.dart';
 
 // ignore_for_file: type=lint
@@ -92,31 +94,17 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('sk')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('hu'),
+    Locale('sk'),
+  ];
 
   /// The title of the application
   ///
   /// In sk, this message translates to:
   /// **'Rádio LUMEN'**
   String get appTitle;
-
-  /// Title for the Home screen
-  ///
-  /// In sk, this message translates to:
-  /// **'Domov'**
-  String get homeTitle;
-
-  /// Title for the Live Player screen
-  ///
-  /// In sk, this message translates to:
-  /// **'Prehrávač'**
-  String get playerTitle;
-
-  /// Title for the Schedule screen
-  ///
-  /// In sk, this message translates to:
-  /// **'Program'**
-  String get scheduleTitle;
 
   /// Label for Live tab
   ///
@@ -142,12 +130,6 @@ abstract class AppLocalizations {
   /// **'Aktuality'**
   String get navAktuality;
 
-  /// Label for Home tab
-  ///
-  /// In sk, this message translates to:
-  /// **'Naživo'**
-  String get navHome;
-
   /// Title for the quality picker bottom sheet
   ///
   /// In sk, this message translates to:
@@ -172,41 +154,11 @@ abstract class AppLocalizations {
   /// **'Nízka kvalita (šetrí dáta)'**
   String get qualityLow;
 
-  /// Tab label for Program
-  ///
-  /// In sk, this message translates to:
-  /// **'Program'**
-  String get scheduleTabProgram;
-
-  /// Tab label for Playlists
-  ///
-  /// In sk, this message translates to:
-  /// **'Playlisty'**
-  String get scheduleTabPlaylists;
-
-  /// Tab label for Shows/Relacie
-  ///
-  /// In sk, this message translates to:
-  /// **'Relácie'**
-  String get scheduleTabShows;
-
   /// Message shown when no schedule items are available for a selected day
   ///
   /// In sk, this message translates to:
   /// **'Na tento deň nie je dostupný program.'**
   String get scheduleNoItems;
-
-  /// Tag label for spiritual content
-  ///
-  /// In sk, this message translates to:
-  /// **'Duchovné slovo'**
-  String get tagSpiritual;
-
-  /// Tag label for live broadcast
-  ///
-  /// In sk, this message translates to:
-  /// **'Naživo'**
-  String get tagLive;
 
   /// Hint text for archive search bar
   ///
@@ -268,11 +220,131 @@ abstract class AppLocalizations {
   /// **'Hľadať v aktualitách...'**
   String get newsSearchHint;
 
+  /// Error message for news load failure
+  ///
+  /// In sk, this message translates to:
+  /// **'Nastala chyba pri načítavaní aktualít.'**
+  String get newsError;
+
   /// Message shown when there is no internet connection
   ///
   /// In sk, this message translates to:
   /// **'Chýba internetové pripojenie'**
   String get connectivityOffline;
+
+  /// Title for live broadcast in audio service
+  ///
+  /// In sk, this message translates to:
+  /// **'Naživo'**
+  String get audioLiveTitle;
+
+  /// Name of the station
+  ///
+  /// In sk, this message translates to:
+  /// **'Rádio LUMEN'**
+  String get audioStationName;
+
+  /// Album name for archive playback
+  ///
+  /// In sk, this message translates to:
+  /// **'Rádio LUMEN Archív'**
+  String get audioArchiveAlbum;
+
+  /// Text shared when a song/show has an artist
+  ///
+  /// In sk, this message translates to:
+  /// **'Práve počúvam {title} od {artist} na Rádiu LUMEN! 🎧 https://www.lumen.sk'**
+  String shareTextWithArtist(String title, String artist);
+
+  /// Text shared when a song/show only has a title
+  ///
+  /// In sk, this message translates to:
+  /// **'Práve počúvam {title} na Rádiu LUMEN! 🎧 https://www.lumen.sk'**
+  String shareTextTitleOnly(String title);
+
+  /// Label for news author
+  ///
+  /// In sk, this message translates to:
+  /// **'Autor: {author}'**
+  String newsAuthorLabel(String author);
+
+  /// Tag label for spiritual content
+  ///
+  /// In sk, this message translates to:
+  /// **'Duchovné slovo'**
+  String get tagSpiritual;
+
+  /// Tag label for live broadcast
+  ///
+  /// In sk, this message translates to:
+  /// **'Naživo'**
+  String get tagLive;
+
+  /// Error message for schedule load failure
+  ///
+  /// In sk, this message translates to:
+  /// **'Nastala chyba pri načítavaní programu.'**
+  String get scheduleError;
+
+  /// Title for the About bottom sheet
+  ///
+  /// In sk, this message translates to:
+  /// **'O aplikácii'**
+  String get aboutTitle;
+
+  /// Version display text
+  ///
+  /// In sk, this message translates to:
+  /// **'Verzia {version}'**
+  String aboutVersion(String version);
+
+  /// Link label for Privacy Policy
+  ///
+  /// In sk, this message translates to:
+  /// **'Ochrana osobných údajov'**
+  String get aboutPrivacyPolicy;
+
+  /// Link label for LUMEN Klub
+  ///
+  /// In sk, this message translates to:
+  /// **'LUMEN Klub'**
+  String get aboutLumenClub;
+
+  /// Link label for contacting the station
+  ///
+  /// In sk, this message translates to:
+  /// **'Kontaktujte nás'**
+  String get aboutContactUs;
+
+  /// Label for developers section
+  ///
+  /// In sk, this message translates to:
+  /// **'Aplikáciu vyvinuli'**
+  String get aboutDevelopedBy;
+
+  /// Copyright notice
+  ///
+  /// In sk, this message translates to:
+  /// **'© 2026 Rádio LUMEN. Všetky práva vyhradené.'**
+  String get aboutCopyright;
+
+  /// Label for language selection
+  ///
+  /// In sk, this message translates to:
+  /// **'Jazyk'**
+  String get aboutLanguage;
+
+  /// Title for the Daily Wisdom card
+  ///
+  /// In sk, this message translates to:
+  /// **'Citát dňa'**
+  String get quoteTitle;
+
+  /// Error message shown when a quote fails to load
+  ///
+  /// In sk, this message translates to:
+  /// **'Nepodarilo sa načítať citát.'**
+  String get quoteError;
 }
 
 class _AppLocalizationsDelegate
@@ -286,7 +358,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['sk'].contains(locale.languageCode);
+      <String>['en', 'hu', 'sk'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -295,6 +367,10 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+    case 'hu':
+      return AppLocalizationsHu();
     case 'sk':
       return AppLocalizationsSk();
   }
