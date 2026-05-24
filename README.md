@@ -11,7 +11,9 @@ Existujúcu aplikáciu Rádio LUMEN (dostupná v [App Store](https://apps.apple.
 - _Program a relácie_ – aktuálny program, playlisty, rozpis relácií (hudba, modlitby, rozhovory, spravodajstvo).
 - _Náboženský a kultúrny obsah_ – kresťanské hodnoty, liturgia, duchovné rozhovory a upokojujúca hudba.
 
-### Snímky obrazoviek (GUI)
+### Snímky obrazoviek (GUI) & Figma Návrh
+
+Odkaz na kompletný grafický návrh v nástroji Figma: [Radio Lumen V2 Design](https://www.figma.com/design/89dU7FTRcj3wbciK4XFjjY/Radio-Lumenv2-design?node-id=0-1&t=NWVYeSPxFkQqBeDg-0)
 
 <p align="center">
   <img src="docs/screenshots/gui/Simulator Screenshot - iPhone 17 Pro - 2026-05-24 at 09.47.51.png" width="24%" />

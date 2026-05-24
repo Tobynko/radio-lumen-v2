@@ -1,5 +1,7 @@
 # Project Plan – Radio Lumen V2
 
+**Figma Design:** [Radio Lumen V2 Design](https://www.figma.com/design/89dU7FTRcj3wbciK4XFjjY/Radio-Lumenv2-design?node-id=0-1&t=NWVYeSPxFkQqBeDg-0)
+
 ## 🤝 Collaborative / Shared Tasks — STARTING POINT
 
 1. [x] Project scaffold: `pubspec.yaml`, folder structure, `main.dart`, `ProviderScope`
