@@ -52,8 +52,8 @@ class AppLocalizationsHu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count epizód',
-      one: '1 epizód',
+      other: '$count adás',
+      one: '1 adás',
     );
     return '$_temp0';
   }

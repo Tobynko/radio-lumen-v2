@@ -13,7 +13,7 @@
   "archiveSearchHint": "Keresés az archívumban...",
   "archiveNoResults": "Nincs találat.",
   "archiveError": "Hiba történt az archívum betöltésekor.",
-  "archiveEpisodesCount": "{count, plural, one{1 epizód} other{{count} epizód}}",
+  "archiveEpisodesCount": "{count, plural, one{1 adás} other{{count} adás}}",
   "newsCategoryAll": "Mind",
   "newsCategoryFromBroadcast": "Adásunkból",
   "newsCategoryNews": "Hírek",
