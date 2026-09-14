@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'audio_handler.dart';
 import 'audio_handler_provider.dart';
@@ -29,16 +30,18 @@ class AudioController extends _$AudioController {
       _mediaItemSubscription?.cancel();
     });
 
-    // Watch connectivity status
-    ref.listen(isOfflineProvider, (previous, next) {
-      final wasOffline = previous ?? false;
-      final isNowOnline = !next;
+    // Watch connectivity status — skip on web where connectivity_plus is unreliable
+    if (!kIsWeb) {
+      ref.listen(isOfflineProvider, (previous, next) {
+        final wasOffline = previous ?? false;
+        final isNowOnline = !next;
 
-      // If we transition from offline to online AND we were supposed to be playing
-      if (wasOffline && isNowOnline && state.status != PlaybackStatus.paused) {
-        scheduleMicrotask(() => playLive());
-      }
-    });
+        // If we transition from offline to online AND we were supposed to be playing
+        if (wasOffline && isNowOnline && state.status != PlaybackStatus.paused) {
+          scheduleMicrotask(() => playLive());
+        }
+      });
+    }
 
     // Load initial settings
     final volume = _settings.getVolume();
