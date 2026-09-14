@@ -37,13 +37,21 @@ class DioClient {
     // On web, route requests through a CORS proxy to bypass browser same-origin restrictions.
     if (kIsWeb) {
       const proxyBase = 'https://radio-lumen-proxy.tobias-bulko.workers.dev';
+      const proxiedHosts = [
+        'api.radiolumen.sk',
+        'www.lumen.sk',
+        'audio.lumen.sk',
+      ];
       _dio.interceptors.add(
         InterceptorsWrapper(
           onRequest: (options, handler) {
-            final originalUrl = options.uri.toString();
-            options.path =
-                '$proxyBase/?url=${Uri.encodeComponent(originalUrl)}';
-            options.baseUrl = '';
+            final host = options.uri.host;
+            if (proxiedHosts.contains(host)) {
+              final originalUrl = options.uri.toString();
+              options.path =
+                  '$proxyBase/?url=${Uri.encodeComponent(originalUrl)}';
+              options.baseUrl = '';
+            }
             handler.next(options);
           },
         ),
