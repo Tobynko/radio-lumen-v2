@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:html/parser.dart' show parse;
 
 /// A production-ready HTTP client using Dio.
@@ -32,6 +33,22 @@ class DioClient {
         logPrint: (obj) => developer.log(obj.toString(), name: 'dio_client'),
       ),
     );
+
+    // On web, route requests through a CORS proxy to bypass browser same-origin restrictions.
+    if (kIsWeb) {
+      const proxyBase = 'https://radio-lumen-proxy.tobias-bulko.workers.dev';
+      _dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            final originalUrl = options.uri.toString();
+            options.path =
+                '$proxyBase/?url=${Uri.encodeComponent(originalUrl)}';
+            options.baseUrl = '';
+            handler.next(options);
+          },
+        ),
+      );
+    }
   }
 
   /// Fetches the radio schedule data by hitting the official website's AJAX API.
