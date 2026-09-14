@@ -37,7 +37,9 @@ class AudioController extends _$AudioController {
         final isNowOnline = !next;
 
         // If we transition from offline to online AND we were supposed to be playing
-        if (wasOffline && isNowOnline && state.status != PlaybackStatus.paused) {
+        if (wasOffline &&
+            isNowOnline &&
+            state.status != PlaybackStatus.paused) {
           scheduleMicrotask(() => playLive());
         }
       });
@@ -53,7 +55,7 @@ class AudioController extends _$AudioController {
       (_handler as LumenAudioHandler).setVolume(volume);
     }
 
-    if (autoPlay) {
+    if (autoPlay && !kIsWeb) {
       scheduleMicrotask(() => playLive());
     }
 
@@ -73,11 +75,13 @@ class AudioController extends _$AudioController {
           status: PlaybackStatus.error,
           errorMessage: playbackState.errorMessage,
         );
+      } else if (isPlaying && processingState != AudioProcessingState.loading) {
+        // Prioritize playing state over buffering — live streams are always
+        // "buffering" even while audio is audibly playing, especially on web.
+        state = state.copyWith(status: PlaybackStatus.playing);
       } else if (processingState == AudioProcessingState.loading ||
           processingState == AudioProcessingState.buffering) {
         state = state.copyWith(status: PlaybackStatus.loading);
-      } else if (isPlaying) {
-        state = state.copyWith(status: PlaybackStatus.playing);
       } else {
         state = state.copyWith(status: PlaybackStatus.paused);
       }
@@ -98,7 +102,7 @@ class AudioController extends _$AudioController {
     try {
       // Set loading state immediately for UI feedback
       state = state.copyWith(status: PlaybackStatus.loading);
-      
+
       final url = AudioEndpoints.getUrl(state.quality);
 
       if (_handler is LumenAudioHandler) {
@@ -122,14 +126,14 @@ class AudioController extends _$AudioController {
   }
 
   /// Toggles playback for the Live Broadcast.
-  /// 
+  ///
   /// Logic (Best Practice):
   /// - If another source is active (e.g. rerun), always switch to Live broadcast in one click.
   /// - If Live is active and playing, pause it.
   /// - If Live is active and paused, resume it.
   Future<void> togglePlay() async {
     final isLiveActive = state.currentItemId == 'radio_lumen_live';
-    
+
     if (isLiveActive && state.status == PlaybackStatus.playing) {
       await pause();
     } else {
