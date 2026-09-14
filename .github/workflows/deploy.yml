@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+# Run this workflow whenever code is pushed to the main branch
+on:
+  push:
+    branches: [main]
+
+  # Allow running this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Grant permissions needed to deploy to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only allow one deployment at a time (cancel any in-progress one)
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ github.event.deployment.payload.web_url || steps.deployment.outputs.page_url }}
+
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install Flutter SDK
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.47.2"
+          channel: "stable"
+          cache: true
+
+      # 3. Install project dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Build the Flutter web app
+      #    --base-href sets the base path so assets load correctly on GitHub Pages
+      #    --release builds an optimized production version
+      - name: Build web app
+        run: flutter build web --release --base-href "/radio-lumen-v2/"
+
+      # 5. Upload the built site as a GitHub Pages artifact
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      # 6. Deploy the artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
